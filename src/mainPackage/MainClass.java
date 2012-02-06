@@ -8,7 +8,7 @@ package mainPackage;
  *
  */
 public class MainClass {
-
+	int x;
 	/**
 	 * @param args
 	 */
