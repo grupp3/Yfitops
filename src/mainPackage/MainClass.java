@@ -13,7 +13,7 @@ public class MainClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("grupp3rulez");
+		System.out.println("grupp3rulez...");
 
 	}
 
