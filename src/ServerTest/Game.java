@@ -1,4 +1,4 @@
-package TestServer;
+package ServerTest;
 
 public class Game {
 
