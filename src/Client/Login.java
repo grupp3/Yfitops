@@ -40,19 +40,20 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 200);
+		setBounds(100, 100, 390, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(10, 11, 55, 14);
+		lblUsername.setBounds(10, 11, 82, 14);
 		contentPane.add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(204, 11, 46, 14);
+		lblPassword.setBounds(204, 11, 82, 14);
 		contentPane.add(lblPassword);
 		
 		textFieldUsername = new JTextField();
