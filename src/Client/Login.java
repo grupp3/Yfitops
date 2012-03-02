@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Login extends JFrame {
 
@@ -75,5 +76,10 @@ public class Login extends JFrame {
 		});
 		btnRegister.setBounds(204, 67, 170, 23);
 		contentPane.add(btnRegister);
+		
+		JLabel lblTest = new JLabel("TEST");
+		lblTest.setForeground(Color.RED);
+		lblTest.setBounds(177, 125, 46, 14);
+		contentPane.add(lblTest);
 	}
 }
