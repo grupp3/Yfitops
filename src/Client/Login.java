@@ -45,18 +45,6 @@ public class Login extends JFrame {
 	}
 	
 	/**
-	 * Action Listener for the actions performed by the user
-	 */
-//	public void actionPerformed(ActionEvent event){
-//		//sends username & password data till GUIHandler
-//
-//		if(){
-//			
-//		}
-//		
-//	}
-	
-	/**
 	 * Create the frame.
 	 */
 	public Login() {
