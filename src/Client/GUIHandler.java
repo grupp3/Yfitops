@@ -52,21 +52,16 @@ public class GUIHandler extends JFrame {
 		btnNewButton.setBounds(10, 11, 89, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton button = new JButton("New button");
-		button.setBounds(10, 45, 89, 23);
-		contentPane.add(button);
-		
-		JButton button_1 = new JButton("New button");
-		button_1.setBounds(10, 79, 89, 23);
-		contentPane.add(button_1);
-		
-		JButton button_2 = new JButton("New button");
-		button_2.setBounds(10, 113, 89, 23);
-		contentPane.add(button_2);
-		
-		JButton button_3 = new JButton("New button");
-		button_3.setBounds(10, 147, 89, 23);
-		contentPane.add(button_3);
+		JButton btnLobby = new JButton("Lobby");
+		btnLobby.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Lobby frame = new Lobby();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnLobby.setBounds(10, 45, 89, 23);
+		contentPane.add(btnLobby);
 	}
 
 
