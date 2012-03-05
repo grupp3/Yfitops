@@ -64,7 +64,7 @@ public class Login extends JFrame {
 				
 				GUIHandler frame = new GUIHandler();
 				frame.setVisible(true);
-				System.exit(0);
+				dispose();
 			}
 		});
 		btnLogin.setBounds(10, 138, 170, 23);
@@ -80,7 +80,7 @@ public class Login extends JFrame {
 				
 				GUIHandler frame = new GUIHandler();
 				frame.setVisible(true);
-				System.exit(0);
+				dispose();
 			}
 		});
 		btnRegister.setBounds(204, 138, 170, 23);
