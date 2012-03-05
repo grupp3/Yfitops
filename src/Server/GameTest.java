@@ -1,8 +1,13 @@
+package Server;
 
-package ServerTest;
+import static org.junit.Assert.*;
 
-public class Game {
-	public static void main(String[] args){
+import org.junit.Test;
+
+public class GameTest {
+
+	@Test
+	public void test() {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
 		Server.Game game = new Server.Game(player1, player2);
