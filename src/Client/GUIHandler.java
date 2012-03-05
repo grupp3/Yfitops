@@ -52,11 +52,11 @@ public class GUIHandler extends JFrame {
 		// TODO Auto-generated method stub	
 	}
 
-	public void LoginUser(String userName, String password) {
+	public static void LoginUser(String userName, String password) {
 		// TODO Auto-generated method stub	
 	}
 
-	public void RegisterUser(String userName, String password) {
+	public static void RegisterUser(String userName, String password) {
 		// TODO Auto-generated method stub	
 	}
 
