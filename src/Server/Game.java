@@ -2,11 +2,12 @@ package Server;
 
 import java.util.Random;
 
-/*
- * playerconectionsen ska sparas, en ny GameField ska skapas (alla värden 0),
- * DB referens hämtas, gamingReady sättas till false, och förstaspelaren bestämmas
- * (då också current player variablen) . Sen ska den kalla på GameStarted på båda playerConectionsen
- */
+/**
+ * Game class. Creates the logical ground of a game between 2 players.
+ * 
+ * @author Kamil
+ * 
+ **/
 
 public class Game {
 	// variables
@@ -16,7 +17,15 @@ public class Game {
 	PlayerConnection player2;
 	DBHandler dbHandler;
 
-	// constructor
+	// CONSTRUCTORS
+
+	/**
+	 * Creates a gamefield, changes the state of players and starts the game.
+	 * 
+	 * @param player1
+	 * @param player2
+	 * 
+	 */
 	public Game(PlayerConnection player1, PlayerConnection player2) {
 		gameField = new short[15][15]; // Creates the gameField
 
@@ -46,7 +55,4 @@ public class Game {
 													// string does.
 		player2.GameStarted(!currentPlayer, null);
 	}
-
-	// methods
-
 }
