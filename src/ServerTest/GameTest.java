@@ -1,9 +1,18 @@
-package Server;
+package ServerTest;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import Server.Game;
+import Server.PlayerConnection;
+
+/**
+ * Tests correctness of class Server.Game
+ * 
+ * @author Kamil
+ * 
+ */
 public class GameTest {
 
 	@Test
