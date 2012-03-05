@@ -2,6 +2,7 @@ package Client;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 import java.io.*;
 
 import javax.swing.JFrame;
@@ -27,22 +28,6 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textFieldUsername;
 	private JPasswordField passwordField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login frame = new Login();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
 	 * Create the frame.
@@ -76,6 +61,10 @@ public class Login extends JFrame {
 				String Password = passwordField.getName();
 				
 				GUIHandler.LoginUser(UserName, Password);
+				
+				GUIHandler frame = new GUIHandler();
+				frame.setVisible(true);
+				dispose();
 			}
 		});
 		btnLogin.setBounds(10, 138, 170, 23);
@@ -88,6 +77,10 @@ public class Login extends JFrame {
 				String Password = passwordField.getName();
 				
 				GUIHandler.RegisterUser(UserName, Password);
+				
+				GUIHandler frame = new GUIHandler();
+				frame.setVisible(true);
+				dispose();
 			}
 		});
 		btnRegister.setBounds(204, 138, 170, 23);
