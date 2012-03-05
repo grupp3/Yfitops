@@ -15,12 +15,12 @@ public class ServerMain {
 	public static void main(String[] args) {
 		try {
 			ServerSocket ss = new ServerSocket();
-			ArrayList<PlayerConection> conectionList = new ArrayList<PlayerConection>();
+			ArrayList<PlayerConnection> conectionList = new ArrayList<PlayerConnection>();
 			
 			while(true){
 				Socket clientSocket = ss.accept();
 				
-				PlayerConection newPlayer = new PlayerConection(clientSocket, conectionList);
+				PlayerConnection newPlayer = new PlayerConnection(clientSocket, conectionList);
 				
 				
 				conectionList.add(newPlayer);
