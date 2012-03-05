@@ -83,11 +83,11 @@ public class Login extends JFrame {
 		btnRegister.setBounds(204, 138, 170, 23);
 		contentPane.add(btnRegister);
 		
-		JLabel lblTest = new JLabel("Welcome fellow player!");
-		lblTest.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTest.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTest.setForeground(Color.RED);
-		lblTest.setBounds(10, 11, 364, 51);
-		contentPane.add(lblTest);
+		JLabel lblWelcomeText = new JLabel("Welcome fellow player!");
+		lblWelcomeText.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeText.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblWelcomeText.setForeground(Color.RED);
+		lblWelcomeText.setBounds(10, 11, 364, 51);
+		contentPane.add(lblWelcomeText);
 	}
 }
