@@ -45,18 +45,6 @@ public class Login extends JFrame {
 	}
 	
 	/**
-	 * Action Listener for the actions performed by the user
-	 */
-//	public void actionPerformed(ActionEvent event){
-//		//sends username & password data till GUIHandler
-//
-//		if(){
-//			
-//		}
-//		
-//	}
-	
-	/**
 	 * Create the frame.
 	 */
 	public Login() {
@@ -87,7 +75,7 @@ public class Login extends JFrame {
 				String UserName = textFieldUsername.getText();
 				String Password = passwordField.getName();
 				
-				
+				GUIHandler.LoginUser(UserName, Password);
 			}
 		});
 		btnLogin.setBounds(10, 138, 170, 23);
@@ -98,6 +86,8 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {	//Sends register data to the GUIHandler
 				String UserName = textFieldUsername.getText();
 				String Password = passwordField.getName();
+				
+				GUIHandler.RegisterUser(UserName, Password);
 			}
 		});
 		btnRegister.setBounds(204, 138, 170, 23);
