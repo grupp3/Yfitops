@@ -2,11 +2,13 @@ package Client;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.Spring;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -14,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
@@ -23,7 +26,7 @@ public class Login extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textFieldUsername;
-	private JTextField textFieldPassword;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -40,7 +43,19 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
+	
+	/**
+	 * Action Listener for the actions performed by the user
+	 */
+//	public void actionPerformed(ActionEvent event){
+//		//sends username & password data till GUIHandler
+//
+//		if(){
+//			
+//		}
+//		
+//	}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -61,23 +76,28 @@ public class Login extends JFrame {
 		lblPassword.setBounds(10, 110, 60, 14);
 		contentPane.add(lblPassword);
 		
-		textFieldUsername = new JTextField();
+		textFieldUsername = new JTextField(10);
 		textFieldUsername.setBounds(80, 70, 294, 20);
 		contentPane.add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
-		textFieldPassword = new JTextField();
-		textFieldPassword.setColumns(10);
-		textFieldPassword.setBounds(80, 107, 294, 20);
-		contentPane.add(textFieldPassword);
-		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {	//Sends login data to the GUIHandler
+				String UserName = textFieldUsername.getText();
+				String Password = passwordField.getName();
+				
+				
+			}
+		});
 		btnLogin.setBounds(10, 138, 170, 23);
 		contentPane.add(btnLogin);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) {	//Sends register data to the GUIHandler
+				String UserName = textFieldUsername.getText();
+				String Password = passwordField.getName();
 			}
 		});
 		btnRegister.setBounds(204, 138, 170, 23);
@@ -89,5 +109,9 @@ public class Login extends JFrame {
 		lblWelcomeText.setForeground(Color.RED);
 		lblWelcomeText.setBounds(10, 11, 364, 51);
 		contentPane.add(lblWelcomeText);
+		
+		passwordField = new JPasswordField(10);
+		passwordField.setBounds(80, 107, 294, 20);
+		contentPane.add(passwordField);
 	}
 }

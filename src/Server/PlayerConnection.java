@@ -14,5 +14,9 @@ public class PlayerConnection extends Thread {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void Send (String message){
+		
+	}
 
 }
