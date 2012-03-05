@@ -39,14 +39,26 @@ public class GUIHandler extends JFrame {
 		setContentPane(contentPane);
 	}
 
-	public static void LoginUser(String userName, String password) {
+
+	public void HistorySwitch() {
 		// TODO Auto-generated method stub
-		
 	}
 
-	public static void RegisterUser(String userName, String password) {
+	public void HighscoreSwitch() {
 		// TODO Auto-generated method stub
-		
 	}
+
+	public void ToggleGamingReady() {
+		// TODO Auto-generated method stub	
+	}
+
+	public void LoginUser(String userName, String password) {
+		// TODO Auto-generated method stub	
+	}
+
+	public void RegisterUser(String userName, String password) {
+		// TODO Auto-generated method stub	
+	}
+
 
 }
