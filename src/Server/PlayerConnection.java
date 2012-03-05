@@ -8,5 +8,9 @@ public class PlayerConnection {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void Send (String message){
+		
+	}
 
 }
