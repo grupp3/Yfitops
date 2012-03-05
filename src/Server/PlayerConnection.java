@@ -10,6 +10,7 @@ public class PlayerConnection extends Thread {
 	public PlayerConnection(Socket clientSocket, ArrayList<PlayerConnection> conectionList) {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public void GameStarted(boolean currentPlayer, String string) {
 		// TODO Auto-generated method stub
 		

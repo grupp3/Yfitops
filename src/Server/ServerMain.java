@@ -15,17 +15,18 @@ public class ServerMain {
 	public static void main(String[] args) {
 		try {
 			ServerSocket ss = new ServerSocket();
-			ArrayList<PlayerConnection> conectionList = new ArrayList<PlayerConnection>();
+			ArrayList<PlayerConnection> connectionList = new ArrayList<PlayerConnection>();
 			
 			while(true){
 				Socket clientSocket = ss.accept();
 				
-				PlayerConnection newPlayer = new PlayerConnection(clientSocket, conectionList);
+				PlayerConnection newPlayer = new PlayerConnection(clientSocket, connectionList);
 				
+				synchronized(connectionList){
+					connectionList.add(newPlayer);
 				
-				conectionList.add(newPlayer);
-				
-				newPlayer.start();
+					newPlayer.start();
+				}
 			}
 		
 		} catch (IOException e) {
