@@ -7,14 +7,17 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 /**
- * @author Mathulus
- *
+ * @author Mathias
+ * Listens for connecting clients, starts a listening thread for each and puts them into a list.
+ * 
+ * Haven't defined which port number yet.
  */
 public class ServerMain {
-
+	final static int PORT = 19345;
+			
 	public static void main(String[] args) {
 		try {
-			ServerSocket ss = new ServerSocket();
+			ServerSocket ss = new ServerSocket(PORT);
 			ArrayList<PlayerConnection> connectionList = new ArrayList<PlayerConnection>();
 			
 			while(true){

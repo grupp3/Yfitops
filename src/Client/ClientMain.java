@@ -18,6 +18,11 @@ public class ClientMain {
 	Socket socket;
 	DataInputStream dataInputStream;
 	DataOutputStream dataOutputStream;
+	
+	//CONSTANTS
+	
+	final static int PORT = 19345;
+	final static String HOSTADRESS = "localhost";
 		
 	//METHODS
 	
@@ -56,7 +61,7 @@ public class ClientMain {
 	
 	//I implemented ClientMain() and main() only for testing
 	public ClientMain() throws IOException, UnknownHostException {
-		socket = new Socket("localhost", 19345);
+		socket = new Socket(HOSTADRESS, PORT);
 		setUpStreams();
 		sendRequest("bajsen");
 		closeAllStreamsAndSocket();
