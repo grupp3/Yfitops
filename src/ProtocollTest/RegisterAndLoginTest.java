@@ -12,7 +12,7 @@ import Protocoll.*;
  * @author Mathulus
  *
  */
-public class ClientProtocolTest {
+public class RegisterAndLoginTest {
 
 	@Test
 	public void RegisterRequestStringTest() {
@@ -42,5 +42,38 @@ public class ClientProtocolTest {
 		assertEquals("wrong username", userName, recevedValues[0]);
 		assertEquals("wrong password", password, recevedValues[1]);
 	}
-
+	
+	@Test
+	public void RegisterFailedRequestStringTest()
+	{
+		String requestString = ServerProtocol.CreateRegisterFailed();
+		
+		assertEquals("registerfailed", requestString);
+	}
+	
+	@Test
+	public void RegisterFailedCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateRegisterFailed();
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.RegisterFailed, requestType);
+	}
+	
+	@Test
+	public void LoggedInRequestStringTest()
+	{
+		String requestString = ServerProtocol.CreateLoggedIn();
+		
+		assertEquals("loggedin", requestString);
+	}
+	
+	@Test
+	public void LoggedInCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateLoggedIn();
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.LoggedIn, requestType);
+	}
 }
