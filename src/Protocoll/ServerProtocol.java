@@ -22,6 +22,8 @@ public class ServerProtocol {
 			return RequestType.Register;
 		else if(tokens[0].equals("login"))
 				return RequestType.LoggingIn;
+		else if(tokens[0].equals("gamingredy"))
+			return RequestType.ToggleRedy;
 		
 		return RequestType.Unknown;	
 	}
