@@ -31,6 +31,8 @@ public class ClientProtocol {
 			return RequestType.LoggedIn;
 		else if(tokens[0].equals("loginfailed"))
 			return RequestType.LoginFailed;
+		else if(tokens[0].equals("newgame"))
+			return RequestType.GameStarted;
 		
 		return RequestType.Unknown;
 	}
@@ -51,6 +53,18 @@ public class ClientProtocol {
 	 */
 	public static String CreateToggleGamingRedy() {
 		return "gamingredy";
+	}
+
+	/**
+	 * Gets opponents name and if you're the starting player from a request string
+	 * @param requestString
+	 * @return username[0] password[1]
+	 */
+	public static String[] GetOpponentStarting(String requestString) {
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		return tokens;
 	}
 
 }

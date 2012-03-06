@@ -63,5 +63,16 @@ public class ServerProtocol {
 	public static String CreateLoginFailed() {
 		return "loginfailed";
 	}
-
+	
+	
+	/**
+	 * Creates the string for game started notification
+	 * @param opponentName
+	 * @param starting
+	 * @return request string
+	 */
+	public static String CreateGameStarted(String opponentName, Boolean starting) {
+		return "newgame%" + opponentName +";" + starting;
+	}
+	
 }
