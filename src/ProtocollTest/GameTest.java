@@ -58,8 +58,37 @@ public class GameTest {
 		
 		String[] recevedValues = ClientProtocol.GetOpponentStarting(requestString);
 		
-		assertEquals("wrong username", opponentName, recevedValues[0]);
-		assertEquals("wrong password", starting.toString(), recevedValues[1]);
+		assertEquals("wrong oponent name", opponentName, recevedValues[0]);
+		assertEquals("wrong firstplayer state", starting.toString(), recevedValues[1]);
+	}
+	
+	@Test
+	public void NewMoveRequestStringTest() {
+		String requestString = ClientProtocol.CreateNewMove(10, 3);
+		
+		assertEquals("newmove%10;3", requestString);
+	}
+	
+	@Test
+	public void NewMoveCorrectRequestType()
+	{
+		String requestString = ClientProtocol.CreateNewMove(11, 2);
+		RequestType requestType = ServerProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.NewMove, requestType);
+	}
+	
+	@Test
+	public void NewMoveCorrectValues()
+	{
+		int x = 9;
+		int y = 13;
+		String requestString = ClientProtocol.CreateNewMove(x, y);
+		
+		int[] recevedValues = ServerProtocol.GetXY(requestString);
+		
+		assertEquals("wrong x koordinate", x, recevedValues[0]);
+		assertEquals("wrong y koordinate", y, recevedValues[1]);
 	}
 
 }

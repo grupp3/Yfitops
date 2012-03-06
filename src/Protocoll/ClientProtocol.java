@@ -66,5 +66,15 @@ public class ClientProtocol {
 		
 		return tokens;
 	}
+	
+	/**
+	 * Creates the request string for sending a new move
+	 * @param x
+	 * @param y
+	 * @return request string
+	 */
+	public static String CreateNewMove(int x, int y) {
+		return "newmove%" + x +";" + y;
+	}
 
 }

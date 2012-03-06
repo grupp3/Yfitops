@@ -24,6 +24,8 @@ public class ServerProtocol {
 				return RequestType.LoggingIn;
 		else if(tokens[0].equals("gamingredy"))
 			return RequestType.ToggleRedy;
+		else if(tokens[0].equals("newmove"))
+			return RequestType.NewMove;	
 		
 		return RequestType.Unknown;	
 	}
@@ -73,6 +75,23 @@ public class ServerProtocol {
 	 */
 	public static String CreateGameStarted(String opponentName, Boolean starting) {
 		return "newgame%" + opponentName +";" + starting;
+	}
+	
+	/**
+	 * Gets the xy positions from a new move request string
+	 * @param requestString
+	 * @return xy values
+	 */
+	public static int[] GetXY(String requestString) {
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		int[] outValues = new int[2];
+		
+		outValues[0] = Integer.parseInt( tokens[0]);
+		outValues[1] = Integer.parseInt( tokens[1]);
+		
+		return outValues;
 	}
 	
 }
