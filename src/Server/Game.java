@@ -41,14 +41,17 @@ public class Game {
 			currentPlayer = false;
 
 		// Calls the GameStarted method for every player.
-		player1.GameStarted(currentPlayer, player2.getUserName()); // I don't know what the
-													// second parameter of type
-													// string does.
+		player1.GameStarted(currentPlayer, player2.getUserName()); // I don't
+																	// know what
+																	// the
+		// second parameter of type
+		// string does.
 		player2.GameStarted(!currentPlayer, player1.getUserName());
 	}
 
 	/**
 	 * Changes how the game field. For testing only
+	 * 
 	 * @param testField
 	 */
 	public void setTestField(short[][] testField) {
@@ -57,10 +60,117 @@ public class Game {
 
 	/**
 	 * Checks if the current player has won the game
+	 * 
 	 * @return if the game is won
 	 */
 	public boolean VictoryCheck() {
-		// TODO Auto-generated method stub
+		short symbol;
+
+		if (currentPlayer)
+			symbol = 1;
+		else
+			symbol = 2;
+
+		for (int x = 0; x < gameField.length; x++) {
+			for (int y = 0; y < gameField[0].length; y++) {
+				if (horisontalLeft(x))
+					if (horisontalCheck(x, y, symbol))
+						return true;
+
+				if (verticalLeft(y)) 
+					if (verticalCheck(x, y, symbol))
+						return true;
+				
+				if(horisontalLeft(x) && verticalLeft(y)){
+					if (frontSlashCheck(x, y, symbol))
+						return true;
+					if (backSlashCheck(x, y, symbol))
+						return true;
+				}
+			}
+		}
+
 		return false;
+	}
+
+	/**
+	 * Checks if there is space left for a vertical check
+	 * 
+	 * @param y
+	 * @return
+	 */
+	private boolean verticalLeft(int y) {
+		return gameField[0].length > y + 4;
+	}
+
+	/**
+	 * Checks if there is space left for a vertical check
+	 * 
+	 * @param y
+	 * @return
+	 */
+	private boolean horisontalLeft(int x) {
+		return gameField.length > x + 4;
+	}
+
+	/**
+	 * Checks if the symbol going right is five in a row
+	 * 
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 * @return
+	 */
+	private boolean horisontalCheck(int x, int y, short symbol) {
+		return gameField[x][y] == symbol && gameField[x + 1][y] == symbol
+				&& gameField[x + 2][y] == symbol
+				&& gameField[x + 3][y] == symbol
+				&& gameField[x + 4][y] == symbol;
+	}
+
+	/**
+	 * Checks if the symbol going down is five in a row
+	 * 
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 * @return
+	 */
+	private boolean verticalCheck(int x, int y, short symbol) {
+		return gameField[x][y] == symbol && gameField[x][y + 1] == symbol
+				&& gameField[x][y + 2] == symbol
+				&& gameField[x][y + 3] == symbol
+				&& gameField[x][y + 4] == symbol;
+	}
+
+	/**
+	 * Checks if the symbol going diagonal is five in a row
+	 * 
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 * @return
+	 */
+	private boolean frontSlashCheck(int x, int y, short symbol) {
+		return gameField[x][y] == symbol && gameField[x + 1][y + 1] == symbol
+				&& gameField[x + 2][y + 2] == symbol
+				&& gameField[x + 3][y + 3] == symbol
+				&& gameField[x + 4][y + 4] == symbol;
+	}
+
+	/**
+	 * Checks if the symbol going diagonal is five in a row
+	 * 
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 * @return
+	 */
+	private boolean backSlashCheck(int x, int y, short symbol) {
+		return gameField[x + 4][y] == symbol
+				&& gameField[x + 3][y + 1] == symbol
+				&& gameField[x + 2][y + 2] == symbol
+				&& gameField[x + 1][y + 3] == symbol
+				&& gameField[x][y + 4] == symbol;
 	}
 }
