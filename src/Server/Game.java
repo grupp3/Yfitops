@@ -41,9 +41,26 @@ public class Game {
 			currentPlayer = false;
 
 		// Calls the GameStarted method for every player.
-		player1.GameStarted(currentPlayer, null); // I don't know what the
+		player1.GameStarted(currentPlayer, player2.getUserName()); // I don't know what the
 													// second parameter of type
 													// string does.
-		player2.GameStarted(!currentPlayer, null);
+		player2.GameStarted(!currentPlayer, player1.getUserName());
+	}
+
+	/**
+	 * Changes how the game field. For testing only
+	 * @param testField
+	 */
+	public void setTestField(short[][] testField) {
+		gameField = testField;
+	}
+
+	/**
+	 * Checks if the current player has won the game
+	 * @return if the game is won
+	 */
+	public boolean VictoryCheck() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -16,7 +16,7 @@ public class PlayerConnection extends Thread{
 	boolean gamingReady;
 	private DataInputStream dataInputStream;
 	private DataOutputStream dataOutputStream;
-
+	private String userName; 
 	/**
 	 * Creates in- and outputstreams to recieve/send requests from/to a client
 	 * 
@@ -79,5 +79,16 @@ UnknownHostException {
 
 ());
 		pc.start();
+	}
+	
+	/**
+	 * Empty constructor just for testing
+	 */
+	public PlayerConnection()
+	{}
+	
+	public String getUserName()
+	{
+		return userName;
 	}
 }
