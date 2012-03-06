@@ -4,7 +4,8 @@
 package Protocoll;
 
 /**
- * @author Mathulus
+ * Has all the methods the server need for creating and interpreting request strings
+ * @author Mathias
  *
  */
 public class ServerProtocol {
@@ -19,6 +20,8 @@ public class ServerProtocol {
 		
 		if(tokens[0].equals("register"))
 			return RequestType.Register;
+		else if(tokens[0].equals("login"))
+				return RequestType.LoggingIn;
 		
 		return RequestType.Unknown;	
 	}

@@ -1,5 +1,10 @@
 package Protocoll;
 
+/**
+ * Has all the methods the client need for creating and interpreting request strings
+ * @author Mathias
+ *
+ */
 public class ClientProtocol {
 
 	/**
@@ -26,6 +31,16 @@ public class ClientProtocol {
 			return RequestType.LoggedIn;
 		
 		return RequestType.Unknown;
+	}
+	
+	/**
+	 * Creates a request string for logging in a user
+	 * @param userName
+	 * @param password
+	 * @return request string
+	 */
+	public static String CreateLogin(String userName, String password) {
+		return "login%" + userName +";" + password;
 	}
 
 }

@@ -76,4 +76,33 @@ public class RegisterAndLoginTest {
 		
 		assertEquals(RequestType.LoggedIn, requestType);
 	}
+	
+	@Test
+	public void LoginRequestStringTest() {
+		String requestString = ClientProtocol.CreateLogin("håKan", "lövbiff13");
+		
+		assertEquals("login%håKan;lövbiff13", requestString);
+	}
+	
+	@Test
+	public void LoginCorrectRequestType()
+	{
+		String requestString = ClientProtocol.CreateLogin("håKan", "lövbiFF13");
+		RequestType requestType = ServerProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.LoggingIn, requestType);
+	}
+	
+	@Test
+	public void LoginCorrectValues()
+	{
+		String password = "löavefBBiiFF";
+		String userName = "MarkUs15";
+		String requestString = ClientProtocol.CreateLogin(userName, password);
+		
+		String[] recevedValues = ServerProtocol.GetUsernamePassword(requestString);
+		
+		assertEquals("wrong username", userName, recevedValues[0]);
+		assertEquals("wrong password", password, recevedValues[1]);
+	}
 }
