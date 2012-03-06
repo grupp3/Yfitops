@@ -54,4 +54,12 @@ public class ServerProtocol {
 		return "loggedin";
 	}
 
+	/**
+	 * Creates the string for a login failed response
+	 * @return request string
+	 */
+	public static String CreateLoginFailed() {
+		return "loginfailed";
+	}
+
 }

@@ -29,6 +29,8 @@ public class ClientProtocol {
 			return RequestType.RegisterFailed;
 		else if(tokens[0].equals("loggedin"))
 			return RequestType.LoggedIn;
+		else if(tokens[0].equals("loginfailed"))
+			return RequestType.LoginFailed;
 		
 		return RequestType.Unknown;
 	}

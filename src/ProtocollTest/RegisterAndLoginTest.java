@@ -105,4 +105,21 @@ public class RegisterAndLoginTest {
 		assertEquals("wrong username", userName, recevedValues[0]);
 		assertEquals("wrong password", password, recevedValues[1]);
 	}
+	
+	@Test
+	public void LoginFailedRequestStringTest()
+	{
+		String requestString = ServerProtocol.CreateLoginFailed();
+		
+		assertEquals("loginfailed", requestString);
+	}
+	
+	@Test
+	public void LoginFailedCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateLoginFailed();
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.LoginFailed, requestType);
+	}
 }
