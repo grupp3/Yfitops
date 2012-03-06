@@ -63,7 +63,7 @@ public class ClientMain {
 	public ClientMain() throws IOException, UnknownHostException {
 		socket = new Socket(HOSTADRESS, PORT);
 		setUpStreams();
-		sendRequest("bajsen");
+		sendRequest("This is a test! Message from Client.");
 		closeAllStreamsAndSocket();
 
 	}

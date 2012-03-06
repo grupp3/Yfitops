@@ -1,64 +1,83 @@
 package Server;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class PlayerConnection extends Thread {
+import Client.ClientMain;
 
+public class PlayerConnection extends Thread{
+	List<PlayerConnection> playerConnectionList;
+	Socket socket;
 	boolean gamingReady;
+	private DataInputStream dataInputStream;
+	private DataOutputStream dataOutputStream;
 
-	public PlayerConnection(Socket clientSocket, ArrayList<PlayerConnection> conectionList) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * Creates in- and outputstreams to recieve/send requests from/to a client
+	 * 
+	 * @throws IOException
+	 */
+	public void setUpStreams() throws IOException {
+		dataInputStream = new DataInputStream(socket.getInputStream());
+		dataOutputStream = new DataOutputStream(socket.getOutputStream());
 	}
-	
-	public void StartSocket () {
-		/*ServerSocket listnersocket = new ServerSocket(1024);
-		while(true){
-		listnersocket.accept();
-		new Aktivitetsobjekt(klientSock);
-		}
-		listnersocket.close();*/
-		
+
+	/**
+	 * Closes outputstreams to receive/send requests from/to a client. Closes
+	 * the socket socket that holds the connection with the client.
+	 * 
+	 * @throws IOException
+	 */
+	public void closeAllStreamsAndSocket() throws IOException {
+		dataInputStream.close();
+		dataOutputStream.close();
+		socket.close();
 	}
-	public void GameStarted(boolean yourTurn, String opponentName) {
+
+	public void GameStarted(boolean currentPlayer, String string) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	public void Register(String[] namn){
 
 	}
-	
-	public void Send (String requestString){
-	
+
+	/**
+	 * Sends a message to a client via a socket.
+	 * 
+	 * The method is implemented thread-safely
+	 * 
+	 * @param message
+	 *            , the request to be sent to client
+	 * @throws IOException
+	 */
+	public void Send(String message) throws IOException {
+		dataOutputStream.writeUTF(message);
 	}
-	
-	public void Login(String[] nameforLogin){
-			
+
+	// I implemented PlayerConnection(), main() and run() only for testing
+	public PlayerConnection(Socket clientSocket, ArrayList<PlayerConnection> connectionList) throws IOException, 
+
+UnknownHostException {
+		socket = new Socket("localhost", 19345);
+		setUpStreams();
+		Send("This is a test! Message from Server.");
+		closeAllStreamsAndSocket();
 	}
-	public void GamingStarted(boolean nameforGamingcheckbooliean, String nameforGamingcheckString ){
-		
+
+	public void run(String[] args) throws IOException, UnknownHostException {
+		try {
+		ClientMain cm = new ClientMain();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	public void GamingCheck(){
-		
-	}
-	public void MakeMove(String NameforMakeMove){
-		
-	}
-	public void SendIllegalMove(){
-		
-	}
-	public void YourTurn(int Yourturn1,int Yourturn2){
-		
-	}
-	public void CountEnd(boolean countend){
-		
-	}
-	public void GetHistory(){
-		
-	}
-	public void GetHighscore(){
-		
+	public static void main(String[] args) throws UnknownHostException, IOException{
+		PlayerConnection pc = new PlayerConnection(new Socket("localhost", 19345), new ArrayList<PlayerConnection>
+
+());
+		pc.start();
 	}
 }
-
