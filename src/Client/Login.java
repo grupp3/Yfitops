@@ -8,6 +8,7 @@ import java.io.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.Spring;
 import javax.swing.SwingConstants;
@@ -57,6 +58,7 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends login data to the GUIHandler
+				
 				String UserName = textFieldUsername.getText();
 				String Password = passwordField.getName();
 				
@@ -73,6 +75,7 @@ public class Login extends JFrame {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends register data to the GUIHandler
+				
 				String UserName = textFieldUsername.getText();
 				String Password = passwordField.getName();
 				
@@ -80,6 +83,7 @@ public class Login extends JFrame {
 				
 				GUIHandler frame = new GUIHandler();
 				frame.setVisible(true);
+				frame.setEnabled(true);
 				dispose();
 			}
 		});
@@ -98,3 +102,5 @@ public class Login extends JFrame {
 		contentPane.add(passwordField);
 	}
 }
+
+

@@ -76,4 +76,14 @@ public class ClientMain {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * Here comes the login information about user
+	 * @param userName
+	 * @param password
+	 */
+	public static void loginUsr(String userName, String password) {
+		// TODO Auto-generated method stub
+		
+	}
 }

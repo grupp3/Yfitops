@@ -22,18 +22,23 @@ public class GUIHandler extends JFrame {
 			public void run() {
 				try {
 					GUIHandler frame = new GUIHandler();
-					frame.setVisible(true);
+					frame.setVisible(false);
+					
+					Login frame2 = new Login();
+					frame2.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
 	public GUIHandler() {
+		//setEnabled(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -77,11 +82,35 @@ public class GUIHandler extends JFrame {
 		// TODO Auto-generated method stub	
 	}
 
-	public static void LoginUser(String userName, String password) {
-		// TODO Auto-generated method stub	
+	/**
+	 * Sends login information to ClientMain
+	 */
+	public void LoginUser(String userName, String password) {
+		
+		ClientMain.loginUsr(userName, password);
+	}
+	
+	public void LoginFailed(){
+		
+		
 	}
 
+	/**
+	 * Register a new player with new username and password
+	 * @param userName
+	 * @param password
+	 */
 	public static void RegisterUser(String userName, String password) {
-		// TODO Auto-generated method stub	
+		
+//		int lenght;
+//		
+//		lenght = userName.length();
+//		if(lenght > 10){
+//			return false;
+//		}
+		
+		//if(userName.equals("") || password.equals("")){
+			
+		//}
 	}
 }
