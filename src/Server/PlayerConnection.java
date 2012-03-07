@@ -56,9 +56,13 @@ public class PlayerConnection extends Thread {
 		socket.close();
 	}
 
-	public void GameStarted(boolean currentPlayer, String string) {
-		// TODO Auto-generated method stub
-
+	/**
+	 * Sends the game started notification to the klient
+	 * @param currentPlayer
+	 * @param opponentName
+	 */
+	public void GameStarted(boolean currentPlayer, String opponentName) {
+		this.Send(ServerProtocol.CreateGameStarted(opponentName, currentPlayer));
 	}
 
 	/**
