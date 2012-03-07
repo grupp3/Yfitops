@@ -1,6 +1,5 @@
 package Client;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -70,6 +69,16 @@ public class GUIHandler extends JFrame {
 	}
 
 
+	/**
+	 * NOT IMPLEMENTED YET
+	 * 
+	 * @param Enum_window
+	 */
+	public void Show(Object Enum_window){
+		
+	}
+	
+	
 	public void HistorySwitch() {
 		// TODO Auto-generated method stub
 	}
@@ -113,4 +122,45 @@ public class GUIHandler extends JFrame {
 			
 		//}
 	}
+	
+	/**
+	 * NOT IMPLEMENTED YET 
+	 * 						contains hardcoded field for the moment
+	 * 
+	 * @return history field from connection -> protocol class -> fetched from server -> database
+	 * 		
+	 */
+	public String[][] InsertHistory() {
+		
+		String[][] columnContent = {{"Game 1", "Adam", "win"},{"Game 2", "Bertil", "win"},
+									{"Game 3", "Carl", "loss"},{"Game 4", "David", "loss"},
+									{"Game 5", "Erik", "win"},{"Game 6", "Fredrik", "win"},
+									{"Game 7", "Gustav","loss"},{"Game 8", "Hans", "loss"},
+									{"Game 9", "Ingmar", "win"},{"Game 10", "Johan", "win"}};
+		return columnContent;
+	}
+	
+	/**
+	 *  NOT IMPLEMENTED YET 
+	 * 						contains hardcoded field for the moment
+	 * 
+	 * @return highscore field from connection -> protocol class -> fetched from server -> database
+	 * 		
+	 */
+	public String[][] InsertHighScore() {
+		
+		String[][] columnContent = {{"Adam", "10"},{"Bertil", "9"},
+									{"Carl", "8"},{"David", "7"},
+									{"Erik", "6"},{"Fredrik", "5"},
+									{"Gustav","4"},{"Hans", "3"},
+									{"Ingmar", "2"},{"Johan", "1"}};
+		return columnContent;
+	}
+
+
+
+
+
+
+
 }

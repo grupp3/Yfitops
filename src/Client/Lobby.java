@@ -1,6 +1,5 @@
 package Client;
 
-import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,6 +8,13 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Creates a window where the player can
+ * navigate to history, highscore and start a game
+ * 
+ * @author Jeanie
+ *
+ */
 public class Lobby extends JFrame {
 
 	private GUIHandler mGUIHandler;
@@ -25,6 +31,7 @@ public class Lobby extends JFrame {
 	 * ads actionevents to the button
 	 */
 	public Lobby() {
+		
 		//creates the windowframe
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -33,9 +40,12 @@ public class Lobby extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		mGUIHandler = new GUIHandler();
+		
 		//creates the playbutton
-		btnPlay = new JButton("Play");
 		playbuttonActivated = false;
+		btnPlay = new JButton("Play");
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!playbuttonActivated) {
@@ -48,6 +58,7 @@ public class Lobby extends JFrame {
 		});
 		btnPlay.setBounds(295, 216, 113, 23);
 		contentPane.add(btnPlay);
+		
 		//creates the historybutton
 		btnHistory = new JButton("History");
 		btnHistory.addActionListener(new ActionListener() {
@@ -57,6 +68,7 @@ public class Lobby extends JFrame {
 		});
 		btnHistory.setBounds(25, 167, 116, 23);
 		contentPane.add(btnHistory);
+		
 		//creates the highscorebutton
 		btnHighscore = new JButton("HighScore");
 		btnHighscore.addActionListener(new ActionListener() {
@@ -66,6 +78,7 @@ public class Lobby extends JFrame {
 		});
 		btnHighscore.setBounds(25, 216, 116, 23);
 		contentPane.add(btnHighscore);
+		
 		//creates the statuslabel
 		lblStatus = new JLabel("Waiting for opponent");
 		lblStatus.setBounds(28, 28, 189, 14);
