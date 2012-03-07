@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class PlayerConnection extends Thread {
 	private boolean gamingReady;
 	private BufferedReader dataInputStream;
 	private DataOutputStream dataOutputStream;
-	private String userName;
+	private String userName ;
 	private Game currentGame =  null;
 
 	public PlayerConnection(Socket clientSocket,
@@ -28,8 +29,9 @@ public class PlayerConnection extends Thread {
 		socket = clientSocket;
 		playerConnectionList = connectionList;
 		dbHandler = DBHandler.getDatabase();
+		userName = "";
+		
 		setUpStreams();
-
 		this.start();
 	}
 
@@ -189,6 +191,7 @@ public class PlayerConnection extends Thread {
 	 */
 	public PlayerConnection() {
 		socket = new Socket();
+		userName = "";
 		try {
 			this.setUpStreams();
 		} catch (IOException e) {
@@ -204,5 +207,14 @@ public class PlayerConnection extends Thread {
 	 */
 	public void addTestDBHandler(DBHandler testDB) {
 		dbHandler = testDB;
+	}
+	
+	/**
+	 * Just for testing
+	 * 
+	 * @param testDB
+	 */
+	public void addTestDataWriter(OutputStream testOS) {
+		dataOutputStream = new DataOutputStream(testOS);
 	}
 }
