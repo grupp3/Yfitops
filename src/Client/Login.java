@@ -59,10 +59,12 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends login data to the GUIHandler
 				
-				String UserName = textFieldUsername.getText();
-				String Password = passwordField.getName();
+				String userName = textFieldUsername.getText();
+				String password = passwordField.getName();
 				
-				GUIHandler.LoginUser(UserName, Password);
+				GUIHandler guiHandler = new GUIHandler();
+				guiHandler.LoginUser(userName, password);
+				
 				
 				GUIHandler frame = new GUIHandler();
 				frame.setVisible(true);

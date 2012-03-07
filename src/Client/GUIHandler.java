@@ -13,25 +13,7 @@ public class GUIHandler extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIHandler frame = new GUIHandler();
-					frame.setVisible(false);
-					
-					Login frame2 = new Login();
-					frame2.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 	
 	/**
 	 * Create the frame.
@@ -53,7 +35,7 @@ public class GUIHandler extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 89, 23);
+		btnNewButton.setBounds(10, 11, 130, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnLobby = new JButton("Lobby");
@@ -64,8 +46,41 @@ public class GUIHandler extends JFrame {
 				dispose();
 			}
 		});
-		btnLobby.setBounds(10, 45, 89, 23);
+		btnLobby.setBounds(10, 45, 130, 23);
 		contentPane.add(btnLobby);
+		
+		JButton btnGame = new JButton("Game");
+		btnGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Game frame = new Game();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnGame.setBounds(10, 79, 130, 23);
+		contentPane.add(btnGame);
+		
+		JButton btnHistory = new JButton("History");
+		btnHistory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				History frame = new History();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnHistory.setBounds(10, 113, 130, 23);
+		contentPane.add(btnHistory);
+		
+		JButton btnHighScore = new JButton("High Score");
+		btnHighScore.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HighScore frame = new HighScore();
+				frame.setVisible(true);
+				dispose();
+			}
+		});
+		btnHighScore.setBounds(10, 147, 130, 23);
+		contentPane.add(btnHighScore);
 	}
 
 
@@ -156,11 +171,4 @@ public class GUIHandler extends JFrame {
 									{"Ingmar", "2"},{"Johan", "1"}};
 		return columnContent;
 	}
-
-
-
-
-
-
-
 }
