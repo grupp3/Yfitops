@@ -75,7 +75,7 @@ public class PlayerConnection extends Thread {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			if(dataOutputStream == null)
+			if (dataOutputStream == null)
 				System.out.println("What!");
 		}
 	}
@@ -96,51 +96,57 @@ public class PlayerConnection extends Thread {
 				requestString = dataInputStream.readLine();
 				requestType = ServerProtocol.GetRequestType(requestString);
 
-				switch (requestType) {
-				case Unknown:
-					break;
-				case Register:
-					this.Register(requestString);
-					break;
+				if (userName != "" || requestType == RequestType.LoggingIn
+						|| requestType == RequestType.Register) {
+					
+					switch (requestType) {
+					case Unknown:
+						break;
+					case Register:
+						this.Register(requestString);
+						break;
+					}
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * getter
+	 * 
 	 * @return
 	 */
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	/**
 	 * setter
+	 * 
 	 * @param gamingRedy
 	 */
 	public void setGamingRedy(boolean gamingRedy) {
 		this.gamingReady = gamingRedy;
 	}
-	
+
 	/**
 	 * Tries to register the user and handles the result
+	 * 
 	 * @param requestString
 	 */
 	public void Register(String requestString) {
 		String[] data = ServerProtocol.GetUsernamePassword(requestString);
-		
-		if(dbHandler.registerUser(data[0], data[1])){
+
+		if (dbHandler.registerUser(data[0], data[1])) {
 			this.Send(ServerProtocol.CreateLoggedIn());
 			userName = data[0];
-		}
-		else{
+		} else {
 			this.Send(ServerProtocol.CreateRegisterFailed());
 		}
 	}
-	
+
 	/**
 	 * Empty constructor just for testing
 	 */
@@ -153,9 +159,10 @@ public class PlayerConnection extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Just for testing
+	 * 
 	 * @param testDB
 	 */
 	public void addTestDBHandler(DBHandler testDB) {
