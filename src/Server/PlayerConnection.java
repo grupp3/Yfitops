@@ -9,24 +9,35 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import Protocoll.*;
 
 import Client.ClientMain;
 
-public class PlayerConnection extends Thread{
+public class PlayerConnection extends Thread {
 	private List<PlayerConnection> playerConnectionList;
 	private Socket socket;
 	private boolean gamingReady;
 	private BufferedReader dataInputStream;
 	private DataOutputStream dataOutputStream;
 	private String userName;
-	
+
+	public PlayerConnection(Socket clientSocket,
+			ArrayList<PlayerConnection> connectionList) throws IOException {
+		socket = clientSocket;
+		playerConnectionList = connectionList;
+		setUpStreams();
+
+		this.start();
+	}
+
 	/**
 	 * Creates in- and outputstreams to recieve/send requests from/to a client
 	 * 
 	 * @throws IOException
 	 */
 	public void setUpStreams() throws IOException {
-		dataInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		dataInputStream = new BufferedReader(new InputStreamReader(
+				socket.getInputStream()));
 		dataOutputStream = new DataOutputStream(socket.getOutputStream());
 	}
 
@@ -60,46 +71,43 @@ public class PlayerConnection extends Thread{
 		dataOutputStream.writeUTF(message);
 	}
 
-	
-	public PlayerConnection(Socket clientSocket, ArrayList<PlayerConnection> connectionList) throws IOException, 
-UnknownHostException {
-		socket = clientSocket;
-		playerConnectionList = connectionList;
-		setUpStreams();
-		
-		this.start();
-	}
-
+	/**
+	 * Listens to the socket
+	 * 
+	 * @param args
+	 * @throws IOException
+	 * @throws UnknownHostException
+	 */
 	public void run(String[] args) throws IOException, UnknownHostException {
 		String requestString;
+		RequestType requestType;
+
 		try {
-			while(true){
+			while (true) {
 				requestString = dataInputStream.readLine();
+				requestType = ClientProtocol.GetRequestType(requestString);
+
+				switch (requestType) {
+				case Unknown:
+					break;
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	/*public static void main(String[] args) throws UnknownHostException, IOException{
-		PlayerConnection pc = new PlayerConnection(new Socket("localhost", 19345), new ArrayList<PlayerConnection>
 
-());
-		pc.start();
-	}*/
-	
 	/**
 	 * Empty constructor just for testing
 	 */
-	public PlayerConnection()
-	{}
-	
-	public String getUserName()
-	{
+	public PlayerConnection() {
+	}
+
+	public String getUserName() {
 		return userName;
 	}
-	
-	public void setGamingRedy(boolean gamingRedy){
+
+	public void setGamingRedy(boolean gamingRedy) {
 		this.gamingReady = gamingRedy;
 	}
 }
