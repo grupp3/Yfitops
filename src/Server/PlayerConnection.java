@@ -1,8 +1,10 @@
 package Server;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -11,19 +13,20 @@ import java.util.List;
 import Client.ClientMain;
 
 public class PlayerConnection extends Thread{
-	List<PlayerConnection> playerConnectionList;
-	Socket socket;
-	boolean gamingReady;
-	private DataInputStream dataInputStream;
+	private List<PlayerConnection> playerConnectionList;
+	private Socket socket;
+	private boolean gamingReady;
+	private BufferedReader dataInputStream;
 	private DataOutputStream dataOutputStream;
-	private String userName; 
+	private String userName;
+	
 	/**
 	 * Creates in- and outputstreams to recieve/send requests from/to a client
 	 * 
 	 * @throws IOException
 	 */
 	public void setUpStreams() throws IOException {
-		dataInputStream = new DataInputStream(socket.getInputStream());
+		dataInputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		dataOutputStream = new DataOutputStream(socket.getOutputStream());
 	}
 
@@ -57,29 +60,33 @@ public class PlayerConnection extends Thread{
 		dataOutputStream.writeUTF(message);
 	}
 
-	// I implemented PlayerConnection(), main() and run() only for testing
+	
 	public PlayerConnection(Socket clientSocket, ArrayList<PlayerConnection> connectionList) throws IOException, 
-
 UnknownHostException {
-		socket = new Socket("localhost", 19345);
+		socket = clientSocket;
+		playerConnectionList = connectionList;
 		setUpStreams();
-		Send("This is a test! Message from Server.");
-		closeAllStreamsAndSocket();
+		
+		this.start();
 	}
 
 	public void run(String[] args) throws IOException, UnknownHostException {
+		String requestString;
 		try {
-		ClientMain cm = new ClientMain();
+			while(true){
+				requestString = dataInputStream.readLine();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public static void main(String[] args) throws UnknownHostException, IOException{
+	
+	/*public static void main(String[] args) throws UnknownHostException, IOException{
 		PlayerConnection pc = new PlayerConnection(new Socket("localhost", 19345), new ArrayList<PlayerConnection>
 
 ());
 		pc.start();
-	}
+	}*/
 	
 	/**
 	 * Empty constructor just for testing
@@ -90,5 +97,9 @@ UnknownHostException {
 	public String getUserName()
 	{
 		return userName;
+	}
+	
+	public void setGamingRedy(boolean gamingRedy){
+		this.gamingReady = gamingRedy;
 	}
 }

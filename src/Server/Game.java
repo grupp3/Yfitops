@@ -10,11 +10,11 @@ import java.util.Random;
 
 public class Game {
 	// variables
-	short[][] gameField;
-	boolean currentPlayer;
-	PlayerConnection player1;
-	PlayerConnection player2;
-	DBHandler dbHandler;
+	private short[][] gameField;
+	private boolean currentPlayer;
+	private PlayerConnection player1;
+	private PlayerConnection player2;
+	private DBHandler dbHandler;
 
 	// constructor
 	public Game(PlayerConnection player1, PlayerConnection player2) {
@@ -29,8 +29,8 @@ public class Game {
 
 		// gamingReady variable of the players are set to false so that the
 		// other players can't reach them.
-		player1.gamingReady = false;
-		player2.gamingReady = false;
+		player1.setGamingRedy(false);
+		player2.setGamingRedy(false);
 
 		// Choose the random player to start the game
 		Random rnd = new Random();
