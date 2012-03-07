@@ -28,7 +28,7 @@ public class History extends JFrame {
 	private JPanel contentPane;
 	private JTable historyTable;
 	private JScrollPane historyScrollPane;
-	private JButton btnReturnToLobby;
+	private JButton btnReturnToGUIHandler;
 	private GUIHandler mGUIHandler;
 	private String[] columnNames = {"Time of game", "Opponent", "Result"};
 	
@@ -42,6 +42,7 @@ public class History extends JFrame {
 	 *				  in GUIHandler class must be implemented
 	 */
 	public History() {
+		setResizable(false);
 		
 		//creates the windowframe
 		setTitle("History");
@@ -62,16 +63,18 @@ public class History extends JFrame {
 		getContentPane().add(historyScrollPane);
 		
 		//creates the returnbutton
-		btnReturnToLobby = new JButton("Return to lobby");
+		btnReturnToGUIHandler = new JButton("Return to Main menu");
 		
 		//METHOD TO COMPLETE
-		btnReturnToLobby.addActionListener(new ActionListener() {
+		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//mGUIHandler.Show(Lobby);
+				GUIHandler frame = new GUIHandler();
+				frame.setVisible(true);
+				dispose();
 			}
 		});
-		btnReturnToLobby.setBounds(283, 228, 141, 23);
-		contentPane.add(btnReturnToLobby);
+		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
+		contentPane.add(btnReturnToGUIHandler);
 	}
 	
 	
