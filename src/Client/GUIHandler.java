@@ -109,7 +109,7 @@ public class GUIHandler extends JFrame {
 	/**
 	 * Sends login information to ClientMain
 	 */
-	public void LoginUser(String userName, String password) {
+	public static void LoginUser(String userName, String password) {
 		
 		ClientMain.loginUsr(userName, password);
 	}

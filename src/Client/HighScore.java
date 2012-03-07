@@ -30,7 +30,7 @@ public class HighScore extends JFrame {
 
 	private JTable highscoreTable;
 	private JScrollPane highscoreScrollPane;
-	private JButton btnReturnToLobby;
+	private JButton btnReturnToGUIHandler;
 	private GUIHandler mGUIHandler;
 	private String[] columnNames = {"Player", "Wins"};
 
@@ -43,6 +43,7 @@ public class HighScore extends JFrame {
 	 *				  in GUIHandler class must be implemented
 	 */
 	public HighScore() {
+		setResizable(false);
 		
 		//creates the windowframe
 				
@@ -64,16 +65,19 @@ public class HighScore extends JFrame {
 		getContentPane().add(highscoreScrollPane);
 		
 		//creates the returnbutton
-		btnReturnToLobby = new JButton("Return to lobby");
+		btnReturnToGUIHandler = new JButton("Return to Main menu");
 		
 		//METHOD TO COMPLETE
-		btnReturnToLobby.addActionListener(new ActionListener() {
+		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				GUIHandler frame = new GUIHandler();
+				frame.setVisible(true);
+				dispose();
 				//mGUIHandler.Show(Lobby);
 			}
 		});
-		btnReturnToLobby.setBounds(283, 228, 141, 23);
-		contentPane.add(btnReturnToLobby);
+		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
+		contentPane.add(btnReturnToGUIHandler);
 	}
 
 	/**
