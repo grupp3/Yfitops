@@ -16,6 +16,7 @@ import Client.ClientMain;
 public class PlayerConnection extends Thread {
 	private List<PlayerConnection> playerConnectionList;
 	private Socket socket;
+	private DBHandler dbHandler;
 	private boolean gamingReady;
 	private BufferedReader dataInputStream;
 	private DataOutputStream dataOutputStream;
@@ -25,6 +26,7 @@ public class PlayerConnection extends Thread {
 			ArrayList<PlayerConnection> connectionList) throws IOException {
 		socket = clientSocket;
 		playerConnectionList = connectionList;
+		dbHandler = DBHandler.getDatabase();
 		setUpStreams();
 
 		this.start();
@@ -67,8 +69,15 @@ public class PlayerConnection extends Thread {
 	 *            , the request to be sent to client
 	 * @throws IOException
 	 */
-	public void Send(String message) throws IOException {
-		dataOutputStream.writeUTF(message);
+	public void Send(String message) {
+		try {
+			dataOutputStream.writeUTF(message);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			if(dataOutputStream == null)
+				System.out.println("What!");
+		}
 	}
 
 	/**
@@ -85,10 +94,13 @@ public class PlayerConnection extends Thread {
 		try {
 			while (true) {
 				requestString = dataInputStream.readLine();
-				requestType = ClientProtocol.GetRequestType(requestString);
+				requestType = ServerProtocol.GetRequestType(requestString);
 
 				switch (requestType) {
 				case Unknown:
+					break;
+				case Register:
+					this.Register(requestString);
 					break;
 				}
 			}
@@ -96,18 +108,57 @@ public class PlayerConnection extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * getter
+	 * @return
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	
+	/**
+	 * setter
+	 * @param gamingRedy
+	 */
+	public void setGamingRedy(boolean gamingRedy) {
+		this.gamingReady = gamingRedy;
+	}
+	
+	/**
+	 * Tries to register the user and handles the result
+	 * @param requestString
+	 */
+	public void Register(String requestString) {
+		String[] data = ServerProtocol.GetUsernamePassword(requestString);
+		
+		if(dbHandler.registerUser(data[0], data[1])){
+			this.Send(ServerProtocol.CreateLoggedIn());
+			userName = data[0];
+		}
+		else{
+			this.Send(ServerProtocol.CreateRegisterFailed());
+		}
+	}
+	
 	/**
 	 * Empty constructor just for testing
 	 */
 	public PlayerConnection() {
+		socket = new Socket();
+		try {
+			this.setUpStreams();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setGamingRedy(boolean gamingRedy) {
-		this.gamingReady = gamingRedy;
+	
+	/**
+	 * Just for testing
+	 * @param testDB
+	 */
+	public void addTestDBHandler(DBHandler testDB) {
+		dbHandler = testDB;
 	}
 }
