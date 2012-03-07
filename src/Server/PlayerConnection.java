@@ -21,6 +21,7 @@ public class PlayerConnection extends Thread {
 	private BufferedReader dataInputStream;
 	private DataOutputStream dataOutputStream;
 	private String userName;
+	private Game currentGame =  null;
 
 	public PlayerConnection(Socket clientSocket,
 			ArrayList<PlayerConnection> connectionList) throws IOException {
@@ -105,6 +106,9 @@ public class PlayerConnection extends Thread {
 					case Register:
 						this.Register(requestString);
 						break;
+					case ToggleRedy:
+						this.gamingCheck();
+						break;
 					}
 				}
 			}
@@ -121,7 +125,15 @@ public class PlayerConnection extends Thread {
 	public String getUserName() {
 		return userName;
 	}
-
+	
+	/**
+	 * setter
+	 * @param currentGame
+	 */
+	public void setCurrentGame(Game currentGame){
+		this.currentGame = currentGame; 
+	}
+	
 	/**
 	 * setter
 	 * 
@@ -130,7 +142,28 @@ public class PlayerConnection extends Thread {
 	public void setGamingRedy(boolean gamingRedy) {
 		this.gamingReady = gamingRedy;
 	}
-
+	
+	/**
+	 * Checks for other players to game with
+	 */
+	public void gamingCheck(){
+		if(gamingReady){
+			gamingReady = false;
+		}
+		else{
+			gamingReady = true;
+			
+			synchronized(playerConnectionList){
+				for(PlayerConnection p : playerConnectionList){
+					if(p.gamingReady && p != this){
+						new Game(this, p);
+						break;
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * Tries to register the user and handles the result
 	 * 

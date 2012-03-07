@@ -32,6 +32,9 @@ public class Game {
 		player1.setGamingRedy(false);
 		player2.setGamingRedy(false);
 
+		player1.setCurrentGame(this);
+		player2.setCurrentGame(this);
+		
 		// Choose the random player to start the game
 		Random rnd = new Random();
 		int temp = rnd.nextInt(9);
@@ -41,11 +44,7 @@ public class Game {
 			currentPlayer = false;
 
 		// Calls the GameStarted method for every player.
-		player1.GameStarted(currentPlayer, player2.getUserName()); // I don't
-																	// know what
-																	// the
-		// second parameter of type
-		// string does.
+		player1.GameStarted(currentPlayer, player2.getUserName());
 		player2.GameStarted(!currentPlayer, player1.getUserName());
 	}
 
