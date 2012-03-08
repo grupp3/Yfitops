@@ -170,4 +170,26 @@ public class Game {
 				&& gameField[x + 1][y + 3] == symbol
 				&& gameField[x][y + 4] == symbol;
 	}
+	
+	/**
+	 * Check when game is over
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	
+	public boolean checkGameEnd(){ 
+		for (int x = 0; x < gameField.length; x++) {
+			for (int y = 0; y < gameField.length; y++) {
+				if (gameField[x][y] == 0)
+					return false;
+			}							
+		}
+		return true;
+	}
 }
+			
+		
+        
+    
