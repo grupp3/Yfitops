@@ -90,5 +90,20 @@ public class GameTest {
 		assertEquals("wrong x koordinate", x, recevedValues[0]);
 		assertEquals("wrong y koordinate", y, recevedValues[1]);
 	}
-
+	
+	@Test
+	public void IllegalMoveRequestStringTest() {
+		String requestString = ServerProtocol.CreateIllegalMove();
+		
+		assertEquals("illegalmove", requestString);
+	}
+	
+	@Test
+	public void IllegalMoveCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateIllegalMove();
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.IllegalMove, requestType);
+	}
 }

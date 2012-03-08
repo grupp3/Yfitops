@@ -21,7 +21,7 @@ public class ServerProtocol {
 		if(tokens[0].equals("register"))
 			return RequestType.Register;
 		else if(tokens[0].equals("login"))
-				return RequestType.LoggingIn;
+			return RequestType.LoggingIn;
 		else if(tokens[0].equals("gamingredy"))
 			return RequestType.ToggleRedy;
 		else if(tokens[0].equals("newmove"))
@@ -92,6 +92,14 @@ public class ServerProtocol {
 		outValues[1] = Integer.parseInt( tokens[1]);
 		
 		return outValues;
+	}
+
+	/**
+	 * Creates the string for an illegal move notification
+	 * @return request string
+	 */
+	public static String CreateIllegalMove() {
+		return "illegalmove";
 	}
 	
 }

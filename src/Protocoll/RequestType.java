@@ -8,6 +8,6 @@ package Protocoll;
  * The different types of request
  */
 public enum RequestType {
-	Register, Unknown, RegisterFailed, LoggedIn, LoggingIn, LoginFailed, ToggleRedy, GameStarted, NewMove
+	Register, Unknown, RegisterFailed, LoggedIn, LoggingIn, LoginFailed, ToggleRedy, GameStarted, NewMove, IllegalMove
 
 }

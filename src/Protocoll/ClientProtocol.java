@@ -33,6 +33,8 @@ public class ClientProtocol {
 			return RequestType.LoginFailed;
 		else if(tokens[0].equals("newgame"))
 			return RequestType.GameStarted;
+		else if(tokens[0].equals("illegalmove"))
+			return RequestType.IllegalMove;
 		
 		return RequestType.Unknown;
 	}
