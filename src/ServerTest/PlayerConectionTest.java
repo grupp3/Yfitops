@@ -216,7 +216,7 @@ public class PlayerConectionTest {
 		public String password;
 		public boolean accept;
 		
-		public TestDB(){}
+		public TestDB(){super(true);}
 		
 		public boolean registerUser(String userName, String password){
 			this.userName = userName;

@@ -27,8 +27,10 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldUsername;
-	private JPasswordField passwordField;
+	public JTextField textFieldUsername;
+	public JPasswordField passwordField;
+	public JButton btnLogin;
+	public JButton btnRegister;
 	
 	/**
 	 * Create the frame.
@@ -55,7 +57,7 @@ public class Login extends JFrame {
 		contentPane.add(textFieldUsername);
 		textFieldUsername.setColumns(10);
 		
-		JButton btnLogin = new JButton("Login");
+		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends login data to the GUIHandler
 				
@@ -74,7 +76,7 @@ public class Login extends JFrame {
 		btnLogin.setBounds(10, 138, 170, 23);
 		contentPane.add(btnLogin);
 		
-		JButton btnRegister = new JButton("Register");
+		btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends register data to the GUIHandler
 				

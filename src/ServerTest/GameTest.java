@@ -117,7 +117,8 @@ public class GameTest {
 		assertTrue(victory);
 	}
 	
-	@Test
+	
+	
 	public void NoVictoryTest() throws UnknownHostException, IOException
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
@@ -138,7 +139,54 @@ public class GameTest {
 		boolean victory = game.VictoryCheck();
 		
 		assertFalse(victory);
+		
 	}
+	
+	@Test
+	public void GameEnd() throws UnknownHostException, IOException
+	{
+		Server.PlayerConnection player1= new Server.PlayerConnection();
+		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		Server.Game game = new Server.Game(player1, player2);
+		
+		short[][] testField =	{{1,1,2,2,2,2,1,1,1}
+							  	,{1,1,2,1,1,1,1,1,2}
+							  	,{2,2,2,1,1,2,1,1,2}
+							  	,{1,1,1,1,2,2,1,2,2}
+							  	,{2,2,1,1,2,1,2,1,2}
+							  	,{1,2,2,2,2,1,2,2,1}
+							  	,{1,2,2,2,1,1,1,1,2}
+							  	,{1,2,2,2,1,1,2,1,1}
+							  	,{2,2,2,1,1,2,1,1,1}}; 
+		
+		game.setTestField(testField);
+		boolean gameend = game.checkBoardFull();
+		
+		assertTrue(gameend);
+	}
+	
+	@Test
+	public void noGameEndTest() throws UnknownHostException, IOException
+	{
+		Server.PlayerConnection player1= new Server.PlayerConnection();
+		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		Server.Game game = new Server.Game(player1, player2);
+		
+		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
+							  	,{1,1,0,1,1,1,1,1,2}
+							  	,{2,2,2,1,1,2,1,1,2}
+							  	,{1,1,0,1,2,2,1,2,2}
+							  	,{2,2,1,1,2,0,0,1,2}
+							  	,{1,2,2,2,0,1,2,2,1}
+							  	,{1,2,0,0,1,1,1,1,2}
+							  	,{1,0,2,2,0,0,2,1,1}
+							  	,{2,2,2,0,0,2,0,1,1}}; 
+		
+		game.setTestField(testField);
+		boolean gameend = game.checkBoardFull();
+		
+		assertFalse(gameend);
+    }
 	
 	@Test
 	public void NewMoveNotYourTurnTest()
@@ -169,4 +217,7 @@ public class GameTest {
 	{
 		
 	}
+
+	
+	
 }

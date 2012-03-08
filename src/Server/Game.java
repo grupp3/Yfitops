@@ -180,4 +180,26 @@ public class Game {
 				&& gameField[x + 1][y + 3] == symbol
 				&& gameField[x][y + 4] == symbol;
 	}
+	
+	/**
+	 * Check when game board is full
+	 * 
+	 * @param x
+	 * @param y
+	 * @return if its full
+	 */
+	
+	public boolean checkBoardFull(){ 
+		for (int x = 0; x < gameField.length; x++) {
+			for (int y = 0; y < gameField.length; y++) {
+				if (gameField[x][y] == 0)
+					return false;
+			}							
+		}
+		return true;
+	}
 }
+			
+		
+        
+    

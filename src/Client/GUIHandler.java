@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 public class GUIHandler extends JFrame {
 
 	private JPanel contentPane;
+	public JButton btnLobby;
+	public JButton btnHistory;
+	public JButton btnGame;
+	public JButton btnHighScore;
 
 	
 	
@@ -38,7 +42,7 @@ public class GUIHandler extends JFrame {
 		btnNewButton.setBounds(10, 11, 130, 23);
 		contentPane.add(btnNewButton);
 		
-		JButton btnLobby = new JButton("Lobby");
+		btnLobby = new JButton("Lobby");
 		btnLobby.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Lobby frame = new Lobby();
@@ -49,7 +53,7 @@ public class GUIHandler extends JFrame {
 		btnLobby.setBounds(10, 45, 130, 23);
 		contentPane.add(btnLobby);
 		
-		JButton btnGame = new JButton("Game");
+		btnGame = new JButton("Game");
 		btnGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Game frame = new Game();
@@ -60,7 +64,7 @@ public class GUIHandler extends JFrame {
 		btnGame.setBounds(10, 79, 130, 23);
 		contentPane.add(btnGame);
 		
-		JButton btnHistory = new JButton("History");
+		btnHistory = new JButton("History");
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				History frame = new History();
@@ -71,7 +75,7 @@ public class GUIHandler extends JFrame {
 		btnHistory.setBounds(10, 113, 130, 23);
 		contentPane.add(btnHistory);
 		
-		JButton btnHighScore = new JButton("High Score");
+		btnHighScore = new JButton("High Score");
 		btnHighScore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HighScore frame = new HighScore();
@@ -174,8 +178,9 @@ public class GUIHandler extends JFrame {
 
 
 	public void registerFailed() {
-		// TODO Auto-generated method stub
-		
+		Login frame = new Login();
+		frame.setVisible(true);
+		dispose();
 	}
 
 
