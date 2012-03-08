@@ -21,15 +21,16 @@ public class ServerMain {
 			ArrayList<PlayerConnection> connectionList = new ArrayList<PlayerConnection>();
 			
 			while(true){
+				System.out.println("listening");
 				Socket clientSocket = ss.accept();
 				
 				PlayerConnection newPlayer = new PlayerConnection(clientSocket, connectionList);
 				
 				synchronized(connectionList){
 					connectionList.add(newPlayer);
-				
-					newPlayer.start();
 				}
+				
+				newPlayer.start();
 			}
 		
 		} catch (IOException e) {

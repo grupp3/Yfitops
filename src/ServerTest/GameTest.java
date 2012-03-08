@@ -139,4 +139,34 @@ public class GameTest {
 		
 		assertFalse(victory);
 	}
+	
+	@Test
+	public void NewMoveNotYourTurnTest()
+	{
+		
+	}
+	
+	@Test
+	public void NewMoveOccupiedSpot()
+	{
+		
+	}
+	
+	@Test
+	public void NewMoveOtherPlayersTurn()
+	{
+		
+	}
+	
+	@Test
+	public void NewMoveVictory()
+	{
+		
+	}
+	
+	@Test
+	public void NewMoveFilledGameField()
+	{
+		
+	}
 }
