@@ -178,8 +178,9 @@ public class GUIHandler extends JFrame {
 
 
 	public void registerFailed() {
-		// TODO Auto-generated method stub
-		
+		Login frame = new Login();
+		frame.setVisible(true);
+		dispose();
 	}
 
 
