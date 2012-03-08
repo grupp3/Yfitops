@@ -6,7 +6,7 @@ import org.junit.Test;
 import Client.GUIHandler;
 
 /**
- * Tsting GUIHandler for funtionality with other classes in the client system
+ * Testing GUIHandler for funtionality with other classes in the client system
  * @author Bernard
  *
  */
