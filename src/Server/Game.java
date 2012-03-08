@@ -45,6 +45,16 @@ public class Game {
 		player1.GameStarted(currentPlayer, player2.getUserName());
 		player2.GameStarted(!currentPlayer, player1.getUserName());
 	}
+	
+	/**
+	 * Handles a new move made by player userName on position xy
+	 * @param userName
+	 * @param x
+	 * @param y
+	 */
+	public void NewMove(String userName, int x, int y){
+		
+	}
 
 	/**
 	 * Changes how the game field. For testing only

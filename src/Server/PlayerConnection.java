@@ -235,4 +235,16 @@ public class PlayerConnection extends Thread {
 	public void addTestPlayerConnectionList(ArrayList<PlayerConnection> playerList){
 		playerConnectionList = playerList;
 	}
+
+	public void sendIllegalMove() {
+		this.Send(ServerProtocol.CreateIllegalMove());
+	}
+
+	public void sendYourTurn(int x, int y) {
+		this.Send(ServerProtocol.CreateYourTurn(x, y));
+	}
+
+	public void sendGameEnd(boolean victory) {
+		this.Send(ServerProtocol.CreateGameEnd(victory));
+	}
 }

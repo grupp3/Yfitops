@@ -30,6 +30,7 @@ public class PlayerConectionTest {
 			e.printStackTrace();
 		}
 		int expectedOutInt = os.out;
+		os.out= 0;
 		
 		p.Register("register%håKan;lolL84");
 		
@@ -55,6 +56,7 @@ public class PlayerConectionTest {
 			e.printStackTrace();
 		}
 		int expectedOutInt = os.out;
+		os.out= 0;
 		
 		p.Register("register%håKan;lolL84");
 		
@@ -77,6 +79,7 @@ public class PlayerConectionTest {
 			e.printStackTrace();
 		}
 		int expectedOutInt = os.out;
+		os.out= 0;
 		
 		p.GameStarted(false, "håKan38");
 		
@@ -96,6 +99,7 @@ public class PlayerConectionTest {
 			e.printStackTrace();
 		}
 		int expectedOutInt = os.out;
+		os.out= 0;
 		
 		p.GameStarted(true, "agnes");
 		
@@ -145,6 +149,66 @@ public class PlayerConectionTest {
 		p.gamingCheck();
 		
 		assertFalse(p.getGamingRedy());
+	}
+	
+	@Test
+	public void SendIllegalMoveTest(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateIllegalMove();
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		os.out= 0;
+		
+		p.sendIllegalMove();
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void SendYourTurnTest(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateYourTurn(12,11);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		os.out= 0;
+		
+		p.sendYourTurn(12, 11);
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void SendGameEndTest(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameEnd(false);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		os.out= 0;
+		
+		p.sendGameEnd(false);
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
 	}
 	
 	class TestDB extends DBHandler{
