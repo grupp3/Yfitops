@@ -36,7 +36,6 @@ public class PlayerConectionTest {
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
 		assertEquals("wrong output", expectedOutInt, os.out);
-		
 	}
 	
 	@Test
@@ -61,6 +60,44 @@ public class PlayerConectionTest {
 		assertEquals("wrong username in connection class", "", p.getUserName());
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void GameStartedTest(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		
+		p.GameStarted(false, "håKan38");
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void GameStartedTest2(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		
+		p.GameStarted(true, "agnes");
+		
 		assertEquals("wrong output", expectedOutInt, os.out);
 	}
 	
