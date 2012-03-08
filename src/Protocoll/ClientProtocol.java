@@ -35,6 +35,10 @@ public class ClientProtocol {
 			return RequestType.GameStarted;
 		else if(tokens[0].equals("illegalmove"))
 			return RequestType.IllegalMove;
+		else if(tokens[0].equals("yourturn"))
+			return RequestType.YourTurn;
+		else if(tokens[0].equals("gameend"))
+			return RequestType.GameEnd;
 		
 		return RequestType.Unknown;
 	}
@@ -79,4 +83,22 @@ public class ClientProtocol {
 		return "newmove%" + x +";" + y;
 	}
 
+	public static int[] GetXY(String requestString) {
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		int[] outValues = new int[2];
+		
+		outValues[0] = Integer.parseInt( tokens[0]);
+		outValues[1] = Integer.parseInt( tokens[1]);
+		
+		return outValues;
+	}
+
+	public static boolean GetVictory(String requestString) {
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		return Boolean.parseBoolean(tokens[0]);
+	}
 }

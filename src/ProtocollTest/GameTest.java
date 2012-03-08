@@ -106,4 +106,60 @@ public class GameTest {
 		
 		assertEquals(RequestType.IllegalMove, requestType);
 	}
+	
+	@Test
+	public void YourTurnRequestStringTest() {
+		String requestString = ServerProtocol.CreateYourTurn(3, 4);
+		
+		assertEquals("yourturn%3;4", requestString);
+	}
+	
+	@Test
+	public void YourTurnCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateYourTurn(3, 14);
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.YourTurn, requestType);
+	}
+	
+	@Test
+	public void YourTurnCorrectValues()
+	{
+		int x = 13;
+		int y = 4;
+		String requestString = ServerProtocol.CreateYourTurn(x, y);
+		
+		int[] recevedValues = ClientProtocol.GetXY(requestString);
+		
+		assertEquals("wrong x value", x, recevedValues[0]);
+		assertEquals("wrong y value", y, recevedValues[1]);
+	}
+	
+	@Test
+	public void GameEndRequestStringTest() {
+		String requestString = ServerProtocol.CreateGameEnd(false);
+		
+		assertEquals("gameend%false", requestString);
+	}
+	
+	@Test
+	public void GameEndCorrectRequestType()
+	{
+		String requestString = ServerProtocol.CreateGameEnd(false);
+		RequestType requestType = ClientProtocol.GetRequestType(requestString);
+		
+		assertEquals(RequestType.GameEnd, requestType);
+	}
+	
+	@Test
+	public void GameEndCorrectValues()
+	{
+		Boolean won = true;
+		String requestString = ServerProtocol.CreateGameEnd(won);
+		
+		boolean recevedValue = ClientProtocol.GetVictory(requestString);
+		
+		assertEquals("wrong victory value", won, recevedValue);
+	}
 }

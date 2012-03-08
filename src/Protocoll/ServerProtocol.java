@@ -101,5 +101,13 @@ public class ServerProtocol {
 	public static String CreateIllegalMove() {
 		return "illegalmove";
 	}
+
+	public static String CreateYourTurn(int x, int y) {
+		return "yourturn%" + x + ";" + y;
+	}
+
+	public static String CreateGameEnd(boolean victory) {
+		return "gameend%" + victory;
+	}
 	
 }
