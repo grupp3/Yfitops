@@ -1,6 +1,8 @@
 package Client;
+
+import javax.swing.JFrame;
 				
 
-public class Game {
+public class Game extends JFrame {
 
 }

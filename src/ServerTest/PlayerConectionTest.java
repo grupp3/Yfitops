@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import Protocoll.ServerProtocol;
 import Server.*;
@@ -36,7 +37,6 @@ public class PlayerConectionTest {
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
 		assertEquals("wrong output", expectedOutInt, os.out);
-		
 	}
 	
 	@Test
@@ -62,6 +62,89 @@ public class PlayerConectionTest {
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
 		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void GameStartedTest(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		
+		p.GameStarted(false, "håKan38");
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void GameStartedTest2(){
+		PlayerConnection p = new PlayerConnection();
+		TestWriter os = new TestWriter();
+		p.addTestDataWriter(os);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true);
+		try {
+			new DataOutputStream(os).writeUTF(expectedOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int expectedOutInt = os.out;
+		
+		p.GameStarted(true, "agnes");
+		
+		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void ToggleGamingNoOpponentTest(){
+		PlayerConnection p = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(new PlayerConnection());
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p.gamingCheck();
+		
+		assertTrue(p.getGamingRedy());
+	}
+	
+	@Test
+	public void ToggleGamingOpponentExistTest(){
+		PlayerConnection p = new PlayerConnection();
+		PlayerConnection p2 = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(p2);
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p2.setGamingRedy(true);
+		p.gamingCheck();
+		
+		assertFalse(p.getGamingRedy());
+	}
+	
+	@Test
+	public void ToggleGamingWasAlredyTrueTest(){
+		PlayerConnection p = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(new PlayerConnection());
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p.gamingCheck();
+		p.gamingCheck();
+		
+		assertFalse(p.getGamingRedy());
 	}
 	
 	class TestDB extends DBHandler{

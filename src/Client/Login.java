@@ -27,8 +27,10 @@ public class Login extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textFieldUsername;
-	private JPasswordField passwordField;
+	public JTextField textFieldUsername;
+	public JPasswordField passwordField;
+	public JButton btnLogin;
+	public JButton btnRegister;
 	
 	/**
 	 * Create the frame.
