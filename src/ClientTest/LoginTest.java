@@ -12,6 +12,7 @@ import Client.Login;
  */
 public class LoginTest {
 	
+	@Test
 	public void Register_username_password_sending(){
 		Login NewRegister = new Login();
 		String newuser = "User1";
@@ -24,6 +25,7 @@ public class LoginTest {
 	/**
 	 * Testing before registered user in sign in attempt
 	 */
+	@Test
 	public void Login_username_password_sending(){
 		Login NewLogin = new Login();
 		String registereduser = "User1";
