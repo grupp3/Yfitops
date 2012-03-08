@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import Protocoll.ServerProtocol;
 import Server.*;
@@ -99,6 +100,51 @@ public class PlayerConectionTest {
 		p.GameStarted(true, "agnes");
 		
 		assertEquals("wrong output", expectedOutInt, os.out);
+	}
+	
+	@Test
+	public void ToggleGamingNoOpponentTest(){
+		PlayerConnection p = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(new PlayerConnection());
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p.gamingCheck();
+		
+		assertTrue(p.getGamingRedy());
+	}
+	
+	@Test
+	public void ToggleGamingOpponentExistTest(){
+		PlayerConnection p = new PlayerConnection();
+		PlayerConnection p2 = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(p2);
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p2.setGamingRedy(true);
+		p.gamingCheck();
+		
+		assertFalse(p.getGamingRedy());
+	}
+	
+	@Test
+	public void ToggleGamingWasAlredyTrueTest(){
+		PlayerConnection p = new PlayerConnection();
+		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
+		testList.add(p);
+		testList.add(new PlayerConnection());
+		testList.add(new PlayerConnection());
+		p.addTestPlayerConnectionList(testList);
+		
+		p.gamingCheck();
+		p.gamingCheck();
+		
+		assertFalse(p.getGamingRedy());
 	}
 	
 	class TestDB extends DBHandler{

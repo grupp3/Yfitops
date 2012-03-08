@@ -29,8 +29,6 @@ public class Game {
 
 		// gamingReady variable of the players are set to false so that the
 		// other players can't reach them.
-		player1.setGamingRedy(false);
-		player2.setGamingRedy(false);
 
 		player1.setCurrentGame(this);
 		player2.setCurrentGame(this);

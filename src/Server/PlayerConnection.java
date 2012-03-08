@@ -64,6 +64,7 @@ public class PlayerConnection extends Thread {
 	 * @param opponentName
 	 */
 	public void GameStarted(boolean currentPlayer, String opponentName) {
+		gamingReady = false;
 		this.Send(ServerProtocol.CreateGameStarted(opponentName, currentPlayer));
 	}
 
@@ -143,10 +144,18 @@ public class PlayerConnection extends Thread {
 	/**
 	 * setter
 	 * 
-	 * @param gamingRedy
+	 * @param gamingReady
 	 */
-	public void setGamingRedy(boolean gamingRedy) {
-		this.gamingReady = gamingRedy;
+	public void setGamingRedy(boolean gamingReady) {
+		this.gamingReady = gamingReady;
+	}
+	
+	/**
+	 * getter
+	 * 
+	 */
+	public boolean getGamingRedy() {
+		return gamingReady;
 	}
 	
 	/**
@@ -216,5 +225,14 @@ public class PlayerConnection extends Thread {
 	 */
 	public void addTestDataWriter(OutputStream testOS) {
 		dataOutputStream = new DataOutputStream(testOS);
+	}
+	
+	/**
+	 * Just for testing
+	 * 
+	 * @param playerList
+	 */
+	public void addTestPlayerConnectionList(ArrayList<PlayerConnection> playerList){
+		playerConnectionList = playerList;
 	}
 }
