@@ -171,4 +171,22 @@ public class GUIHandler extends JFrame {
 									{"Ingmar", "2"},{"Johan", "1"}};
 		return columnContent;
 	}
+
+
+	public void registerFailed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void login() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public void NewGame(String string, boolean opponentStarting) {
+		// TODO Auto-generated method stub
+		
+	}
 }

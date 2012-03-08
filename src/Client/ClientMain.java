@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import Protocoll.*;
+
 /**
  * Establishes connection with server, communicates with it, creates GUI-handler
  * class which handles other windows
@@ -16,11 +18,12 @@ import java.net.UnknownHostException;
  */
 
 public class ClientMain {
+
 	// VARIABLES
 	Socket socket;
 	DataInputStream dataInputStream;
 	DataOutputStream dataOutputStream;
-
+	GUIHandler guiHandler;
 	// CONSTANTS
 
 	final static int PORT = 19345;
@@ -72,30 +75,73 @@ public class ClientMain {
 
 	}
 
-	public static void main(String[] args) throws IOException, UnknownHostException {
+	public static void main(String[] args) throws IOException,
+			UnknownHostException {
 		try {
-			ClientMain cm = new ClientMain();
+			final ClientMain clientMain = new ClientMain();
+
+			clientMain.guiHandler = new GUIHandler();
+			clientMain.guiHandler.setVisible(false);
+
+			Login frame2 = new Login();
+			frame2.setVisible(true);
+
+			clientMain.socket = new Socket(HOSTADRESS, PORT); // Creates a
+																// socket to
+																// communicate
+																// with the
+																// server
+
+			// Launches the application.
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					ProtocolClient protocolClient = new ProtocolClient();
+					RequestType requestType;
+					while (true) {
+						try {
+							requestType = protocolClient
+									.getRequestType(clientMain.dataInputStream
+											.readUTF());
+							switch (requestType) {
+							case RegisterFailed:
+								clientMain.guiHandler.registerFailed();
+								break;
+							case LoggedIn:
+								clientMain.guiHandler.login();
+								break;
+							case LoginFailed:
+								clientMain.guiHandler.LoginFailed();
+								break;
+							case GameStarted:
+								String[] params = protocolClient
+										.getOpponentStarting(requestType);
+								boolean opponentStarting;
+								if (params[0] == params[1])
+									opponentStarting = true;
+								else
+									opponentStarting = false;
+								clientMain.guiHandler.NewGame(params[0],
+										opponentStarting);
+							default:
+								System.out
+										.println("Unknown message from server");
+								break;
+							}
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+			});
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		
-		//Launches the application.
-		//EventQueue.invokeLater(new Runnable() {
-			//public void run() {
-				try {
-					GUIHandler frame = new GUIHandler();
-					frame.setVisible(false);
-					
-					Login frame2 = new Login();
-					frame2.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		//});
-	
-	
+	}
+
 	/**
 	 * Here comes the login information about user
 	 * 
