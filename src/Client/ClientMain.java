@@ -95,13 +95,13 @@ public class ClientMain {
 			// Launches the application.
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					ProtocolClient protocolClient = new ProtocolClient();
 					RequestType requestType;
 					while (true) {
 						try {
-							requestType = protocolClient
-									.getRequestType(clientMain.dataInputStream
-											.readUTF());
+							String requestString = clientMain.dataInputStream
+									.readUTF();
+							requestType = ClientProtocol
+									.GetRequestType(requestString);
 							switch (requestType) {
 							case RegisterFailed:
 								clientMain.guiHandler.registerFailed();
@@ -113,10 +113,10 @@ public class ClientMain {
 								clientMain.guiHandler.LoginFailed();
 								break;
 							case GameStarted:
-								String[] params = protocolClient
-										.getOpponentStarting(requestType);
+								String[] params = ClientProtocol
+										.GetOpponentStarting(requestString);
 								boolean opponentStarting;
-								if (params[0] == params[1])
+								if ("true" == params[1])
 									opponentStarting = true;
 								else
 									opponentStarting = false;
