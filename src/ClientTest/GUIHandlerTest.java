@@ -14,7 +14,7 @@ import Client.GUIHandler;
 public class GUIHandlerTest {
 	
 	/**
-	 * testen Lobby access
+	 * testing Lobby access
 	 */
 	@Test
 	public void Change_GUI_window_to_Lobby(){
@@ -23,7 +23,7 @@ public class GUIHandlerTest {
 	}
 	
 	/**
-	 * testen History access
+	 * testing History access
 	 */
 	@Test
 	public void Change_GUI_window_to_History(){
@@ -32,7 +32,7 @@ public class GUIHandlerTest {
 	}
 	
 	/**
-	 * testen HighScore access
+	 * testing HighScore access
 	 */
 	@Test
 	public void Change_GUI_window_to_HighScore(){
@@ -41,7 +41,7 @@ public class GUIHandlerTest {
 	}
 	
 	/**
-	 * testen Game access
+	 * testing Game access
 	 */
 	@Test
 	public void Change_GUI_window_to_Game(){
