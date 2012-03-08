@@ -12,6 +12,10 @@ import java.awt.event.ActionEvent;
 public class GUIHandler extends JFrame {
 
 	private JPanel contentPane;
+	public JButton btnLobby;
+	public JButton btnHistory;
+	public JButton btnGame;
+	public JButton btnHighScore;
 
 	
 	
