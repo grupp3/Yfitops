@@ -94,7 +94,7 @@
 		 * @return instance of the DBHandler
 		 * 					
 		 */
-		public static DBHandler getInstance(){
+		public static DBHandler getDatabase(){
 			if (instance == null){
 				instance = new DBHandler();
 			}
