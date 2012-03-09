@@ -124,8 +124,8 @@
 			if(userName != null || userName != "" && !userNameExists(userName)){
 				// SQL to register the user
 				try {
-				String QueryString = "INSERT INTO player" +
-						"(username, user_password)" +" VALUES(?,?)";
+				String QueryString = "INSERT INTO TABLE_PLAYER" +
+						"(COLUMN_PLAYER_NAME, COLUMN_PLAYER_USER_PASSWORD)" +" VALUES(?,?)";
 			           
 						PreparedStatement pstmt = connection.prepareStatement(QueryString);
 						pstmt.setString(1, userName);
@@ -144,7 +144,7 @@
 			boolean userExists = false;
 			try{
 			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM username");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM COLUMN_PLAYER_NAME");
 			int numberOfResult =0;
 			String Value = rs.getString(numberOfResult);
 			
