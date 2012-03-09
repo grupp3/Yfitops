@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
-import sun.font.FontFamily;
+//import sun.font.FontFamily;
 
 public class Game extends JFrame {
 
@@ -105,8 +105,8 @@ public class Game extends JFrame {
 
 				newButton.setMargin(new Insets(0, 0, 0, 0));
 				newButton.setMaximumSize(new Dimension(1, 1));
-				Font font = new Font("Arial", Font.BOLD, 11);
-				newButton.setFont(font);
+				//Font font = new Font("Arial", Font.BOLD, 11);
+				//newButton.setFont(font);
 
 				panel_1.add(newButton);
 
@@ -122,10 +122,11 @@ public class Game extends JFrame {
 
 						for (int i = 0; i < 15; i++)
 							for (int j = 0; j < 15; j++) {
-								if (buttonArray[i][j].equals(button))
-									;
-								x = i;
-								y = j;
+								if (buttonArray[i][j].equals(button)) {
+									x = i;
+									y = j;
+									button.setText("O");
+								}
 							}
 
 						// HERE CALL THE METHOD MakeMove() on GUIHandler
