@@ -147,8 +147,10 @@
 			ResultSet rs = stmt.executeQuery("SELECT * FROM username");
 			int numberOfResult =0;
 			String Value = rs.getString(numberOfResult);
-			while (rs != null){
-			if(Value == userName){
+			
+			for(int i = 0; i == numberOfResult; i++){
+			i++;
+				if(Value == userName){
 				userExists = true;
 			}
 			else{
