@@ -180,6 +180,30 @@ public class PlayerConnection extends Thread {
 	}
 	
 	/**
+	 * Sends illegalmove notifivation to player
+	 */
+	public void sendIllegalMove() {
+		this.Send(ServerProtocol.CreateIllegalMove());
+	}
+
+	/**
+	 * Sends yourturn notifivation to player
+	 * @param x
+	 * @param y
+	 */
+	public void sendYourTurn(int x, int y) {
+		this.Send(ServerProtocol.CreateYourTurn(x, y));
+	}
+
+	/**
+	 * Sends game end notifivation to player
+	 * @param victory
+	 */
+	public void sendGameEnd(boolean victory) {
+		this.Send(ServerProtocol.CreateGameEnd(victory));
+	}
+	
+	/**
 	 * Tries to register the user and handles the result
 	 * 
 	 * @param requestString
@@ -210,6 +234,14 @@ public class PlayerConnection extends Thread {
 	}
 
 	/**
+	 * just for testing
+	 * @param userName
+	 */
+	public void setUserName(String userName){
+		this.userName = userName;
+	}
+	
+	/**
 	 * Just for testing
 	 * 
 	 * @param testDB
@@ -235,16 +267,6 @@ public class PlayerConnection extends Thread {
 	public void addTestPlayerConnectionList(ArrayList<PlayerConnection> playerList){
 		playerConnectionList = playerList;
 	}
-
-	public void sendIllegalMove() {
-		this.Send(ServerProtocol.CreateIllegalMove());
-	}
-
-	public void sendYourTurn(int x, int y) {
-		this.Send(ServerProtocol.CreateYourTurn(x, y));
-	}
-
-	public void sendGameEnd(boolean victory) {
-		this.Send(ServerProtocol.CreateGameEnd(victory));
-	}
+	
+	
 }

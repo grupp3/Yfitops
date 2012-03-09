@@ -18,6 +18,9 @@ public class Game {
 
 	// constructor
 	public Game(PlayerConnection player1, PlayerConnection player2) {
+		this.player1 = player1;
+		this.player2 = player2;
+		
 		gameField = new short[15][15]; // Creates the gameField
 
 		// Fills all the cells in gameField to the value of 0.
@@ -25,7 +28,8 @@ public class Game {
 			for (int b = 0; b < 15; b++)
 				gameField[a][b] = 0;
 
-		dbHandler = DBHandler.getDatabase(); // Gets a reference to the database
+		// ska inte vara utkomenterad
+		//dbHandler = DBHandler.getDatabase(); // Gets a reference to the database
 
 		// gamingReady variable of the players are set to false so that the
 		// other players can't reach them.
@@ -52,8 +56,58 @@ public class Game {
 	 * @param x
 	 * @param y
 	 */
-	public void NewMove(String userName, int x, int y){
-		
+	public void newMove(String userName, int x, int y){
+		if(userName.equals(player1.getUserName())){
+			if(currentPlayer){
+				System.out.println("preGameCheck");
+				gameCheck(player1, player2, x, y, (short)1);
+			}
+			else{
+				player1.sendIllegalMove();
+			}
+		}
+		else if(userName.equals(player2.getUserName())){
+			if(!currentPlayer){
+				gameCheck(player2, player1, x, y, (short)2);
+			}
+			else{
+				player2.sendIllegalMove();
+			}
+		}
+		else
+			System.out.println("oh gawd");
+	}
+	
+	/**
+	 * Handles the game when a new move is done
+	 * @param activePlayer
+	 * @param x
+	 * @param y
+	 * @return if your turn shuld be sent
+	 */
+	private void gameCheck(PlayerConnection activePlayer, PlayerConnection inactivePlayer, int x, int y, short symbol)
+	{
+		if(gameField[x][y] == 0){
+			gameField[x][y] = symbol;
+			
+			if(this.VictoryCheck()){
+				activePlayer.sendGameEnd(true);
+				inactivePlayer.sendGameEnd(false);
+				
+			}
+			else if(this.checkBoardFull()){
+				activePlayer.sendGameEnd(false);
+				inactivePlayer.sendGameEnd(true);
+			}
+			else{
+				inactivePlayer.sendYourTurn(x, y);
+			}
+			
+			currentPlayer = !currentPlayer;
+		}
+		else{
+			activePlayer.sendIllegalMove();
+		}
 	}
 
 	/**
@@ -197,6 +251,14 @@ public class Game {
 			}							
 		}
 		return true;
+	}
+	
+	/**
+	 * Sets whos turn it is, for testing only
+	 * @param p1turn
+	 */
+	public void SetTurn(boolean p1turn){
+		currentPlayer = p1turn;
 	}
 }
 			
