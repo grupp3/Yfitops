@@ -43,7 +43,7 @@
 		private final String COLUMN_GAME_LOSER = "loser";
 		private final String COLUMN_GAME_DATETIMEGAMEPLAYED = "dateTimeGamePlayed";
 		private final String COLUMN_GAME_TIMELIMIT = "timeLimit";
-		private Connection connection = null;
+		
 		
 		/**
 		 * Hidden constructor for test only
@@ -127,7 +127,7 @@
 				String QueryString = "INSERT INTO TABLE_PLAYER" +
 						"(COLUMN_PLAYER_NAME, COLUMN_PLAYER_USER_PASSWORD)" +" VALUES(?,?)";
 			           
-						PreparedStatement pstmt = connection.prepareStatement(QueryString);
+						PreparedStatement pstmt = mConnection.prepareStatement(QueryString);
 						pstmt.setString(1, userName);
 						pstmt.setString(2, password);
 						
@@ -143,7 +143,7 @@
 		private boolean userNameExists(String userName) {
 			boolean userExists = false;
 			try{
-			Statement stmt = connection.createStatement();
+			Statement stmt = mConnection.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM COLUMN_PLAYER_NAME");
 			int numberOfResult =0;
 			String Value = rs.getString(numberOfResult);
