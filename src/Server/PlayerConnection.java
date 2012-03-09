@@ -116,6 +116,10 @@ public class PlayerConnection extends Thread {
 					case ToggleRedy:
 						this.gamingCheck();
 						break;
+					case NewMove:
+						int[] xy =ServerProtocol.GetXY(requestString);
+						this.currentGame.NewMove(userName, xy[0], xy[1]);
+						break;
 					}
 				}
 			}
@@ -247,4 +251,5 @@ public class PlayerConnection extends Thread {
 	public void sendGameEnd(boolean victory) {
 		this.Send(ServerProtocol.CreateGameEnd(victory));
 	}
+	
 }

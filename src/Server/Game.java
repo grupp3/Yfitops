@@ -198,6 +198,15 @@ public class Game {
 		}
 		return true;
 	}
+	/**
+	 * 
+	 * @param a
+	 * @param x
+	 * @param y
+	 */
+	public void MakeMove(String userName, int x,int y){
+		
+	}
 }
 			
 		
