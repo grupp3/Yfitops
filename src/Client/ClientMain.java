@@ -22,7 +22,7 @@ public class ClientMain {
 	// VARIABLES
 	Socket socket;
 	DataInputStream dataInputStream;
-	DataOutputStream dataOutputStream;
+	static DataOutputStream dataOutputStream;
 	GUIHandler guiHandler;
 	// CONSTANTS
 
@@ -62,7 +62,7 @@ public class ClientMain {
 	 *            , the request to be sent to server
 	 * @throws IOException
 	 */
-	public void sendRequest(String request) throws IOException {
+	public static void sendRequest(String request) throws IOException {
 		dataOutputStream.writeUTF(request);
 	}
 

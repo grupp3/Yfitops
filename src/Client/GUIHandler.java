@@ -8,8 +8,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
+import Protocoll.ClientProtocol;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class GUIHandler extends JFrame {
 
@@ -131,7 +135,13 @@ public class GUIHandler extends JFrame {
 	 * @param password
 	 */
 	public static void RegisterUser(String userName, String password) {
-		
+		String FromProtocol = ClientProtocol.CreateRegister(userName, password);
+		try {
+			ClientMain.sendRequest(FromProtocol);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 //		int lenght;
 //		
 //		lenght = userName.length();
