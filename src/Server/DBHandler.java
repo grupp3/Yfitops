@@ -43,7 +43,7 @@
 		private final String COLUMN_GAME_LOSER = "loser";
 		private final String COLUMN_GAME_DATETIMEGAMEPLAYED = "dateTimeGamePlayed";
 		private final String COLUMN_GAME_TIMELIMIT = "timeLimit";
-		
+		private Connection connection = null;
 		
 		/**
 		 * Hidden constructor for test only
@@ -118,9 +118,51 @@
 		 * @return false if the user already exists or another error
 		 */
 		public boolean registerUser(String userName, String password) {
-			// TODO Auto-generated method stub
-			return false;
+			boolean success = false;
+			// !userNameExists(userName))
+			
+			if(userName != null || userName != "" && !userNameExists(userName)){
+				// SQL to register the user
+				try {
+				String QueryString = "INSERT INTO player" +
+						"(username, user_password)" +" VALUES(?,?)";
+			           
+						PreparedStatement pstmt = connection.prepareStatement(QueryString);
+						pstmt.setString(1, userName);
+						pstmt.setString(2, password);
+						
+						pstmt.executeUpdate(QueryString);
+					} catch (SQLException e) {
+						System.out.println("Problem with SQL");
+					}
+				
+				success = true;
+			}
+			return success;
 		}
+		private boolean userNameExists(String userName) {
+			boolean userExists = false;
+			try{
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM username");
+			int numberOfResult =0;
+			String Value = rs.getString(numberOfResult);
+			while (rs != null){
+			if(Value == userName){
+				userExists = true;
+			}
+			else{
+				userExists = false;
+			}
+			}
+			
+			}
+			catch(SQLException e) {
+				
+			}
+			return userExists;
+		}
+
 		/**
 		 * Inserts the winner and looser into the table game
 		 * 
