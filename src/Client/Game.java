@@ -48,7 +48,8 @@ public class Game extends JFrame {
 
 	/**
 	 * Create the frame.
-	 */	public Game() {
+	 */
+	public Game() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 570);
 		contentPane = new JPanel();
@@ -56,77 +57,83 @@ public class Game extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setResizable(false);
-		
-		//Panel for player-labels
+
+		// Panel for player-labels
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 5, 670, 50);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblX = new JLabel("X");
 		lblX.setHorizontalAlignment(SwingConstants.CENTER);
 		lblX.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblX.setBounds(57, 0, 53, 50);
-		
+
 		panel.add(lblX);
-		
+
 		JLabel lblO = new JLabel("O");
 		lblO.setHorizontalAlignment(SwingConstants.CENTER);
 		lblO.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblO.setBounds(300, 0, 53, 50);
 		panel.add(lblO);
-		
+
 		JLabel lblUser = new JLabel("User1");
 		lblUser.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUser.setBounds(120, 0, 166, 50);
 		panel.add(lblUser);
-		
+
 		JLabel lblUser_1 = new JLabel("User2");
 		lblUser_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUser_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUser_1.setBounds(350, 0, 194, 50);
 		panel.add(lblUser_1);
-		
-		
-		//The panel for gamefield
-		
+
+		// The panel for gamefield
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(27, 66, 460, 460);
 		contentPane.add(panel_1);
-		
+
 		panel_1.setLayout(new GridLayout(15, 15, 1, 1));
-		
+
 		buttonArray = new JButton[15][15];
-		for(int i = 0; i<15; i++)
-			for(int j=0; j<15; j++){
-				JButton newButton= new JButton();
-				buttonArray[i][j] = newButton;				
-				
-				newButton.setMargin(new Insets(0,0,0,0));
-				newButton.setMaximumSize(new Dimension(1,1));
+		for (int i = 0; i < 15; i++)
+			for (int j = 0; j < 15; j++) {
+				JButton newButton = new JButton();
+				buttonArray[i][j] = newButton;
+
+				newButton.setMargin(new Insets(0, 0, 0, 0));
+				newButton.setMaximumSize(new Dimension(1, 1));
 				Font font = new Font("Arial", Font.BOLD, 11);
-				newButton.setFont(font);				
-				
+				newButton.setFont(font);
+
 				panel_1.add(newButton);
-				
-				ActionListener = new ActionListener() {					
+
+				newButton.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
-						JButton button = (JButton) arg0.getSource(); //Examinates which button was clicked
-						int x,y;
-						
-						for(int i=0; i<15; i++)
-							for(int j=0; j<15; j++){
-								if(buttonArray[i][j].equals(button));
-									x=i;
-									y=j;
-							}				
-						
-						//HERE CALL THE METHOD MakeMove() on GUIHandler
+						JButton button = (JButton) arg0.getSource(); // Examinates
+																		// which
+																		// button
+																		// was
+																		// clicked
+						int x, y;
+
+						for (int i = 0; i < 15; i++)
+							for (int j = 0; j < 15; j++) {
+								if (buttonArray[i][j].equals(button))
+									;
+								x = i;
+								y = j;
+							}
+
+						// HERE CALL THE METHOD MakeMove() on GUIHandler
 					}
-				};				
+
+				});
+
 			}
 		panel_1.setVisible(true);
-	 }
+	}
 }
