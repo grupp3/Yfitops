@@ -149,7 +149,11 @@ public class ClientMain {
 	 * @param password
 	 */
 	public static void loginUsr(String userName, String password) {
-		// TODO Auto-generated method stub
-
+		String FromeCreateLogin = ClientProtocol.CreateLogin(userName, password);
+		try {
+			sendRequest(FromeCreateLogin);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
