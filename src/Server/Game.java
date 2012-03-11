@@ -28,8 +28,7 @@ public class Game {
 			for (int b = 0; b < 15; b++)
 				gameField[a][b] = 0;
 
-		// ska inte vara utkomenterad
-		//dbHandler = DBHandler.getDatabase(); // Gets a reference to the database
+		dbHandler = DBHandler.getDatabase(); // Gets a reference to the database
 
 		// gamingReady variable of the players are set to false so that the
 		// other players can't reach them.

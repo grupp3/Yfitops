@@ -32,7 +32,6 @@ public class PlayerConnection extends Thread {
 		userName = "";
 		
 		setUpStreams();
-		this.start();
 	}
 
 	/**
