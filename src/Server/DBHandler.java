@@ -145,7 +145,8 @@
 		 * @return true if login succeeded, otherwise false
 		 */
 		public boolean loginCheck(String userName, String password){
-			if(userName != null && password == getPassword(userName))
+			if(userName != null && password.trim() != "" && 
+				password == getPassword(userName))
 				return true;
 		
 			return false;	

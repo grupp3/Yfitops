@@ -244,9 +244,10 @@ public class PlayerConnection extends Thread {
 	 * Empty constructor just for testing
 	 */
 	public PlayerConnection() {
-		socket = new Socket();
-		userName = "";
+		
 		try {
+			socket = new Socket("localhost", 19345); //lägger till argument i konstruktorn - Niklas
+			userName = "";
 			this.setUpStreams();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
