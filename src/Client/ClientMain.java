@@ -22,7 +22,7 @@ public class ClientMain {
 	// VARIABLES
 	Socket socket;
 	DataInputStream dataInputStream;
-	DataOutputStream dataOutputStream;
+	static DataOutputStream dataOutputStream;
 	GUIHandler guiHandler;
 	// CONSTANTS
 
@@ -62,7 +62,7 @@ public class ClientMain {
 	 *            , the request to be sent to server
 	 * @throws IOException
 	 */
-	public void sendRequest(String request) throws IOException {
+	public static void sendRequest(String request) throws IOException {
 		dataOutputStream.writeUTF(request);
 	}
 
@@ -149,7 +149,11 @@ public class ClientMain {
 	 * @param password
 	 */
 	public static void loginUsr(String userName, String password) {
-		// TODO Auto-generated method stub
-
+		String FromeCreateLogin = ClientProtocol.CreateLogin(userName, password);
+		try {
+			sendRequest(FromeCreateLogin);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

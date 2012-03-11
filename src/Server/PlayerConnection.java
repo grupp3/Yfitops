@@ -115,6 +115,12 @@ public class PlayerConnection extends Thread {
 					case ToggleRedy:
 						this.gamingCheck();
 						break;
+					case NewMove:
+						int[] xy =ServerProtocol.GetXY(requestString);
+						synchronized(currentGame){
+							this.currentGame.newMove(userName, xy[0], xy[1]);
+						}
+						break;
 					}
 				}
 			}
@@ -266,6 +272,5 @@ public class PlayerConnection extends Thread {
 	public void addTestPlayerConnectionList(ArrayList<PlayerConnection> playerList){
 		playerConnectionList = playerList;
 	}
-	
-	
+
 }

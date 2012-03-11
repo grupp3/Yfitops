@@ -3,9 +3,10 @@
 
 	import java.sql.Connection;
 	import java.sql.DriverManager;
+    import java.sql.PreparedStatement;
 	import java.sql.ResultSet;
 	import java.sql.SQLException;
-	import java.sql.Statement;
+    import java.sql.Statement;
 
 	/**
 	 * Class that sets up a connection to the database
@@ -53,6 +54,7 @@
 		
 		/**
 		 * Hidden constructor
+		 * @author Jeanie
 		 */
 		private DBHandler() {
 			//local varible thats holds the connection object
@@ -98,7 +100,7 @@
 		 * of the DBHandler
 		 * 
 		 * @return instance of the DBHandler
-		 * 					
+		 * @author Jeanie					
 		 */
 		public static DBHandler getDatabase(){
 			if (instance == null){
@@ -116,19 +118,109 @@
 		 * @return false if the user already exists or another error
 		 */
 		public boolean registerUser(String userName, String password) {
-			// TODO Auto-generated method stub
-			return false;
+			boolean success = false;
+			// !userNameExists(userName))
+			
+			if(userName != null || userName != "" && !userNameExists(userName)){
+				// SQL to register the user
+				try {
+				String QueryString = "INSERT INTO TABLE_PLAYER" +
+						"(COLUMN_PLAYER_NAME, COLUMN_PLAYER_USER_PASSWORD)" +" VALUES(?,?)";
+			           
+						PreparedStatement pstmt = mConnection.prepareStatement(QueryString);
+						pstmt.setString(1, userName);
+						pstmt.setString(2, password);
+						
+						pstmt.executeUpdate(QueryString);
+					} catch (SQLException e) {
+						System.out.println("Problem with SQL");
+					}
+				
+				success = true;
+			}
+			return success;
+		}
+		private boolean userNameExists(String userName) {
+			boolean userExists = false;
+			try{
+			Statement stmt = mConnection.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM COLUMN_PLAYER_NAME");
+			int numberOfResult =0;
+			String Value = rs.getString(numberOfResult);
+			
+			for(int i = 0; i == numberOfResult; i++){
+			i++;
+				if(Value == userName){
+				userExists = true;
+			}
+			else{
+				userExists = false;
+			}
+			}
+			
+			}
+			catch(SQLException e) {
+				
+			}
+			return userExists;
+		}
+
+		/**
+		 * Inserts the winner and looser into the table game
+		 * 
+		 * NOT IMPLEMENETED YET:
+		 * 						inserting date and time for the game
+		 * 						inserting timelimit for the game
+		 * 
+		 * @param winner
+		 * 				the username of the winner
+		 * @param loser
+		 * 				the username of the looser
+		 * @return gameSaved
+		 * 					true if the game is saved successfully
+		 * 					false otherwise
+		 * @author Jeanie
+		 */
+		public boolean saveGame(String winner, String loser) {
+			boolean gameSaved = false;
+		    PreparedStatement statement = null;
+		    int count = 0;
+			try {
+				statement = mConnection.prepareStatement (
+				               "INSERT INTO " + DATABASE_NAME + "." + TABLE_GAME 
+				               + " (" + COLUMN_GAME_WINNER + "," + COLUMN_GAME_LOSER + ")"
+							   + " VALUES(?,?)");
+				statement.setString (1, winner);
+				statement.setString (2, loser);
+				count = statement.executeUpdate ();
+				
+			} catch (SQLException sqle) {
+				System.out.println("Problem with SQL");
+				
+				sqle.printStackTrace();
+			} finally {
+				try {
+					statement.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (count == 1){
+				gameSaved = true;
+			} else {
+				gameSaved = false;
+			}
+			return gameSaved ;
 		}
 		
-		
 		/**
-		 * main method that lounches the application
+		 * main method that launches the application
 		 * is left to try the class out
 		 * @param args
 		 */
 		/*public static void main(String[] args) {
 			// Get an instance of this databasehandler
-			DBHandler databaseHandler = DBHandler.getInstance();
+			DBHandler databaseHandler = DBHandler.getDatabase();
 		}*/
 		
 	}

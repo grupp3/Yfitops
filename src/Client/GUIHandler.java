@@ -2,12 +2,18 @@ package Client;
 
 import java.awt.EventQueue;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
+import Protocoll.ClientProtocol;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class GUIHandler extends JFrame {
 
@@ -129,7 +135,13 @@ public class GUIHandler extends JFrame {
 	 * @param password
 	 */
 	public static void RegisterUser(String userName, String password) {
-		
+		String FromProtocol = ClientProtocol.CreateRegister(userName, password);
+		try {
+			ClientMain.sendRequest(FromProtocol);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 //		int lenght;
 //		
 //		lenght = userName.length();
@@ -148,6 +160,7 @@ public class GUIHandler extends JFrame {
 	 * 
 	 * @return history field from connection -> protocol class -> fetched from server -> database
 	 * 		
+	 * @author Jeanie
 	 */
 	public String[][] InsertHistory() {
 		
@@ -158,13 +171,13 @@ public class GUIHandler extends JFrame {
 									{"Game 9", "Ingmar", "win"},{"Game 10", "Johan", "win"}};
 		return columnContent;
 	}
-	
 	/**
 	 *  NOT IMPLEMENTED YET 
 	 * 						contains hardcoded field for the moment
 	 * 
 	 * @return highscore field from connection -> protocol class -> fetched from server -> database
-	 * 		
+	 * 	
+	 * @author Jeanie	
 	 */
 	public String[][] InsertHighScore() {
 		
@@ -175,19 +188,41 @@ public class GUIHandler extends JFrame {
 									{"Ingmar", "2"},{"Johan", "1"}};
 		return columnContent;
 	}
-
-
+	/**
+	 * Shows a popup window 
+	 * informating the player that 
+	 * the registration failed
+	 * links back to the login window
+	 * 
+	 * @author Jeanie
+	 */
 	public void registerFailed() {
+		JOptionPane optionPane = new JOptionPane("Your registration failed. Please try again.", JOptionPane.INFORMATION_MESSAGE);
+		JDialog popup = optionPane.createDialog(null, "Registration failure");
+		popup.setModal(true);
+		popup.setVisible(true);
 		Login frame = new Login();
 		frame.setVisible(true);
 		dispose();
 	}
-
-
-	public void login() {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * Shows a popup window 
+	 * informating the player that 
+	 * the registration succeeded
+	 * links to the lobby window
+	 * 
+	 * @author Jeanie
+	 */
+	 public void login() {
+		JOptionPane optionPane = new JOptionPane("Welcome, you are now registered", JOptionPane.INFORMATION_MESSAGE);
+		JDialog popup = optionPane.createDialog(null, "Registration success");
+		popup.setModal(true);
+		popup.setVisible(true);
+		Lobby frame = new Lobby();
+		frame.setVisible(true);
+		dispose();
 	}
+
 
 
 	public void NewGame(String string, boolean opponentStarting) {
