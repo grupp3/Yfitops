@@ -39,7 +39,6 @@ public class GUIHandler extends JFrame {
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//switchToLogin();
 				Show(Enum_Window.Login);
 			}
 		});
@@ -49,7 +48,6 @@ public class GUIHandler extends JFrame {
 		btnLobby = new JButton("Lobby");
 		btnLobby.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//switchToLobby();
 				Show(Enum_Window.Lobby);
 			}
 		});
@@ -59,7 +57,6 @@ public class GUIHandler extends JFrame {
 		btnGame = new JButton("Game");
 		btnGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//switchToGame();
 				Show(Enum_Window.Game);
 			}
 		});
@@ -69,7 +66,6 @@ public class GUIHandler extends JFrame {
 		btnHistory = new JButton("History");
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//switchToHistory();
 				Show(Enum_Window.History);
 			}
 		});
@@ -80,7 +76,6 @@ public class GUIHandler extends JFrame {
 		
 		btnHighScore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//switchToHighscore();
 				Show(Enum_Window.Highscore);
 			}
 		});
@@ -88,53 +83,64 @@ public class GUIHandler extends JFrame {
 		contentPane.add(btnHighScore);
 	}
 
-	/*
+	
+	
+	/**
+	 * Shows the window that
+	 * is sent into the method
+	 * 
+	 * @param Enum_window
+	 * 					 the window to show
+	 * 
+	 * @author Jeanie
+	 * 
+	 */
+	public void Show(Enum_Window window){
 
-	public void switchToGame() {
-		Game frame = new Game(this);
-		frame.setVisible(true);
-		dispose();
+		switch(window){
+		
+		case Login: 
+			Login loginWin = new Login(this);
+			loginWin.setVisible(true);
+			dispose();
+			break;
+			
+		case Lobby:
+			Lobby lobbyWin = new Lobby(this);
+			lobbyWin.setVisible(true);
+			dispose();
+			break;
+			
+		case Game:
+			Game gameWin = new Game(this);
+			gameWin.setVisible(true);
+			dispose();
+			break;
+		
+		case History:
+			History historyWin = new History(this);
+			historyWin.setVisible(true);
+			dispose();
+			break;
+			
+		case Highscore:
+			HighScore frame = new HighScore(this);
+			frame.setVisible(true);
+			dispose();
+			break;
+		}			
 	}
-	
-	public void switchToLogin() {
-		Login frame = new Login(this);
-		frame.setVisible(true);
-		dispose();
-	}
-	
-	public void switchToLobby() {
-		Lobby frame = new Lobby(this);
-		frame.setVisible(true);
-		dispose();
-	}
-	
-	public void switchToHighscore() {
-		HighScore frame = new HighScore(this);
-		frame.setVisible(true);
-		dispose();
-	}
-	
-	public void switchToHistory() {
-		History frame = new History(this);
-		frame.setVisible(true);
-		dispose();
-	}
-	*/
 	
 	/**
 	 * NOT IMPLEMENTED YET
-	 * 
-	 * @param Enum_window
 	 */
-	public void Show(Enum_Window window){
-		
-	}
-	
-	
 	public void HistorySwitch() {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * NOT IMPLEMENTED YET
+	 */
 	public void HighscoreSwitch() {
 		// TODO Auto-generated method stub
 	}
