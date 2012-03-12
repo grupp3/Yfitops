@@ -41,7 +41,7 @@ public class History extends JFrame {
 	 * NOT COMPLETED: when button pressed correct method to call 
 	 *				  in GUIHandler class must be implemented
 	 */
-	public History() {
+	public History(GUIHandler guiHandler) {
 		setResizable(false);
 		
 		//creates the windowframe
@@ -53,7 +53,7 @@ public class History extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		mGUIHandler = new GUIHandler();
+		mGUIHandler = guiHandler;
 		
 		//creates the table
 		historyTable = new JTable(mGUIHandler.InsertHistory(), columnNames);
@@ -68,14 +68,17 @@ public class History extends JFrame {
 		//METHOD TO COMPLETE
 		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GUIHandler frame = new GUIHandler();
-				frame.setVisible(true);
+				mGUIHandler.Show(Enum_Window.Lobby);
 				dispose();
 			}
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
 		contentPane.add(btnReturnToGUIHandler);
 	}
+
+	
+
+
 	
 	
 	/**

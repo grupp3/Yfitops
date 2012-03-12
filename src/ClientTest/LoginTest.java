@@ -3,6 +3,8 @@ package ClientTest;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import Client.GUIHandler;
 import Client.Login;
 
 /**
@@ -12,9 +14,11 @@ import Client.Login;
  */
 public class LoginTest {
 	
+	private GUIHandler mGUIHandler;
+	
 	@Test
 	public void Register_username_password_sending(){
-		Login NewRegister = new Login();
+		Login NewRegister = new Login(mGUIHandler);
 		String newuser = "User1";
 		String newpass = "Pass1";
 		NewRegister.textFieldUsername.setText(newuser);
@@ -27,7 +31,7 @@ public class LoginTest {
 	 */
 	@Test
 	public void Login_username_password_sending(){
-		Login NewLogin = new Login();
+		Login NewLogin = new Login(mGUIHandler);
 		String registereduser = "User1";
 		String registeredPass = "Pass1";
 		NewLogin.textFieldUsername.setText(registereduser);

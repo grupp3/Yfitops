@@ -109,6 +109,8 @@
 			return instance;
 		}
 		
+		
+
 		/**
 		 * Tries to store the user + password in the database
 		 * @param userName
@@ -118,7 +120,7 @@
 		public boolean registerUser(String userName, String password) {
 			boolean success = false;
 			// !userNameExists(userName))
-			//&& istället för || va? niklas
+			
 			if(userName != null || userName != "" && !userNameExists(userName)){
 				// SQL to register the user
 				try {
@@ -138,25 +140,11 @@
 			}
 			return success;
 		}
-		/**
-		 * Checks the DB for matching user/pass
-		 * @param userName - the user to login
-		 * @param password - the password associated with the user
-		 * @return true if login succeeded, otherwise false
-		 */
-		public boolean loginCheck(String userName, String password){
-			if(userName != null && password.trim() != "" && 
-				password == getPassword(userName))
-				return true;
-		
-			return false;	
-		}
-		
 		private boolean userNameExists(String userName) {
 			boolean userExists = false;
 			try{
 			Statement stmt = mConnection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM COLUMN_PLAYER_NAME"); //Tabellnamn? konstant?niklas
+			ResultSet rs = stmt.executeQuery("SELECT * FROM COLUMN_PLAYER_NAME");
 			int numberOfResult =0;
 			String Value = rs.getString(numberOfResult);
 			
@@ -175,27 +163,6 @@
 				
 			}
 			return userExists;
-		}
-		
-		/**
-		 * gets the password for the specified user
-		 * @param userName - The user associated with the password
-		 * @return - The password of the user if the user exists. Otherwise, or upon sqlexception, an empty string.
-		 */
-		private String getPassword(String userName){
-			try {
-				Statement statement = mConnection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT " + COLUMN_PLAYER_USER_PASSWORD + 
-				"FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYER_NAME + "=" + userName);
-				
-				if(!resultSet.first())
-					return "";
-				
-				return resultSet.getString(COLUMN_PLAYER_USER_PASSWORD);
-				
-			} catch (SQLException e) {
-				return "";
-			}
 		}
 
 		/**

@@ -32,6 +32,7 @@ public class PlayerConnection extends Thread {
 		userName = "";
 		
 		setUpStreams();
+		this.start();
 	}
 
 	/**
@@ -115,15 +116,6 @@ public class PlayerConnection extends Thread {
 					case ToggleRedy:
 						this.gamingCheck();
 						break;
-					case NewMove:
-						int[] xy =ServerProtocol.GetXY(requestString);
-						synchronized(currentGame){
-							this.currentGame.newMove(userName, xy[0], xy[1]);
-						}
-						break;
-					case LoggingIn:
-						this.login(requestString);
-						break;
 					}
 				}
 			}
@@ -186,43 +178,6 @@ public class PlayerConnection extends Thread {
 			}
 		}
 	}
-	/**
-	 * Tries to login the player with the specified requeststring
-	 * @param requestString - The string with the login-info
-	 */
-	private void login(String requestString) {
-		String[] data = ServerProtocol.GetUsernamePassword(requestString);
-		
-		if(dbHandler.loginCheck(data[0], data[1])){
-			this.Send(ServerProtocol.CreateLoggedIn());
-			this.userName = data[0];
-		} else{
-			this.Send(ServerProtocol.CreateLoginFailed());
-		}
-	}
-	/**
-	 * Sends illegalmove notifivation to player
-	 */
-	public void sendIllegalMove() {
-		this.Send(ServerProtocol.CreateIllegalMove());
-	}
-
-	/**
-	 * Sends yourturn notifivation to player
-	 * @param x
-	 * @param y
-	 */
-	public void sendYourTurn(int x, int y) {
-		this.Send(ServerProtocol.CreateYourTurn(x, y));
-	}
-
-	/**
-	 * Sends game end notifivation to player
-	 * @param victory
-	 */
-	public void sendGameEnd(boolean victory) {
-		this.Send(ServerProtocol.CreateGameEnd(victory));
-	}
 	
 	/**
 	 * Tries to register the user and handles the result
@@ -244,10 +199,9 @@ public class PlayerConnection extends Thread {
 	 * Empty constructor just for testing
 	 */
 	public PlayerConnection() {
-		
+		socket = new Socket();
+		userName = "";
 		try {
-			socket = new Socket("localhost", 19345); //lägger till argument i konstruktorn - Niklas
-			userName = "";
 			this.setUpStreams();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -255,14 +209,6 @@ public class PlayerConnection extends Thread {
 		}
 	}
 
-	/**
-	 * just for testing
-	 * @param userName
-	 */
-	public void setUserName(String userName){
-		this.userName = userName;
-	}
-	
 	/**
 	 * Just for testing
 	 * 
@@ -290,4 +236,15 @@ public class PlayerConnection extends Thread {
 		playerConnectionList = playerList;
 	}
 
+	public void sendIllegalMove() {
+		this.Send(ServerProtocol.CreateIllegalMove());
+	}
+
+	public void sendYourTurn(int x, int y) {
+		this.Send(ServerProtocol.CreateYourTurn(x, y));
+	}
+
+	public void sendGameEnd(boolean victory) {
+		this.Send(ServerProtocol.CreateGameEnd(victory));
+	}
 }

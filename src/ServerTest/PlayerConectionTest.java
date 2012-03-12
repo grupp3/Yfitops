@@ -209,31 +209,32 @@ public class PlayerConectionTest {
 		p.sendGameEnd(false);
 		
 		assertEquals("wrong output", expectedOutInt, os.out);
-	}	
-}
-
-class TestDB extends DBHandler{
-	public String userName;
-	public String password;
-	public boolean accept;
-	
-	public TestDB(){super(true);}
-	
-	public boolean registerUser(String userName, String password){
-		this.userName = userName;
-		this.password = password;
-		return accept;
 	}
-}
-
-class TestWriter extends OutputStream{
-	public int out;
 	
-	public TestWriter() {
+	class TestDB extends DBHandler{
+		public String userName;
+		public String password;
+		public boolean accept;
+		
+		public TestDB(){super(true);}
+		
+		public boolean registerUser(String userName, String password){
+			this.userName = userName;
+			this.password = password;
+			return accept;
+		}
+	}
+	
+	class TestWriter extends OutputStream{
+		public int out;
+		
+		public TestWriter() {
+		}
+
+		@Override
+		public void write(int b) throws IOException {
+			out = b;
+		}
 	}
 
-	@Override
-	public void write(int b) throws IOException {
-		out = b;
-	}
 }

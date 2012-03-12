@@ -29,8 +29,10 @@ public class Lobby extends JFrame {
 	/**
 	 * Constructor creates a lobbywindow
 	 * ads actionevents to the button
+	 * 
+	 * @author Jeanie
 	 */
-	public Lobby() {
+	public Lobby(GUIHandler guiHandler) {
 		
 		//creates the windowframe
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -41,7 +43,7 @@ public class Lobby extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		mGUIHandler = new GUIHandler();
+		mGUIHandler = guiHandler;
 		
 		//creates the playbutton
 		playbuttonActivated = false;
@@ -90,6 +92,8 @@ public class Lobby extends JFrame {
 	 * changes the buttontext to cancel
 	 * shows the statuslabel 
 	 * calls ToggleGamingReady method in GUIHandler class
+	 * 
+	 * @author Jeanie
 	 */
 	private void playPressed() {
 		playbuttonActivated = true;
@@ -101,7 +105,10 @@ public class Lobby extends JFrame {
 	 * method called by the cancel button (play button)
 	 * changes the button text to play
 	 * hides the statuslabel
+	 * 
 	 * calls ToggleGamingReady method in GUIHandler class
+	 * 
+	 * @author Jeanie
 	 */
 	private void cancelPressed() {
 		playbuttonActivated = false;
