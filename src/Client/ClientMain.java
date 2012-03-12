@@ -87,15 +87,8 @@ public class ClientMain {
 
 			/*Login frame2 = new Login();
 			frame2.setVisible(true);*/
-			clientMain.socket = new Socket(HOSTADRESS, PORT); // Creates a
-																// socket to
-																// communicate
-																// with the
-																// server
 
 			// Launches the application.
-			//EventQueue.invokeLater(new Runnable() {
-				//public void run() {
 					RequestType requestType;
 					while (true) {
 						try {
@@ -133,9 +126,6 @@ public class ClientMain {
 							e.printStackTrace();
 						}
 					}
-				
-
-			//});
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
@@ -29,11 +31,13 @@ public class Game extends JFrame {
 	private JTable table;
 	JButton[][] buttonArray;
 	private ActionListener ActionListener;
+	private GUIHandler mGUIHandler;
 
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,12 +48,14 @@ public class Game extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Game() {
+	public Game(GUIHandler guiHandler){
+		mGUIHandler = guiHandler;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 570);
 		contentPane = new JPanel();
@@ -118,7 +124,7 @@ public class Game extends JFrame {
 																		// button
 																		// was
 																		// clicked
-						int x, y;
+						int x=0, y=0;
 
 						for (int i = 0; i < 15; i++)
 							for (int j = 0; j < 15; j++) {
@@ -130,6 +136,7 @@ public class Game extends JFrame {
 							}
 
 						// HERE CALL THE METHOD MakeMove() on GUIHandler
+						mGUIHandler.makeMove(x, y);
 					}
 
 				});

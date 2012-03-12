@@ -53,8 +53,52 @@ public class Game {
 	 * @param y
 	 */
 	public void NewMove(String userName, int x, int y){
-		
+		if(userName.equals(player1.getUserName())){
+			if(currentPlayer){
+				System.out.println("preGameCheck");
+				gameCheck(player1, player2, x, y, (short)1);
+			}
+			else{
+				player1.sendIllegalMove();
+			}
+		}
+		else if(userName.equals(player2.getUserName())){
+			if(!currentPlayer){
+				gameCheck(player2, player1, x, y, (short)2);
+			}
+			else{
+				player2.sendIllegalMove();
+			}
+		}
+		else
+			System.out.println("oh gawd");
 	}
+	private void gameCheck(PlayerConnection activePlayer, PlayerConnection inactivePlayer, int x, int y, short symbol)
+	{
+		if(gameField[x][y] == 0){
+			gameField[x][y] = symbol;
+
+			if(this.VictoryCheck()){
+				activePlayer.sendGameEnd(true);
+				inactivePlayer.sendGameEnd(false);
+
+			}
+			else if(this.checkBoardFull()){
+				activePlayer.sendGameEnd(false);
+				inactivePlayer.sendGameEnd(true);
+			}
+			else{
+				inactivePlayer.sendYourTurn(x, y);
+			}
+
+			currentPlayer = !currentPlayer;
+		}
+		else{
+			activePlayer.sendIllegalMove();
+		}
+	}
+		
+	
 
 	/**
 	 * Changes how the game field. For testing only

@@ -261,4 +261,9 @@ public class GUIHandler extends JFrame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void makeMove(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
 }
