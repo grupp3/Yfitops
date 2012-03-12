@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.Box;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Spring;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -58,7 +60,6 @@ public class Login extends JFrame {
 		textFieldUsername = new JTextField(10);
 		textFieldUsername.setBounds(80, 70, 294, 20);
 		contentPane.add(textFieldUsername);
-		textFieldUsername.setColumns(10);
 		
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
@@ -103,8 +104,23 @@ public class Login extends JFrame {
 	 * Helpmethod for registerButton
 	 */
 	private void registerButtonPressedHelpMethod() {
+		if(textFieldUsername.getText().length() > 10){
+			JOptionPane optionPane = new JOptionPane("Usernames can not be longer than 10 characters.", JOptionPane.INFORMATION_MESSAGE);
+			JDialog popup = optionPane.createDialog(null, "Registration failure.");
+			popup.setModal(true);
+			popup.setVisible(true);
+			return;
+		}
+		
+		if(passwordField.getPassword().length > 10) {
+			JOptionPane optionPane = new JOptionPane("Invalid password", JOptionPane.INFORMATION_MESSAGE);
+			JDialog popup = optionPane.createDialog(null, "Registration failure.");
+			popup.setModal(true);
+			popup.setVisible(true);
+			return;
+		}
 		String UserName = textFieldUsername.getText();
-		String Password = passwordField.getName();
+		String Password =  new String( passwordField.getPassword());
 		mGUIHandler.RegisterUser(UserName, Password);
 	}
 }

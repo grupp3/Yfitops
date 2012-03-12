@@ -81,11 +81,13 @@ public class Game {
 			if(this.VictoryCheck()){
 				activePlayer.sendGameEnd(true);
 				inactivePlayer.sendGameEnd(false);
+				dbHandler.saveGame(activePlayer.getName(), inactivePlayer.getName());
 
 			}
 			else if(this.checkBoardFull()){
 				activePlayer.sendGameEnd(false);
 				inactivePlayer.sendGameEnd(true);
+				dbHandler.saveGame(inactivePlayer.getName(), activePlayer.getName());
 			}
 			else{
 				inactivePlayer.sendYourTurn(x, y);

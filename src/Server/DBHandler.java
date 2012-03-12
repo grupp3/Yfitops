@@ -85,8 +85,8 @@ public class DBHandler {
 			System.out.println("Couldn´t connect to the database.");
 			e.printStackTrace();
 			System.exit(0);
-		} 
-		
+		}
+
 	}
 
 	/**
@@ -111,53 +111,34 @@ public class DBHandler {
 	 * @author Pernilla
 	 */
 	public boolean registerUser(String userName, String password) {
-		boolean success = false;
-		// !userNameExists(userName))
-
-		if (userName != null || userName != "" && !userNameExists(userName)) {
-			// SQL to register the user
-			try {
-				String QueryString = "INSERT INTO " + TABLE_PLAYER + "("
-						+ COLUMN_PLAYER_NAME + ","
-						+ COLUMN_PLAYER_USER_PASSWORD + ")" + " VALUES(?,?)";
-
-				PreparedStatement pstmt = mConnection
-						.prepareStatement(QueryString);
-				pstmt.setString(1, userName);
-				pstmt.setString(2, password);
-
-				pstmt.executeUpdate(QueryString);
-			} catch (SQLException e) {
-				System.out.println("Problem with SQL");
-			}
-
-			success = true;
-		}
-		return success;
-	}
-
-	private boolean userNameExists(String userName) {
-		boolean userExists = false;
 		try {
-			Statement stmt = mConnection.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM "
-					+ COLUMN_PLAYER_NAME);
-			int numberOfResult = 0;
-			String Value = rs.getString(numberOfResult);
-
-			for (int i = 0; i == numberOfResult; i++) {
-				i++;
-				if (Value == userName) {
-					userExists = true;
-				} else {
-					userExists = false;
-				}
+			if (userName != null && userName.trim() != ""
+					&& !userNameExists(userName) && password != null
+					&& password.trim() != "") {
+				// SQL to register the user
+				String QueryString = "INSERT INTO " + TABLE_PLAYER + " VALUES ('" 
+						+ userName + "', '" + password + "')";
+					
+				PreparedStatement statement = mConnection.prepareStatement(QueryString);
+				statement.executeUpdate(QueryString);
+				return true;
 			}
 
 		} catch (SQLException e) {
-
+			e.printStackTrace();
+			return false;
 		}
-		return userExists;
+		return false;
+	}
+
+	private boolean userNameExists(String userName) throws SQLException {
+		Statement stmt = mConnection.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM " + TABLE_PLAYER
+				+ " WHERE " + COLUMN_PLAYER_NAME + " = '" + userName + "'");
+		if (!rs.first())
+			return false;
+
+		return true;
 	}
 
 	/**
@@ -218,7 +199,7 @@ public class DBHandler {
 		System.out.println("Angivet pass: " + password);
 		if (userName != null && password.trim() != ""
 				&& password.equals(getPassword(userName)))
-					return true;
+			return true;
 
 		return false;
 	}
@@ -239,7 +220,8 @@ public class DBHandler {
 					+ " WHERE " + COLUMN_PLAYER_NAME + " = '" + userName + "'");
 			if (!resultSet.first())
 				return "";
-			System.out.println("Hämtad pass från DB: " + resultSet.getString(COLUMN_PLAYER_USER_PASSWORD));
+			System.out.println("Hämtad pass från DB: "
+					+ resultSet.getString(COLUMN_PLAYER_USER_PASSWORD));
 			return resultSet.getString(COLUMN_PLAYER_USER_PASSWORD);
 		} catch (SQLException e) {
 			e.printStackTrace();

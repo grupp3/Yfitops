@@ -143,16 +143,7 @@ public class GUIHandler {
 	public void RegisterUser(String userName, String password) {
 		String FromProtocol = ClientProtocol.CreateRegister(userName, password);
 		mConnection.sendRequest(FromProtocol);
-//		int lenght;
-//		
-//		lenght = userName.length();
-//		if(lenght > 10){
-//			return false;
-//		}
-		
-		//if(userName.equals("") || password.equals("")){
-			
-		//}
+		this.userName = userName;
 	}
 	
 	/**
