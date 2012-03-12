@@ -39,6 +39,8 @@ public class ClientProtocol {
 			return RequestType.YourTurn;
 		else if(tokens[0].equals("gameend"))
 			return RequestType.GameEnd;
+		else if(tokens[0].endsWith("times"))
+			return RequestType.TimeUpdate;
 		
 		return RequestType.Unknown;
 	}
@@ -57,8 +59,8 @@ public class ClientProtocol {
 	 * Creates a request string for toggling gaming ready
 	 * @return request string
 	 */
-	public static String CreateToggleGamingReady() {
-		return "gamingredy";
+	public static String CreateToggleGamingReady(int timeLimit) {
+		return "gamingredy%" + timeLimit;
 	}
 
 	/**
@@ -83,6 +85,11 @@ public class ClientProtocol {
 		return "newmove%" + x +";" + y;
 	}
 
+	/**
+	 * gets the xy cordinates
+	 * @param requestString
+	 * @return
+	 */
 	public static int[] GetXY(String requestString) {
 		String[] tokens = requestString.split("%");
 		tokens = tokens[1].split(";");
@@ -94,7 +101,29 @@ public class ClientProtocol {
 		
 		return outValues;
 	}
+	
+	/**
+	 * gets the times
+	 * @param requestString
+	 * @return
+	 */
+	public static int[] GetTimes(String requestString) {
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		int[] outValues = new int[2];
+		
+		outValues[0] = Integer.parseInt( tokens[0]);
+		outValues[1] = Integer.parseInt( tokens[1]);
+		
+		return outValues;
+	}
 
+	/**
+	 * gets if you won the game
+	 * @param requestString
+	 * @return victory
+	 */
 	public static boolean GetVictory(String requestString) {
 		String[] tokens = requestString.split("%");
 		tokens = tokens[1].split(";");

@@ -69,7 +69,7 @@ public class PlayerConnection extends Thread {
 	 * @param currentPlayer
 	 * @param opponentName
 	 */
-	public void GameStarted(boolean currentPlayer, String opponentName) {
+	public void GameStarted(boolean currentPlayer, String opponentName, int timeLimit) {
 		gamingReady = false;
 		this.Send(ServerProtocol.CreateGameStarted(opponentName, currentPlayer));
 	}
@@ -121,7 +121,7 @@ public class PlayerConnection extends Thread {
 						this.Register(requestString);
 						break;
 					case ToggleRedy:
-						this.gamingCheck();
+						this.gamingCheck(requestString);
 						break;
 					case NewMove:
 						int[] xy = ServerProtocol.GetXY(requestString);
@@ -176,16 +176,17 @@ public class PlayerConnection extends Thread {
 	/**
 	 * Checks for other players to game with
 	 */
-	public void gamingCheck() {
+	public void gamingCheck(String requestString) {
 		if (gamingReady) {
 			gamingReady = false;
 		} else {
 			gamingReady = true;
-
+			int timeLimit = ServerProtocol.GetTimelimit(requestString);
+			
 			synchronized (playerConnectionList) {
 				for (PlayerConnection p : playerConnectionList) {
 					if (p.gamingReady && p != this) {
-						new Game(this, p);
+						new Game(this, p, timeLimit);
 						break;
 					}
 				}
@@ -252,16 +253,29 @@ public class PlayerConnection extends Thread {
 			ArrayList<PlayerConnection> playerList) {
 		playerConnectionList = playerList;
 	}
-
+	
+	/**
+	 * Sends illiegal move notification to client
+	 */
 	public void sendIllegalMove() {
 		this.Send(ServerProtocol.CreateIllegalMove());
 	}
 
+	/**
+	 * Sends the opponents move to client
+	 * @param x
+	 * @param y
+	 */
 	public void sendYourTurn(int x, int y) {
 		this.Send(ServerProtocol.CreateYourTurn(x, y));
 	}
 
+	/**
+	 * Sends end of game notification to client
+	 * @param victory
+	 */
 	public void sendGameEnd(boolean victory) {
+		this.currentGame = null;
 		this.Send(ServerProtocol.CreateGameEnd(victory));
 	}
 
@@ -280,5 +294,14 @@ public class PlayerConnection extends Thread {
 		} else {
 			this.Send(ServerProtocol.CreateLoginFailed());
 		}
+	}
+	
+	/**
+	 * sends time update to client
+	 * @param yourtTime
+	 * @param opponentTime
+	 */
+	public void sendTimeUpdate(int yourtTime, int opponentTime) {
+		this.Send(ServerProtocol.CreateTimeUpdate(yourtTime, opponentTime));
 	}
 }

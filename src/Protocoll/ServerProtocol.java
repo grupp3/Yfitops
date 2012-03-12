@@ -93,7 +93,19 @@ public class ServerProtocol {
 		
 		return outValues;
 	}
-
+	
+	/**
+	 * Gets the time limit from an request string
+	 * @param requestString
+	 * @return time limit
+	 */
+	public static int GetTimelimit(String requestString){
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		return Integer.parseInt( tokens[0]);
+	}
+	
 	/**
 	 * Creates the string for an illegal move notification
 	 * @return request string
@@ -102,12 +114,33 @@ public class ServerProtocol {
 		return "illegalmove";
 	}
 
+	/**
+	 * Creates the string for an your turn notification
+	 * @param x
+	 * @param y
+	 * @return request string
+	 */
 	public static String CreateYourTurn(int x, int y) {
 		return "yourturn%" + x + ";" + y;
 	}
 
+	/**
+	 * Creates the string for an game end notification
+	 * @param victory
+	 * @return request string
+	 */
 	public static String CreateGameEnd(boolean victory) {
 		return "gameend%" + victory;
+	}
+
+	/**
+	 * Creates the string for an time update notification
+	 * @param yourtTime
+	 * @param opponentTime
+	 * @return request string
+	 */
+	public static String CreateTimeUpdate(int yourtTime, int opponentTime) {
+		return "times%" + yourtTime +";" + opponentTime;
 	}
 	
 }

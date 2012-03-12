@@ -8,16 +8,29 @@ import java.util.Random;
  * (då också current player variablen) . Sen ska den kalla på GameStarted på båda playerConectionsen
  */
 
-public class Game {
+public class Game extends Thread {
 	// variables
 	private short[][] gameField;
 	private boolean currentPlayer;
 	private PlayerConnection player1;
 	private PlayerConnection player2;
 	private DBHandler dbHandler;
+	private int timeLimit, timeLeftP1, timeLeftP2;
+	private boolean gameEnd;
 
 	// constructor
-	public Game(PlayerConnection player1, PlayerConnection player2) {
+	/**
+	 * Initilizes the game
+	 * @param player1
+	 * @param player2
+	 * @param timeLimit
+	 */
+	public Game(PlayerConnection player1, PlayerConnection player2, int timeLimit) {
+		this.player1 = player1;
+		this.player2 = player2;
+		this.timeLimit = timeLimit;
+		gameEnd = false;
+		
 		gameField = new short[15][15]; // Creates the gameField
 
 		// Fills all the cells in gameField to the value of 0.
@@ -27,8 +40,12 @@ public class Game {
 
 		dbHandler = DBHandler.getDatabase(); // Gets a reference to the database
 
-		// gamingReady variable of the players are set to false so that the
-		// other players can't reach them.
+		if(timeLimit > 0)
+		{
+			timeLeftP1 = timeLimit * 60;
+			timeLeftP2 = timeLeftP1;
+			this.start();
+		}
 
 		player1.setCurrentGame(this);
 		player2.setCurrentGame(this);
@@ -42,8 +59,8 @@ public class Game {
 			currentPlayer = false;
 
 		// Calls the GameStarted method for every player.
-		player1.GameStarted(currentPlayer, player2.getUserName());
-		player2.GameStarted(!currentPlayer, player1.getUserName());
+		player1.GameStarted(currentPlayer, player2.getUserName(), timeLimit);
+		player2.GameStarted(!currentPlayer, player1.getUserName(), timeLimit);
 	}
 	
 	/**
@@ -81,13 +98,15 @@ public class Game {
 			if(this.VictoryCheck()){
 				activePlayer.sendGameEnd(true);
 				inactivePlayer.sendGameEnd(false);
-				dbHandler.saveGame(activePlayer.getName(), inactivePlayer.getName());
+				dbHandler.saveGame(activePlayer.getName(), inactivePlayer.getName(), timeLimit);
+				gameEnd = true;
 
 			}
 			else if(this.checkBoardFull()){
 				activePlayer.sendGameEnd(false);
 				inactivePlayer.sendGameEnd(true);
-				dbHandler.saveGame(inactivePlayer.getName(), activePlayer.getName());
+				dbHandler.saveGame(inactivePlayer.getName(), activePlayer.getName(), timeLimit);
+				gameEnd = true;
 			}
 			else{
 				inactivePlayer.sendYourTurn(x, y);
@@ -144,6 +163,47 @@ public class Game {
 		}
 
 		return false;
+	}
+	
+	/**
+	 * Keps track of the player times;
+	 */
+	public void run(){
+		try{
+			while(!gameEnd)
+			{
+				Thread.sleep(1000);
+				if(gameEnd)
+					break;
+				
+				if(currentPlayer){
+					timeLeftP1--;
+					if(timeLeftP1 <= 0)
+					{
+						player1.sendGameEnd(false);
+						player2.sendGameEnd(true);
+						dbHandler.saveGame(player2.getName(), player1.getName(), timeLimit);
+						gameEnd = true;
+						break;
+					}
+				}
+				else{
+					timeLeftP2--;
+					if(timeLeftP2 <= 0)
+					{
+						player2.sendGameEnd(false);
+						player1.sendGameEnd(true);
+						dbHandler.saveGame(player1.getName(), player2.getName(), timeLimit);
+						gameEnd = true;
+						break;
+					}
+				}
+				
+				player1.sendTimeUpdate(timeLeftP1, timeLeftP2);
+				player2.sendTimeUpdate(timeLeftP2, timeLeftP1);
+			}
+		}catch(InterruptedException e)
+		{}
 	}
 
 	/**

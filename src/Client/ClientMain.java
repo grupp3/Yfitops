@@ -138,10 +138,10 @@ public class ClientMain {
 	 * NOT IMPLEMENTED YET catching the IOException
 	 * 
 	 * @author Jeanie
-	 * 
+	 * @param timeLimit
 	 */
-	public void ToggleGamingReady() {
-		String gameReady = ClientProtocol.CreateToggleGamingReady();
+	public void ToggleGamingReady(int timeLimit) {
+		String gameReady = ClientProtocol.CreateToggleGamingReady(timeLimit);
 		sendRequest(gameReady);
 
 	}

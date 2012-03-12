@@ -151,10 +151,12 @@ public class DBHandler {
 	 *            the username of the winner
 	 * @param loser
 	 *            the username of the looser
+	 * @param timeLimit
+	 * 			  the time limit in minutes for the game
 	 * @return gameSaved true if the game is saved successfully false otherwise
 	 * @author Jeanie
 	 */
-	public boolean saveGame(String winner, String loser) {
+	public boolean saveGame(String winner, String loser, int timeLimit) {
 		boolean gameSaved = false;
 		PreparedStatement statement = null;
 		int count = 0;

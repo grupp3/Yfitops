@@ -19,15 +19,15 @@ public class GameTest {
 
 	@Test
 	public void ToggleGameingRedyRequestStringTest() {
-		String requestString = ClientProtocol.CreateToggleGamingReady();
+		String requestString = ClientProtocol.CreateToggleGamingReady(3);
 		
-		assertEquals("gamingredy", requestString);
+		assertEquals("gamingredy%3", requestString);
 	}
 	
 	@Test
 	public void ToggleGameingRedyCorrectRequestType()
 	{
-		String requestString = ClientProtocol.CreateToggleGamingReady();
+		String requestString = ClientProtocol.CreateToggleGamingReady(7);
 		RequestType requestType = ServerProtocol.GetRequestType(requestString);
 		
 		assertEquals(RequestType.ToggleRedy, requestType);

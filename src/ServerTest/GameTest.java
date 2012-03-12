@@ -22,7 +22,7 @@ public class GameTest {
 	public void ConstruktorExceptionTest() throws UnknownHostException, IOException {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 							  	,{1,1,0,0,0,1,1,1,2}
@@ -53,7 +53,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2, 0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 							  	,{1,1,0,0,0,1,1,1,2}
@@ -76,7 +76,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 							  	,{1,1,0,0,1,1,1,1,2}
@@ -99,7 +99,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 							  	,{1,1,0,0,0,1,1,1,2}
@@ -123,7 +123,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 							  	,{1,1,0,0,0,1,1,1,2}
@@ -147,7 +147,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,2,2,2,2,1,1,1}
 							  	,{1,1,2,1,1,1,1,1,2}
@@ -170,7 +170,7 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
-		Server.Game game = new Server.Game(player1, player2);
+		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
 							  	,{1,1,0,1,1,1,1,1,2}
