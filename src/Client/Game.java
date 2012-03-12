@@ -29,11 +29,13 @@ public class Game extends JFrame {
 	private JTable table;
 	JButton[][] buttonArray;
 	private ActionListener ActionListener;
+	private GUIHandler mGUIHandler;
 
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -44,12 +46,14 @@ public class Game extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public Game() {
+	public Game(GUIHandler guiHandler){
+		mGUIHandler = guiHandler;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 520, 570);
 		contentPane = new JPanel();
