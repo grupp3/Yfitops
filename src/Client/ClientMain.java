@@ -113,6 +113,7 @@ public class ClientMain {
 				else
 					opponentStarting = false;
 				clientMain.guiHandler.NewGame(params[0], opponentStarting);
+				break;
 			default:
 				System.out.println("Unknown message from server");
 				break;

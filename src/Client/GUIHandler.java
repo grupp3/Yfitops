@@ -217,8 +217,7 @@ public class GUIHandler {
 
 
 	public void NewGame(String string, boolean opponentStarting) {
-		// TODO Auto-generated method stub
-		
+		this.Show(Enum_Window.Game);
 	}
 
 	public void makeMove(int x, int y) {
