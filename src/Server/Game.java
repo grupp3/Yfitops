@@ -52,7 +52,7 @@ public class Game {
 	 * @param x
 	 * @param y
 	 */
-	public void NewMove(String userName, int x, int y){
+	public synchronized void NewMove(String userName, int x, int y){
 		if(userName.equals(player1.getUserName())){
 			if(currentPlayer){
 				System.out.println("preGameCheck");

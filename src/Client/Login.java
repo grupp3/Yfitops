@@ -63,8 +63,8 @@ public class Login extends JFrame {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends login data to the GUIHandler
+				System.out.println("klicka Login!");
 				loginButtonPressedHelpMethod();
-				dispose();
 			}
 		});
 		btnLogin.setBounds(10, 138, 170, 23);
@@ -74,7 +74,6 @@ public class Login extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	//Sends register data to the GUIHandler
 				registerButtonPressedHelpMethod();
-				dispose();
 			}
 		});
 		btnRegister.setBounds(204, 138, 170, 23);
@@ -97,9 +96,8 @@ public class Login extends JFrame {
 	 */
 	private void loginButtonPressedHelpMethod() {
 		String userName = textFieldUsername.getText();
-		String password = passwordField.getName();
-		GUIHandler.LoginUser(userName, password);
-		mGUIHandler.setVisible(true);
+		String password = new String( passwordField.getPassword());
+		mGUIHandler.LoginUser(userName, password);
 	}
 	/**
 	 * Helpmethod for registerButton
@@ -107,9 +105,7 @@ public class Login extends JFrame {
 	private void registerButtonPressedHelpMethod() {
 		String UserName = textFieldUsername.getText();
 		String Password = passwordField.getName();
-		GUIHandler.RegisterUser(UserName, Password);
-		mGUIHandler.setVisible(true);
-		mGUIHandler.setEnabled(true);
+		mGUIHandler.RegisterUser(UserName, Password);
 	}
 }
 

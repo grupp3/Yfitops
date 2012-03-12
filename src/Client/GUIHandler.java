@@ -14,20 +14,31 @@ import java.io.IOException;
 import Protocoll.ClientProtocol;
 
 
-public class GUIHandler extends JFrame {
+public class GUIHandler {
 
-	private JPanel contentPane;
-	public JButton btnLobby;
-	public JButton btnHistory;
-	public JButton btnGame;
-	public JButton btnHighScore;
 	private ClientMain mConnection;
+	private Login login;
+	private Game game;
+	private Lobby lobby;
+	private HighScore highScore;
+	private History history;
 	
 	/**
 	 * Create the frame.
 	 */
 	public GUIHandler(ClientMain connection) {
+		mConnection = connection;
+		
+		this.login = new Login(this);
+		this.game = new Game(this);
+		this.lobby = new Lobby(this);
+		this.highScore = new HighScore(this);
+		this.history = new History(this);
+		this.hideAllWindows();
+		this.Show(Enum_Window.Login);
+		
 		//setEnabled(false);
+		/*
 		connection = mConnection;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -81,6 +92,7 @@ public class GUIHandler extends JFrame {
 		});
 		btnHighScore.setBounds(10, 147, 130, 23);
 		contentPane.add(btnHighScore);
+		*/
 	}
 
 	
@@ -100,37 +112,39 @@ public class GUIHandler extends JFrame {
 		switch(window){
 		
 		case Login: 
-			Login loginWin = new Login(this);
-			loginWin.setVisible(true);
-			dispose();
+			hideAllWindows();
+			login.setVisible(true);
 			break;
 			
 		case Lobby:
-			Lobby lobbyWin = new Lobby(this);
-			lobbyWin.setVisible(true);
-			dispose();
+			hideAllWindows();
+			lobby.setVisible(true);
 			break;
 			
 		case Game:
-			Game gameWin = new Game(this);
-			gameWin.setVisible(true);
-			dispose();
+			hideAllWindows();
+			game.setVisible(true);
 			break;
 		
 		case History:
-			History historyWin = new History(this);
-			historyWin.setVisible(true);
-			dispose();
+			hideAllWindows();
+			history.setVisible(true);
 			break;
 			
 		case Highscore:
-			HighScore frame = new HighScore(this);
-			frame.setVisible(true);
-			dispose();
+			hideAllWindows();
+			highScore.setVisible(true);
 			break;
 		}			
 	}
 	
+	private void hideAllWindows(){
+		login.setVisible(false);
+		game.setVisible(false);
+		lobby.setVisible(false);
+		highScore.setVisible(false);
+		history.setVisible(false);
+	}
 	/**
 	 * NOT IMPLEMENTED YET
 	 */
@@ -158,14 +172,16 @@ public class GUIHandler extends JFrame {
 	/**
 	 * Sends login information to ClientMain
 	 */
-	public static void LoginUser(String userName, String password) {
+	public void LoginUser(String userName, String password) {
 		
-		ClientMain.loginUsr(userName, password);
+		mConnection.loginUsr(userName, password);
 	}
 	
 	public void LoginFailed(){
-		
-		
+		JOptionPane optionPane = new JOptionPane("The password didn't match the username!", JOptionPane.INFORMATION_MESSAGE);
+		JDialog popup = optionPane.createDialog(null, "Login failed");
+		popup.setModal(true);
+		popup.setVisible(true);
 	}
 
 	/**
@@ -174,14 +190,9 @@ public class GUIHandler extends JFrame {
 	 * @param password
 	 * @author Pernilla
 	 */
-	public static void RegisterUser(String userName, String password) {
+	public void RegisterUser(String userName, String password) {
 		String FromProtocol = ClientProtocol.CreateRegister(userName, password);
-		try {
-			ClientMain.sendRequest(FromProtocol);
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
+		mConnection.sendRequest(FromProtocol);
 //		int lenght;
 //		
 //		lenght = userName.length();
@@ -242,7 +253,7 @@ public class GUIHandler extends JFrame {
 		popup.setModal(true);
 		popup.setVisible(true);
 		//switchToLogin();
-		Show(Enum_Window.Login);
+		//Show(Enum_Window.Login);
 	}
 	/**
 	 * Shows a popup window 
@@ -253,8 +264,8 @@ public class GUIHandler extends JFrame {
 	 * @author Jeanie
 	 */
 	 public void login() {
-		JOptionPane optionPane = new JOptionPane("Welcome, you are now registered", JOptionPane.INFORMATION_MESSAGE);
-		JDialog popup = optionPane.createDialog(null, "Registration success");
+		JOptionPane optionPane = new JOptionPane("Welcome", JOptionPane.INFORMATION_MESSAGE);
+		JDialog popup = optionPane.createDialog(null, "Login success");
 		popup.setModal(true);
 		popup.setVisible(true);
 		//switchToLobby();

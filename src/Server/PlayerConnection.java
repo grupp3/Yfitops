@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class PlayerConnection extends Thread {
 	private DBHandler dbHandler;
 	private boolean gamingReady;
 	private BufferedReader dataInputStream;
-	private DataOutputStream dataOutputStream;
+	private PrintWriter dataOutputStream;
 	private String userName ;
 	private Game currentGame =  null;
 
@@ -30,7 +31,6 @@ public class PlayerConnection extends Thread {
 		playerConnectionList = connectionList;
 		dbHandler = DBHandler.getDatabase();
 		userName = "";
-		
 		setUpStreams();
 		this.start();
 	}
@@ -43,7 +43,10 @@ public class PlayerConnection extends Thread {
 	public void setUpStreams() throws IOException {
 		dataInputStream = new BufferedReader(new InputStreamReader(
 				socket.getInputStream()));
-		dataOutputStream = new DataOutputStream(socket.getOutputStream());
+		dataOutputStream = new PrintWriter(socket.getOutputStream(), true);
+		
+		//PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+		//BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 	}
 
 	/**
@@ -77,9 +80,9 @@ public class PlayerConnection extends Thread {
 	 *            , the request to be sent to client
 	 * @throws IOException
 	 */
-	public void Send(String message) {
+	public synchronized void Send(String message) {
 		try {
-			dataOutputStream.writeUTF(message);
+			dataOutputStream.println(message);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,13 +98,14 @@ public class PlayerConnection extends Thread {
 	 * @throws IOException
 	 * @throws UnknownHostException
 	 */
-	public void run(String[] args) throws IOException, UnknownHostException {
+	public void run(){
 		String requestString;
 		RequestType requestType;
-
+		System.out.println("running ");
 		try {
-			while (true) {
-				requestString = dataInputStream.readLine();
+			while ((requestString = dataInputStream.readLine()) != null){
+				System.out.println("Got stuff: " + requestString);
+				
 				requestType = ServerProtocol.GetRequestType(requestString);
 
 				if (userName != "" || requestType == RequestType.LoggingIn
@@ -232,7 +236,7 @@ public class PlayerConnection extends Thread {
 	 * @param testDB
 	 */
 	public void addTestDataWriter(OutputStream testOS) {
-		dataOutputStream = new DataOutputStream(testOS);
+		//dataOutputStream = new DataOutputStream(testOS);
 	}
 	
 	/**

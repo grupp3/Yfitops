@@ -23,7 +23,7 @@ public class GUIHandlerTest {
 	@Test
 	public void Change_GUI_window_to_Lobby(){
 		GUIHandler changetolobby = new GUIHandler(mClientMain);
-		changetolobby.btnLobby.doClick();
+		changetolobby.login();
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class GUIHandlerTest {
 	@Test
 	public void Change_GUI_window_to_History(){
 		GUIHandler changetohistory = new GUIHandler(mClientMain);
-		changetohistory.btnHistory.doClick();
+		changetohistory.HistorySwitch();
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class GUIHandlerTest {
 	@Test
 	public void Change_GUI_window_to_HighScore(){
 		GUIHandler changetohighscore = new GUIHandler(mClientMain);
-		changetohighscore.btnHighScore.doClick();
+		changetohighscore.HighscoreSwitch();
 	}
 	
 	/**
@@ -50,6 +50,6 @@ public class GUIHandlerTest {
 	@Test
 	public void Change_GUI_window_to_Game(){
 		GUIHandler changetogame = new GUIHandler(mClientMain);
-		changetogame.btnGame.doClick();
+		changetogame.NewGame("Göran", true);
 	}
 }
