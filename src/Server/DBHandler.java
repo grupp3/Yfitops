@@ -116,6 +116,7 @@
 		 * @param userName
 		 * @param password
 		 * @return false if the user already exists or another error
+		 * @author Pernilla
 		 */
 		public boolean registerUser(String userName, String password) {
 			boolean success = false;
