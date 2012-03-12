@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
@@ -122,7 +124,7 @@ public class Game extends JFrame {
 																		// button
 																		// was
 																		// clicked
-						int x, y;
+						int x=0, y=0;
 
 						for (int i = 0; i < 15; i++)
 							for (int j = 0; j < 15; j++) {
@@ -134,6 +136,7 @@ public class Game extends JFrame {
 							}
 
 						// HERE CALL THE METHOD MakeMove() on GUIHandler
+						mGUIHandler.makeMove(x, y);
 					}
 
 				});
