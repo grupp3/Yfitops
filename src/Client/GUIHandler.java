@@ -22,6 +22,7 @@ public class GUIHandler {
 	private Lobby lobby;
 	private HighScore highScore;
 	private History history;
+	private String userName;
 	
 	/**
 	 * Create the frame.
@@ -36,67 +37,15 @@ public class GUIHandler {
 		this.history = new History(this);
 		this.hideAllWindows();
 		this.Show(Enum_Window.Login);
-		
-		//setEnabled(false);
-		/*
-		connection = mConnection;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JButton btnNewButton = new JButton("Login");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Show(Enum_Window.Login);
-			}
-		});
-		btnNewButton.setBounds(10, 11, 130, 23);
-		contentPane.add(btnNewButton);
-		
-		btnLobby = new JButton("Lobby");
-		btnLobby.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Show(Enum_Window.Lobby);
-			}
-		});
-		btnLobby.setBounds(10, 45, 130, 23);
-		contentPane.add(btnLobby);
-		
-		btnGame = new JButton("Game");
-		btnGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Show(Enum_Window.Game);
-			}
-		});
-		btnGame.setBounds(10, 79, 130, 23);
-		contentPane.add(btnGame);
-		
-		btnHistory = new JButton("History");
-		btnHistory.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Show(Enum_Window.History);
-			}
-		});
-		btnHistory.setBounds(10, 113, 130, 23);
-		contentPane.add(btnHistory);
-		
-		btnHighScore = new JButton("High Score");
-		
-		btnHighScore.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Show(Enum_Window.Highscore);
-			}
-		});
-		btnHighScore.setBounds(10, 147, 130, 23);
-		contentPane.add(btnHighScore);
-		*/
 	}
-
 	
-	
+	/**
+	 * getter
+	 * @return username
+	 */
+	public String getUserName(){
+		return this.userName;
+	}
 	/**
 	 * Shows the window that
 	 * is sent into the method
@@ -175,6 +124,7 @@ public class GUIHandler {
 	public void LoginUser(String userName, String password) {
 		
 		mConnection.loginUsr(userName, password);
+		this.userName = userName;
 	}
 	
 	public void LoginFailed(){
@@ -264,7 +214,7 @@ public class GUIHandler {
 	 * @author Jeanie
 	 */
 	 public void login() {
-		JOptionPane optionPane = new JOptionPane("Welcome", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane optionPane = new JOptionPane("Welcome "+ this.userName, JOptionPane.INFORMATION_MESSAGE);
 		JDialog popup = optionPane.createDialog(null, "Login success");
 		popup.setModal(true);
 		popup.setVisible(true);

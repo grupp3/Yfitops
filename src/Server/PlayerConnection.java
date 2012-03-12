@@ -22,8 +22,8 @@ public class PlayerConnection extends Thread {
 	private boolean gamingReady;
 	private BufferedReader dataInputStream;
 	private PrintWriter dataOutputStream;
-	private String userName ;
-	private Game currentGame =  null;
+	private String userName;
+	private Game currentGame = null;
 
 	public PlayerConnection(Socket clientSocket,
 			ArrayList<PlayerConnection> connectionList) throws IOException {
@@ -44,9 +44,11 @@ public class PlayerConnection extends Thread {
 		dataInputStream = new BufferedReader(new InputStreamReader(
 				socket.getInputStream()));
 		dataOutputStream = new PrintWriter(socket.getOutputStream(), true);
-		
-		//PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-		//BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+
+		// PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),
+		// true);
+		// BufferedReader in = new BufferedReader(new
+		// InputStreamReader(clientSocket.getInputStream()));
 	}
 
 	/**
@@ -63,6 +65,7 @@ public class PlayerConnection extends Thread {
 
 	/**
 	 * Sends the game started notification to the klient
+	 * 
 	 * @param currentPlayer
 	 * @param opponentName
 	 */
@@ -98,19 +101,19 @@ public class PlayerConnection extends Thread {
 	 * @throws IOException
 	 * @throws UnknownHostException
 	 */
-	public void run(){
+	public void run() {
 		String requestString;
 		RequestType requestType;
 		System.out.println("running ");
 		try {
-			while ((requestString = dataInputStream.readLine()) != null){
+			while ((requestString = dataInputStream.readLine()) != null) {
 				System.out.println("Got stuff: " + requestString);
-				
+
 				requestType = ServerProtocol.GetRequestType(requestString);
 
 				if (userName != "" || requestType == RequestType.LoggingIn
 						|| requestType == RequestType.Register) {
-					
+
 					switch (requestType) {
 					case Unknown:
 						break;
@@ -121,9 +124,9 @@ public class PlayerConnection extends Thread {
 						this.gamingCheck();
 						break;
 					case NewMove:
-					 int[] xy =ServerProtocol.GetXY(requestString);
-					 this.currentGame.NewMove(userName, xy[0], xy[1]);
-					 break;
+						int[] xy = ServerProtocol.GetXY(requestString);
+						this.currentGame.NewMove(userName, xy[0], xy[1]);
+						break;
 					case LoggingIn:
 						this.login(requestString);
 						break;
@@ -143,15 +146,16 @@ public class PlayerConnection extends Thread {
 	public String getUserName() {
 		return userName;
 	}
-	
+
 	/**
 	 * setter
+	 * 
 	 * @param currentGame
 	 */
-	public void setCurrentGame(Game currentGame){
-		this.currentGame = currentGame; 
+	public void setCurrentGame(Game currentGame) {
+		this.currentGame = currentGame;
 	}
-	
+
 	/**
 	 * setter
 	 * 
@@ -160,7 +164,7 @@ public class PlayerConnection extends Thread {
 	public void setGamingRedy(boolean gamingReady) {
 		this.gamingReady = gamingReady;
 	}
-	
+
 	/**
 	 * getter
 	 * 
@@ -168,20 +172,19 @@ public class PlayerConnection extends Thread {
 	public boolean getGamingRedy() {
 		return gamingReady;
 	}
-	
+
 	/**
 	 * Checks for other players to game with
 	 */
-	public void gamingCheck(){
-		if(gamingReady){
+	public void gamingCheck() {
+		if (gamingReady) {
 			gamingReady = false;
-		}
-		else{
+		} else {
 			gamingReady = true;
-			
-			synchronized(playerConnectionList){
-				for(PlayerConnection p : playerConnectionList){
-					if(p.gamingReady && p != this){
+
+			synchronized (playerConnectionList) {
+				for (PlayerConnection p : playerConnectionList) {
+					if (p.gamingReady && p != this) {
 						new Game(this, p);
 						break;
 					}
@@ -189,7 +192,7 @@ public class PlayerConnection extends Thread {
 			}
 		}
 	}
-	
+
 	/**
 	 * Tries to register the user and handles the result
 	 * 
@@ -212,7 +215,8 @@ public class PlayerConnection extends Thread {
 	public PlayerConnection() {
 
 		try {
-			socket = new Socket("localhost", 19345); //lägger till argument i konstruktorn - Niklas
+			socket = new Socket("localhost", 19345); // lägger till argument i
+														// konstruktorn - Niklas
 			userName = "";
 			this.setUpStreams();
 		} catch (IOException e) {
@@ -229,22 +233,23 @@ public class PlayerConnection extends Thread {
 	public void addTestDBHandler(DBHandler testDB) {
 		dbHandler = testDB;
 	}
-	
+
 	/**
 	 * Just for testing
 	 * 
 	 * @param testDB
 	 */
 	public void addTestDataWriter(OutputStream testOS) {
-		//dataOutputStream = new DataOutputStream(testOS);
+		// dataOutputStream = new DataOutputStream(testOS);
 	}
-	
+
 	/**
 	 * Just for testing
 	 * 
 	 * @param playerList
 	 */
-	public void addTestPlayerConnectionList(ArrayList<PlayerConnection> playerList){
+	public void addTestPlayerConnectionList(
+			ArrayList<PlayerConnection> playerList) {
 		playerConnectionList = playerList;
 	}
 
@@ -259,19 +264,21 @@ public class PlayerConnection extends Thread {
 	public void sendGameEnd(boolean victory) {
 		this.Send(ServerProtocol.CreateGameEnd(victory));
 	}
-	/**	
-   * Tries to login the player with the specified requeststring	
-   * @param requestString - The string with the login-info
-   */
-	
-  private void login(String requestString) {
-    String[] data = ServerProtocol.GetUsernamePassword(requestString);
-    if(dbHandler.loginCheck(data[0], data[1])){
-    this.Send(ServerProtocol.CreateLoggedIn());
-    this.userName = data[0];
-    } else{
-    this.Send(ServerProtocol.CreateLoginFailed());
-   }
-	
-  }
+
+	/**
+	 * Tries to login the player with the specified requeststring
+	 * 
+	 * @param requestString
+	 *            - The string with the login-info
+	 */
+
+	private void login(String requestString) {
+		String[] data = ServerProtocol.GetUsernamePassword(requestString);
+		if (dbHandler.loginCheck(data[0], data[1])) {
+			this.Send(ServerProtocol.CreateLoggedIn());
+			this.userName = data[0];
+		} else {
+			this.Send(ServerProtocol.CreateLoginFailed());
+		}
+	}
 }
