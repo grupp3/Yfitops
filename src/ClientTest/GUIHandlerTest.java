@@ -3,6 +3,8 @@ package ClientTest;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import Client.ClientMain;
 import Client.GUIHandler;
 
 /**
@@ -13,12 +15,14 @@ import Client.GUIHandler;
 
 public class GUIHandlerTest {
 	
+	private ClientMain mClientMain;
+	
 	/**
 	 * testing Lobby access
 	 */
 	@Test
 	public void Change_GUI_window_to_Lobby(){
-		GUIHandler changetolobby = new GUIHandler();
+		GUIHandler changetolobby = new GUIHandler(mClientMain);
 		changetolobby.btnLobby.doClick();
 	}
 	
@@ -27,7 +31,7 @@ public class GUIHandlerTest {
 	 */
 	@Test
 	public void Change_GUI_window_to_History(){
-		GUIHandler changetohistory = new GUIHandler();
+		GUIHandler changetohistory = new GUIHandler(mClientMain);
 		changetohistory.btnHistory.doClick();
 	}
 	
@@ -36,7 +40,7 @@ public class GUIHandlerTest {
 	 */
 	@Test
 	public void Change_GUI_window_to_HighScore(){
-		GUIHandler changetohighscore = new GUIHandler();
+		GUIHandler changetohighscore = new GUIHandler(mClientMain);
 		changetohighscore.btnHighScore.doClick();
 	}
 	
@@ -45,7 +49,7 @@ public class GUIHandlerTest {
 	 */
 	@Test
 	public void Change_GUI_window_to_Game(){
-		GUIHandler changetogame = new GUIHandler();
+		GUIHandler changetogame = new GUIHandler(mClientMain);
 		changetogame.btnGame.doClick();
 	}
 }

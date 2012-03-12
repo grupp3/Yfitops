@@ -57,7 +57,7 @@ public class ClientProtocol {
 	 * Creates a request string for toggling gaming ready
 	 * @return request string
 	 */
-	public static String CreateToggleGamingRedy() {
+	public static String CreateToggleGamingReady() {
 		return "gamingredy";
 	}
 

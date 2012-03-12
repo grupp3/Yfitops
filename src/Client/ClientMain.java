@@ -80,12 +80,13 @@ public class ClientMain {
 		try {
 			final ClientMain clientMain = new ClientMain();
 
-			clientMain.guiHandler = new GUIHandler();
+			clientMain.guiHandler = new GUIHandler(clientMain);
 			clientMain.guiHandler.setVisible(false);
+			
+			clientMain.guiHandler.Show(Enum_Window.Login);
 
-			Login frame2 = new Login();
-			frame2.setVisible(true);
-
+			/*Login frame2 = new Login();
+			frame2.setVisible(true);*/
 			clientMain.socket = new Socket(HOSTADRESS, PORT); // Creates a
 																// socket to
 																// communicate
@@ -149,10 +150,28 @@ public class ClientMain {
 	 * @param password
 	 */
 	public static void loginUsr(String userName, String password) {
-		String FromeCreateLogin = ClientProtocol.CreateLogin(userName, password);
+		// TODO Auto-generated method stub
+
+	}
+
+	/**
+	 * fetches the gameReady string from 
+	 * clientProtocol
+	 * sends the string to the server
+	 * 
+	 * NOT IMPLEMENTED YET
+	 * 					  catching the IOException	
+	 * 
+	 * @author Jeanie
+	 * 
+	 */
+	public void ToggleGamingReady() {
+		 
+		String gameReady = ClientProtocol.CreateToggleGamingReady();
 		try {
-			sendRequest(FromeCreateLogin);
+			sendRequest(gameReady);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

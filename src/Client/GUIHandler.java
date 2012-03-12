@@ -1,19 +1,18 @@
 package Client;
 
-import java.awt.EventQueue;
 
+import java.awt.EventQueue;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
-
-import Protocoll.ClientProtocol;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import Protocoll.ClientProtocol;
+
 
 public class GUIHandler extends JFrame {
 
@@ -22,14 +21,14 @@ public class GUIHandler extends JFrame {
 	public JButton btnHistory;
 	public JButton btnGame;
 	public JButton btnHighScore;
-
-	
+	private ClientMain mConnection;
 	
 	/**
 	 * Create the frame.
 	 */
-	public GUIHandler() {
+	public GUIHandler(ClientMain connection) {
 		//setEnabled(false);
+		connection = mConnection;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -40,9 +39,8 @@ public class GUIHandler extends JFrame {
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Login frame = new Login();
-				frame.setVisible(true);
-				dispose();
+				//switchToLogin();
+				Show(Enum_Window.Login);
 			}
 		});
 		btnNewButton.setBounds(10, 11, 130, 23);
@@ -51,9 +49,8 @@ public class GUIHandler extends JFrame {
 		btnLobby = new JButton("Lobby");
 		btnLobby.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Lobby frame = new Lobby();
-				frame.setVisible(true);
-				dispose();
+				//switchToLobby();
+				Show(Enum_Window.Lobby);
 			}
 		});
 		btnLobby.setBounds(10, 45, 130, 23);
@@ -62,9 +59,8 @@ public class GUIHandler extends JFrame {
 		btnGame = new JButton("Game");
 		btnGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Game frame = new Game();
-				frame.setVisible(true);
-				dispose();
+				//switchToGame();
+				Show(Enum_Window.Game);
 			}
 		});
 		btnGame.setBounds(10, 79, 130, 23);
@@ -73,33 +69,64 @@ public class GUIHandler extends JFrame {
 		btnHistory = new JButton("History");
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				History frame = new History();
-				frame.setVisible(true);
-				dispose();
+				//switchToHistory();
+				Show(Enum_Window.History);
 			}
 		});
 		btnHistory.setBounds(10, 113, 130, 23);
 		contentPane.add(btnHistory);
 		
 		btnHighScore = new JButton("High Score");
+		
 		btnHighScore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				HighScore frame = new HighScore();
-				frame.setVisible(true);
-				dispose();
+				//switchToHighscore();
+				Show(Enum_Window.Highscore);
 			}
 		});
 		btnHighScore.setBounds(10, 147, 130, 23);
 		contentPane.add(btnHighScore);
 	}
 
+	/*
 
+	public void switchToGame() {
+		Game frame = new Game(this);
+		frame.setVisible(true);
+		dispose();
+	}
+	
+	public void switchToLogin() {
+		Login frame = new Login(this);
+		frame.setVisible(true);
+		dispose();
+	}
+	
+	public void switchToLobby() {
+		Lobby frame = new Lobby(this);
+		frame.setVisible(true);
+		dispose();
+	}
+	
+	public void switchToHighscore() {
+		HighScore frame = new HighScore(this);
+		frame.setVisible(true);
+		dispose();
+	}
+	
+	public void switchToHistory() {
+		History frame = new History(this);
+		frame.setVisible(true);
+		dispose();
+	}
+	*/
+	
 	/**
 	 * NOT IMPLEMENTED YET
 	 * 
 	 * @param Enum_window
 	 */
-	public void Show(Object Enum_window){
+	public void Show(Enum_Window window){
 		
 	}
 	
@@ -112,8 +139,14 @@ public class GUIHandler extends JFrame {
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * Calls the ToggelGamingReady method 
+	 * in ClientMain class
+	 * 
+	 * @author Jeanie
+	 */
 	public void ToggleGamingReady() {
-		// TODO Auto-generated method stub	
+		mConnection.ToggleGamingReady();
 	}
 
 	/**
@@ -202,9 +235,8 @@ public class GUIHandler extends JFrame {
 		JDialog popup = optionPane.createDialog(null, "Registration failure");
 		popup.setModal(true);
 		popup.setVisible(true);
-		Login frame = new Login();
-		frame.setVisible(true);
-		dispose();
+		//switchToLogin();
+		Show(Enum_Window.Login);
 	}
 	/**
 	 * Shows a popup window 
@@ -219,9 +251,8 @@ public class GUIHandler extends JFrame {
 		JDialog popup = optionPane.createDialog(null, "Registration success");
 		popup.setModal(true);
 		popup.setVisible(true);
-		Lobby frame = new Lobby();
-		frame.setVisible(true);
-		dispose();
+		//switchToLobby();
+		Show(Enum_Window.Lobby);
 	}
 
 

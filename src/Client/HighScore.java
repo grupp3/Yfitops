@@ -42,7 +42,7 @@ public class HighScore extends JFrame {
 	 * 				  correct method to call 
 	 *				  in GUIHandler class must be implemented
 	 */
-	public HighScore() {
+	public HighScore(GUIHandler guiHandler) {
 		setResizable(false);
 		
 		//creates the windowframe
@@ -55,7 +55,7 @@ public class HighScore extends JFrame {
 		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		
-		mGUIHandler = new GUIHandler();
+		mGUIHandler = guiHandler;
 		
 		//creates the table
 		highscoreTable = new JTable(mGUIHandler.InsertHighScore(), columnNames);
@@ -70,10 +70,8 @@ public class HighScore extends JFrame {
 		//METHOD TO COMPLETE
 		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				GUIHandler frame = new GUIHandler();
-				frame.setVisible(true);
+				mGUIHandler.Show(Enum_Window.Lobby); 
 				dispose();
-				//mGUIHandler.Show(Lobby);
 			}
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
