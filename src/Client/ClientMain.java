@@ -94,8 +94,8 @@ public class ClientMain {
 																// server
 
 			// Launches the application.
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
+			//EventQueue.invokeLater(new Runnable() {
+				//public void run() {
 					RequestType requestType;
 					while (true) {
 						try {
@@ -133,9 +133,9 @@ public class ClientMain {
 							e.printStackTrace();
 						}
 					}
-				}
+				
 
-			});
+			//});
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
