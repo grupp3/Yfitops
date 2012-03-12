@@ -116,6 +116,13 @@ public class PlayerConnection extends Thread {
 					case ToggleRedy:
 						this.gamingCheck();
 						break;
+					case NewMove:
+					 int[] xy =ServerProtocol.GetXY(requestString);
+					 this.currentGame.NewMove(userName, xy[0], xy[1]);
+					 break;
+					case LoggingIn:
+						this.login(requestString);
+						break;
 					}
 				}
 			}
@@ -199,9 +206,10 @@ public class PlayerConnection extends Thread {
 	 * Empty constructor just for testing
 	 */
 	public PlayerConnection() {
-		socket = new Socket();
-		userName = "";
+
 		try {
+			socket = new Socket("localhost", 19345); //lägger till argument i konstruktorn - Niklas
+			userName = "";
 			this.setUpStreams();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -247,4 +255,19 @@ public class PlayerConnection extends Thread {
 	public void sendGameEnd(boolean victory) {
 		this.Send(ServerProtocol.CreateGameEnd(victory));
 	}
+	/**	
+   * Tries to login the player with the specified requeststring	
+   * @param requestString - The string with the login-info
+   */
+	
+  private void login(String requestString) {
+    String[] data = ServerProtocol.GetUsernamePassword(requestString);
+    if(dbHandler.loginCheck(data[0], data[1])){
+    this.Send(ServerProtocol.CreateLoggedIn());
+    this.userName = data[0];
+    } else{
+    this.Send(ServerProtocol.CreateLoginFailed());
+   }
+	
+  }
 }

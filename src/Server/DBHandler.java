@@ -116,6 +116,7 @@
 		 * @param userName
 		 * @param password
 		 * @return false if the user already exists or another error
+		 * @author Pernilla
 		 */
 		public boolean registerUser(String userName, String password) {
 			boolean success = false;
@@ -212,6 +213,35 @@
 			}
 			return gameSaved ;
 		}
+		/**
+	 	 * Checks the DB for matching user/pass
+	 	 * @param userName - the user to login
+	 	 * @param password - the password associated with the user
+	 	 * @return true if login succeeded, otherwise false
+	 	 */
+	 	 public boolean loginCheck(String userName, String password){
+	 		 if(userName != null && password.trim() != "" && password == getPassword(userName))
+	 	     return true;
+	 	  
+	 	     return false;  
+	 	  }
+	 	/**
+	 	  * gets the password for the specified user
+	 	  * @param userName - The user associated with the password
+	 	  * @return - The password of the user if the user exists. Otherwise, or upon sqlexception, an empty string.
+	 	  */
+	 	   private String getPassword(String userName){
+	 	    try {
+	 	     Statement statement = mConnection.createStatement();
+	 	     ResultSet resultSet = statement.executeQuery("SELECT " + COLUMN_PLAYER_USER_PASSWORD + 
+	 	     "FROM " + TABLE_PLAYER + " WHERE " + COLUMN_PLAYER_NAME + "=" + userName);
+	 	     if(!resultSet.first())
+	 	     return "";
+	 	     return resultSet.getString(COLUMN_PLAYER_USER_PASSWORD);
+	 	     } catch (SQLException e) {
+	 	     return "";
+	 	     }
+	 	     }
 		
 		/**
 		 * main method that launches the application

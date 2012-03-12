@@ -166,6 +166,7 @@ public class GUIHandler extends JFrame {
 	 * Register a new player with new username and password
 	 * @param userName
 	 * @param password
+	 * @author Pernilla
 	 */
 	public static void RegisterUser(String userName, String password) {
 		String FromProtocol = ClientProtocol.CreateRegister(userName, password);
