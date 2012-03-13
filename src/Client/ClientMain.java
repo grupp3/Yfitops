@@ -116,6 +116,21 @@ public class ClientMain {
 					opponentStarting = false;
 				clientMain.guiHandler.NewGame(params[0], opponentStarting);
 				break;
+			case YourTurn:
+				int[] xy = ClientProtocol.GetXY(requestString);
+				clientMain.guiHandler.yourMove(xy[0], xy[1]);
+				break;
+			case GameEnd:
+				boolean victory = ClientProtocol.GetVictory(requestString);
+				clientMain.guiHandler.gameEnd(victory);
+				break;
+			case IllegalMove:
+				clientMain.guiHandler.illegalMove();
+				break;
+			case TimeUpdate:
+				int[] updateTimes = ClientProtocol.GetTimes(requestString);
+				clientMain.guiHandler.UpdateTimes(updateTimes[0], updateTimes[1]);
+				break;
 			default:
 				System.out.println("Unknown message from server");
 				break;

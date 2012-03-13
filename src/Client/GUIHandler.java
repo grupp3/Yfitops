@@ -222,4 +222,30 @@ public class GUIHandler {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void yourMove(int x, int y) {
+		System.out.println("your turn " + x + " " + y);
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void gameEnd(boolean victory) {
+		if(victory)
+			JOptionPane.showMessageDialog(game, "You won!");
+		else
+			JOptionPane.showMessageDialog(game, "You lost...");
+		
+		this.Show(Enum_Window.Lobby);
+	}
+
+	public void illegalMove() {
+		System.out.println("illegal move !!!!!");
+		// TODO Auto-generated method stub
+	}
+
+	public void UpdateTimes(int yourTime, int opponentTime) {
+		System.out.println("you " + yourTime + " sek. " + "opponent " + opponentTime + " sek.");
+		// TODO Auto-generated method stub
+		
+	}
 }
