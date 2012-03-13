@@ -361,5 +361,5 @@ public class GameTest {
 		
 		assertEquals(expectedOutInt, os.out);
 	}	
-	
+
 }
