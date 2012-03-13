@@ -141,21 +141,17 @@ public class ClientProtocol {
 	 * @return
 	 */
 	public static String[][] GetData(String requestString) {
-		System.out.println(requestString);
 		String[] tokens = requestString.split("%");
 		tokens = tokens[1].split("[|]");
 		String[] innerTokens = tokens[0].split(";");
 		
 		String[][] outData = new String[tokens.length][innerTokens.length];
 		
-		System.out.println("token1: " + tokens[0]);
-		
 		for(int i = 0; i < outData.length; i++)
 		{
 			if(i != 0){
 				innerTokens = tokens[i].split(";");
 			}
-			System.out.println(innerTokens[0]);
 			for(int j = 0; j < outData[0].length; j++)
 			{
 				outData[i][j] = innerTokens[j];
