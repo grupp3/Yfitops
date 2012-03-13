@@ -71,7 +71,7 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false, 0);
 		try {
 			new DataOutputStream(os).writeUTF(expectedOut);
 		} catch (IOException e) {
@@ -81,7 +81,7 @@ public class PlayerConectionTest {
 		int expectedOutInt = os.out;
 		os.out= 0;
 		
-		p.GameStarted(false, "håKan38");
+		p.GameStarted(false, "håKan38", 0);
 		
 		assertEquals("wrong output", expectedOutInt, os.out);
 	}
@@ -91,7 +91,7 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true, 0);
 		try {
 			new DataOutputStream(os).writeUTF(expectedOut);
 		} catch (IOException e) {
@@ -101,7 +101,7 @@ public class PlayerConectionTest {
 		int expectedOutInt = os.out;
 		os.out= 0;
 		
-		p.GameStarted(true, "agnes");
+		p.GameStarted(true, "agnes", 0);
 		
 		assertEquals("wrong output", expectedOutInt, os.out);
 	}
@@ -115,7 +115,7 @@ public class PlayerConectionTest {
 		testList.add(new PlayerConnection());
 		p.addTestPlayerConnectionList(testList);
 		
-		p.gamingCheck();
+		p.gamingCheck("gamingredy%0");
 		
 		assertTrue(p.getGamingRedy());
 	}
@@ -131,7 +131,7 @@ public class PlayerConectionTest {
 		p.addTestPlayerConnectionList(testList);
 		
 		p2.setGamingRedy(true);
-		p.gamingCheck();
+		p.gamingCheck("gamingredy%0");
 		
 		assertFalse(p.getGamingRedy());
 	}
@@ -145,8 +145,8 @@ public class PlayerConectionTest {
 		testList.add(new PlayerConnection());
 		p.addTestPlayerConnectionList(testList);
 		
-		p.gamingCheck();
-		p.gamingCheck();
+		p.gamingCheck("gamingredy%0");
+		p.gamingCheck("gamingredy%0");
 		
 		assertFalse(p.getGamingRedy());
 	}

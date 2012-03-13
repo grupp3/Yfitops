@@ -25,7 +25,11 @@ public class ServerProtocol {
 		else if(tokens[0].equals("gamingredy"))
 			return RequestType.ToggleRedy;
 		else if(tokens[0].equals("newmove"))
-			return RequestType.NewMove;	
+			return RequestType.NewMove;
+		else if(tokens[0].equals("history"))
+			return RequestType.HistoryRequest;
+		else if(tokens[0].equals("highscore"))
+			return RequestType.HighScoreRequest;
 		
 		return RequestType.Unknown;	
 	}
@@ -66,6 +70,45 @@ public class ServerProtocol {
 		return "loginfailed";
 	}
 	
+	/**
+	 * Creates requeststring for sending history data
+	 * @param historyData
+	 * @return
+	 */
+	public static String CreateHistoryData(String[][] historyData){
+		String outString = "historydata%";
+		
+		for(int i = 0; i < historyData.length; i++)
+		{
+			for(int j = 0; j < historyData[0].length; j++)
+			{
+				outString += historyData[i][j];
+				outString += ";";
+			}
+			outString += "|";
+		}
+		
+		return outString;
+	}
+	
+	/**
+	 * creates request string for sending high score data
+	 * @param highScoreData
+	 * @return
+	 */
+	public static String CreateHighScoreData(String[][] highScoreData){
+		String outString = "scoredata%";
+		for(int i = 0; i < highScoreData.length; i++)
+		{
+			for(int j = 0; j < highScoreData[0].length; j++)
+			{
+				outString += highScoreData[i][j];
+				outString += ";";
+			}
+			outString += "|";
+		}
+		return outString;
+	}
 	
 	/**
 	 * Creates the string for game started notification
@@ -73,8 +116,8 @@ public class ServerProtocol {
 	 * @param starting
 	 * @return request string
 	 */
-	public static String CreateGameStarted(String opponentName, Boolean starting) {
-		return "newgame%" + opponentName +";" + starting;
+	public static String CreateGameStarted(String opponentName, Boolean starting, int timeLimit) {
+		return "newgame%" + opponentName +";" + starting + ";" + timeLimit;
 	}
 	
 	/**
@@ -93,7 +136,19 @@ public class ServerProtocol {
 		
 		return outValues;
 	}
-
+	
+	/**
+	 * Gets the time limit from an request string
+	 * @param requestString
+	 * @return time limit
+	 */
+	public static int GetTimelimit(String requestString){
+		String[] tokens = requestString.split("%");
+		tokens = tokens[1].split(";");
+		
+		return Integer.parseInt( tokens[0]);
+	}
+	
 	/**
 	 * Creates the string for an illegal move notification
 	 * @return request string
@@ -102,12 +157,33 @@ public class ServerProtocol {
 		return "illegalmove";
 	}
 
+	/**
+	 * Creates the string for an your turn notification
+	 * @param x
+	 * @param y
+	 * @return request string
+	 */
 	public static String CreateYourTurn(int x, int y) {
 		return "yourturn%" + x + ";" + y;
 	}
 
+	/**
+	 * Creates the string for an game end notification
+	 * @param victory
+	 * @return request string
+	 */
 	public static String CreateGameEnd(boolean victory) {
 		return "gameend%" + victory;
+	}
+
+	/**
+	 * Creates the string for an time update notification
+	 * @param yourtTime
+	 * @param opponentTime
+	 * @return request string
+	 */
+	public static String CreateTimeUpdate(int yourtTime, int opponentTime) {
+		return "times%" + yourtTime +";" + opponentTime;
 	}
 	
 }

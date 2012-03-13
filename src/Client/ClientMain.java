@@ -1,13 +1,16 @@
 package Client;
 
-import java.awt.EventQueue;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import Protocoll.*;
+import Protocoll.ClientProtocol;
+import Protocoll.RequestType;
 
 /**
  * Establishes connection with server, communicates with it, creates GUI-handler
@@ -21,8 +24,8 @@ public class ClientMain {
 
 	// VARIABLES
 	Socket socket;
-	DataInputStream dataInputStream;
-	static DataOutputStream dataOutputStream;
+	BufferedReader dataInputStream;
+	PrintWriter dataOutputStream;
 	GUIHandler guiHandler;
 	// CONSTANTS
 
@@ -37,8 +40,11 @@ public class ClientMain {
 	 * @throws IOException
 	 */
 	public void setUpStreams() throws IOException {
-		dataInputStream = new DataInputStream(socket.getInputStream());
-		dataOutputStream = new DataOutputStream(socket.getOutputStream());
+		dataInputStream = new BufferedReader(new InputStreamReader(
+				socket.getInputStream()));
+		dataOutputStream = new PrintWriter(socket.getOutputStream(), true);
+		
+		
 	}
 
 	/**
@@ -62,74 +68,56 @@ public class ClientMain {
 	 *            , the request to be sent to server
 	 * @throws IOException
 	 */
-	public static void sendRequest(String request) throws IOException {
-		dataOutputStream.writeUTF(request);
+	public void sendRequest(String request) {
+		System.out.println("Skicka: " + request);
+		dataOutputStream.println(request);
 	}
 
 	// I implemented ClientMain() and main() only for testing
 	public ClientMain() throws IOException, UnknownHostException {
 		socket = new Socket(HOSTADRESS, PORT);
 		setUpStreams();
-		//sendRequest("This is a test! Message from Client.");
-		//closeAllStreamsAndSocket();
+		// sendRequest("This is a test! Message from Client.");
+		// closeAllStreamsAndSocket();
 
 	}
 
 	public static void main(String[] args) throws IOException,
 			UnknownHostException {
-		try {
-			final ClientMain clientMain = new ClientMain();
 
-			clientMain.guiHandler = new GUIHandler(clientMain);
-			clientMain.guiHandler.setVisible(false);
-			
-			clientMain.guiHandler.Show(Enum_Window.Login);
+		ClientMain clientMain = new ClientMain();
 
-			/*Login frame2 = new Login();
-			frame2.setVisible(true);*/
+		clientMain.guiHandler = new GUIHandler(clientMain);
 
-			// Launches the application.
-					RequestType requestType;
-					while (true) {
-						try {
-							String requestString = clientMain.dataInputStream
-									.readUTF();
-							requestType = ClientProtocol
-									.GetRequestType(requestString);
-							switch (requestType) {
-							case RegisterFailed:
-								clientMain.guiHandler.registerFailed();
-								break;
-							case LoggedIn:
-								clientMain.guiHandler.login();
-								break;
-							case LoginFailed:
-								clientMain.guiHandler.LoginFailed();
-								break;
-							case GameStarted:
-								String[] params = ClientProtocol
-										.GetOpponentStarting(requestString);
-								boolean opponentStarting;
-								if ("true" == params[1])
-									opponentStarting = true;
-								else
-									opponentStarting = false;
-								clientMain.guiHandler.NewGame(params[0],
-										opponentStarting);
-							default:
-								System.out
-										.println("Unknown message from server");
-								break;
-							}
+		RequestType requestType;
+		String requestString;
 
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
+		while ((requestString = clientMain.dataInputStream.readLine()) != null) {
+			requestType = ClientProtocol.GetRequestType(requestString);
+			switch (requestType) {
+			case RegisterFailed:
+				clientMain.guiHandler.registerFailed();
+				break;
+			case LoggedIn:
+				clientMain.guiHandler.login();
+				break;
+			case LoginFailed:
+				clientMain.guiHandler.LoginFailed();
+				break;
+			case GameStarted:
+				String[] params = ClientProtocol
+						.GetOpponentStartingTime(requestString);
+				boolean opponentStarting;
+				if ("true" == params[1])
+					opponentStarting = true;
+				else
+					opponentStarting = false;
+				clientMain.guiHandler.NewGame(params[0], opponentStarting);
+				break;
+			default:
+				System.out.println("Unknown message from server");
+				break;
+			}
 		}
 	}
 
@@ -139,30 +127,23 @@ public class ClientMain {
 	 * @param userName
 	 * @param password
 	 */
-	public static void loginUsr(String userName, String password) {
-		// TODO Auto-generated method stub
-
+	public void loginUsr(String userName, String password) {
+		String requestString = ClientProtocol.CreateLogin(userName, password);
+		this.sendRequest(requestString);
 	}
 
 	/**
-	 * fetches the gameReady string from 
-	 * clientProtocol
-	 * sends the string to the server
+	 * fetches the gameReady string from clientProtocol sends the string to the
+	 * server
 	 * 
-	 * NOT IMPLEMENTED YET
-	 * 					  catching the IOException	
+	 * NOT IMPLEMENTED YET catching the IOException
 	 * 
 	 * @author Jeanie
-	 * 
+	 * @param timeLimit
 	 */
-	public void ToggleGamingReady() {
-		 
-		String gameReady = ClientProtocol.CreateToggleGamingReady();
-		try {
-			sendRequest(gameReady);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void ToggleGamingReady(int timeLimit) {
+		String gameReady = ClientProtocol.CreateToggleGamingReady(timeLimit);
+		sendRequest(gameReady);
+
 	}
 }

@@ -30,7 +30,6 @@ public class ServerMain {
 					connectionList.add(newPlayer);
 				}
 				
-				newPlayer.start();
 			}
 		
 		} catch (IOException e) {
