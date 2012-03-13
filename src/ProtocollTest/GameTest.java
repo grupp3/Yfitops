@@ -35,15 +35,15 @@ public class GameTest {
 	
 	@Test
 	public void GameStartedRequestStringTest() {
-		String requestString = ServerProtocol.CreateGameStarted("håKan", true);
+		String requestString = ServerProtocol.CreateGameStarted("håKan", true,4);
 		
-		assertEquals("newgame%håKan;"+ true, requestString);
+		assertEquals("newgame%håKan;4"+ true, requestString);
 	}
 	
 	@Test
 	public void GameStartedCorrectRequestType()
 	{
-		String requestString = ServerProtocol.CreateGameStarted("håKan", false);
+		String requestString = ServerProtocol.CreateGameStarted("håKan", false,7);
 		RequestType requestType = ClientProtocol.GetRequestType(requestString);
 		
 		assertEquals(RequestType.GameStarted, requestType);
@@ -54,12 +54,13 @@ public class GameTest {
 	{
 		Boolean starting = true;
 		String opponentName = "MarkUs15";
-		String requestString = ServerProtocol.CreateGameStarted(opponentName, starting);
+		String requestString = ServerProtocol.CreateGameStarted(opponentName, starting,3);
 		
-		String[] recevedValues = ClientProtocol.GetOpponentStarting(requestString);
+		String[] recevedValues = ClientProtocol.GetOpponentStartingTime(requestString);
 		
 		assertEquals("wrong oponent name", opponentName, recevedValues[0]);
 		assertEquals("wrong firstplayer state", starting.toString(), recevedValues[1]);
+		assertEquals("wrong time limit", "3", recevedValues[2]);
 	}
 	
 	@Test

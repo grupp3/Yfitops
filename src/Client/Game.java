@@ -32,6 +32,8 @@ public class Game extends JFrame {
 	JButton[][] buttonArray;
 	private ActionListener ActionListener;
 	private GUIHandler mGUIHandler;
+	public JLabel lblUser;
+	public JLabel lblUser_1;
 
 	
 	/**
@@ -83,13 +85,13 @@ public class Game extends JFrame {
 		lblO.setBounds(300, 0, 53, 50);
 		panel.add(lblO);
 
-		JLabel lblUser = new JLabel("User1");
+		lblUser = new JLabel("User1");
 		lblUser.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUser.setBounds(120, 0, 166, 50);
 		panel.add(lblUser);
 
-		JLabel lblUser_1 = new JLabel("User2");
+		lblUser_1 = new JLabel("User2");
 		lblUser_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblUser_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblUser_1.setBounds(350, 0, 194, 50);

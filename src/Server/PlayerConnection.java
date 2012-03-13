@@ -57,10 +57,15 @@ public class PlayerConnection extends Thread {
 	 * 
 	 * @throws IOException
 	 */
-	public void closeAllStreamsAndSocket() throws IOException {
-		dataInputStream.close();
-		dataOutputStream.close();
-		socket.close();
+	public void closeAllStreamsAndSocket() {
+		try {
+			dataInputStream.close();
+			dataOutputStream.close();
+			socket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -71,7 +76,7 @@ public class PlayerConnection extends Thread {
 	 */
 	public void GameStarted(boolean currentPlayer, String opponentName, int timeLimit) {
 		gamingReady = false;
-		this.Send(ServerProtocol.CreateGameStarted(opponentName, currentPlayer));
+		this.Send(ServerProtocol.CreateGameStarted(opponentName, currentPlayer, timeLimit));
 	}
 
 	/**
@@ -135,6 +140,15 @@ public class PlayerConnection extends Thread {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+		}finally{
+			if(currentGame != null){
+				currentGame.disconnect(this);
+				currentGame = null;
+			}
+			closeAllStreamsAndSocket();
+			synchronized(playerConnectionList){
+				playerConnectionList.remove(this);
+			}
 		}
 	}
 
@@ -145,6 +159,14 @@ public class PlayerConnection extends Thread {
 	 */
 	public String getUserName() {
 		return userName;
+	}
+	
+	/**
+	 * setter, only for testing
+	 * @param userName
+	 */
+	public void setUserName(String userName){
+		this.userName = userName;
 	}
 
 	/**

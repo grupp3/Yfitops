@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Class that sets up a connection to the database controls that only one
@@ -159,14 +161,19 @@ public class DBHandler {
 	public boolean saveGame(String winner, String loser, int timeLimit) {
 		boolean gameSaved = false;
 		PreparedStatement statement = null;
+		Date date = new Date();
+		Timestamp timeStamp = new Timestamp(date.getTime());
+		
 		int count = 0;
 		try {
 			statement = mConnection.prepareStatement("INSERT INTO "
 					+ DATABASE_NAME + "." + TABLE_GAME + " ("
-					+ COLUMN_GAME_WINNER + "," + COLUMN_GAME_LOSER + ")"
-					+ " VALUES(?,?)");
+					+ COLUMN_GAME_WINNER + "," + COLUMN_GAME_LOSER + "," + COLUMN_GAME_DATETIMEGAMEPLAYED + "," + COLUMN_GAME_TIMELIMIT + ")"
+					+ " VALUES(?,?,?,?)");
 			statement.setString(1, winner);
 			statement.setString(2, loser);
+			statement.setTimestamp(3, timeStamp);
+			statement.setInt(4, timeLimit);
 			count = statement.executeUpdate();
 
 		} catch (SQLException sqle) {

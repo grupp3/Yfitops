@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import Protocoll.ClientProtocol;
+import Protocoll.ServerProtocol;
 
 
 public class GUIHandler {
@@ -215,12 +216,27 @@ public class GUIHandler {
 	}
 
 
-
-	public void NewGame(String string, boolean opponentStarting) {
+	 /**
+	  * starts a new game with 2 players
+	  * @param opponentName
+	  * @param opponentStarting
+	  */
+	public void NewGame(String opponentName, boolean opponentStarting) {
+		game.lblUser.setText(userName);
+		game.lblUser_1.setText(opponentName);
 		this.Show(Enum_Window.Game);
 	}
-
+	
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void makeMove(int x, int y) {
+		mConnection.sendRequest(ClientProtocol.CreateNewMove(x, y));
+	}
+
+	public void yourTurn(int[] XY) {
 		// TODO Auto-generated method stub
 		
 	}

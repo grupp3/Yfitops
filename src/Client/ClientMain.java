@@ -106,13 +106,16 @@ public class ClientMain {
 				break;
 			case GameStarted:
 				String[] params = ClientProtocol
-						.GetOpponentStarting(requestString);
+						.GetOpponentStartingTime(requestString);
 				boolean opponentStarting;
 				if ("true" == params[1])
 					opponentStarting = true;
 				else
 					opponentStarting = false;
 				clientMain.guiHandler.NewGame(params[0], opponentStarting);
+				break;
+			case YourTurn:
+				clientMain.guiHandler.yourTurn(ClientProtocol.GetXY(requestString));
 				break;
 			default:
 				System.out.println("Unknown message from server");
