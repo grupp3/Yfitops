@@ -1,6 +1,7 @@
 package Client;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
@@ -94,12 +95,30 @@ public class Lobby extends JFrame {
 	 * calls ToggleGamingReady method in GUIHandler class
 	 * 
 	 * @author Jeanie
+	 * @author Mathias
 	 */
 	private void playPressed() {
 		playbuttonActivated = true;
 		btnPlay.setText("Cancel");
 		lblStatus.setVisible(true);
-		mGUIHandler.ToggleGamingReady();
+		Object[] options = {"Unlimited", "3 min", "5 min", "7 min"};
+		int choise = JOptionPane.showOptionDialog(this, "Choose time limit!", "Time Choise", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		
+		switch(choise){
+		case 0:
+			mGUIHandler.ToggleGamingReady(0);
+			break;
+		case 1:
+			mGUIHandler.ToggleGamingReady(3);
+			break;
+		case 2:
+			mGUIHandler.ToggleGamingReady(5);
+			break;
+		case 3:
+			mGUIHandler.ToggleGamingReady(7);
+			break;
+		}
+		
 	}
 	/**
 	 * method called by the cancel button (play button)
@@ -114,6 +133,6 @@ public class Lobby extends JFrame {
 		playbuttonActivated = false;
 		btnPlay.setText("Play");
 		lblStatus.setVisible(false);
-		mGUIHandler.ToggleGamingReady();
+		mGUIHandler.ToggleGamingReady(0);
 	}
 }
