@@ -135,4 +135,9 @@ public class Lobby extends JFrame {
 		lblStatus.setVisible(false);
 		mGUIHandler.ToggleGamingReady(0);
 	}
+	public void reset() {
+		playbuttonActivated = false;
+		btnPlay.setText("Play");
+		lblStatus.setVisible(false);
+	}
 }

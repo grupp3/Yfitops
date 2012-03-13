@@ -142,8 +142,8 @@ public class PlayerConnection extends Thread {
 					}
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			
 		}finally{
 			if(currentGame != null){
 				currentGame.disconnect(this);

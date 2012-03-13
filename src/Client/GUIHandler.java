@@ -219,9 +219,9 @@ public class GUIHandler {
 	  * @param opponentName
 	  * @param opponentStarting
 	  */
-	public void NewGame(String opponentName, boolean opponentStarting) {
-		game.lblUser.setText(userName);
-		game.lblUser_1.setText(opponentName);
+	public void NewGame(String opponentName, boolean youStarting) {
+		game.reset(userName, opponentName, youStarting);
+		lobby.reset();
 		this.Show(Enum_Window.Game);
 	}
 	
@@ -234,7 +234,26 @@ public class GUIHandler {
 		mConnection.sendRequest(ClientProtocol.CreateNewMove(x, y));
 	}
 
-	public void yourTurn(int[] XY) {
+	public void yourTurn(int x, int y) {
+		game.yourMove(x,y);
+	}
+
+	public void gameEnd(boolean victory) {
+		if(victory)
+			JOptionPane.showMessageDialog(game, "You won!");
+		else
+			JOptionPane.showMessageDialog(game, "You lost...");
+		
+		this.Show(Enum_Window.Lobby);
+	}
+
+	public void illegalMove() {
+		System.out.println("illegal move !!!!!");
+		// TODO Auto-generated method stub
+	}
+
+	public void UpdateTimes(int yourTime, int opponentTime) {
+		System.out.println("you " + yourTime + " sek. " + "opponent " + opponentTime + " sek.");
 		// TODO Auto-generated method stub
 		
 	}
