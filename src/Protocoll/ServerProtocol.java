@@ -73,8 +73,8 @@ public class ServerProtocol {
 	 * @param starting
 	 * @return request string
 	 */
-	public static String CreateGameStarted(String opponentName, Boolean starting) {
-		return "newgame%" + opponentName +";" + starting;
+	public static String CreateGameStarted(String opponentName, Boolean starting, int timeLimit) {
+		return "newgame%" + opponentName +";" + starting + ";" + timeLimit;
 	}
 	
 	/**

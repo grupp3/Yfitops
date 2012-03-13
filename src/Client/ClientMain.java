@@ -106,7 +106,7 @@ public class ClientMain {
 				break;
 			case GameStarted:
 				String[] params = ClientProtocol
-						.GetOpponentStarting(requestString);
+						.GetOpponentStartingTime(requestString);
 				boolean opponentStarting;
 				if ("true" == params[1])
 					opponentStarting = true;

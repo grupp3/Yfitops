@@ -71,7 +71,7 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false, 0);
 		try {
 			new DataOutputStream(os).writeUTF(expectedOut);
 		} catch (IOException e) {
@@ -91,7 +91,7 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true);
+		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true, 0);
 		try {
 			new DataOutputStream(os).writeUTF(expectedOut);
 		} catch (IOException e) {

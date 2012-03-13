@@ -68,7 +68,7 @@ public class ClientProtocol {
 	 * @param requestString
 	 * @return username[0] password[1]
 	 */
-	public static String[] GetOpponentStarting(String requestString) {
+	public static String[] GetOpponentStartingTime(String requestString) {
 		String[] tokens = requestString.split("%");
 		tokens = tokens[1].split(";");
 		

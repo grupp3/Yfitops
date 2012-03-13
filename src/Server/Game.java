@@ -64,6 +64,23 @@ public class Game extends Thread {
 	}
 	
 	/**
+	 * Handles the case when a player disconects
+	 * @param disconectedPlayer
+	 */
+	public void disconnect(PlayerConnection disconectedPlayer){
+		if( disconectedPlayer == player1){
+			player2.sendGameEnd(true);
+			dbHandler.saveGame(player2.getName(), player1.getName(), timeLimit);
+		}
+		else if( disconectedPlayer == player2){
+			player1.sendGameEnd(true);
+			dbHandler.saveGame(player1.getName(), player2.getName(), timeLimit);
+		}
+		
+		gameEnd = true;
+	}
+	
+	/**
 	 * Handles a new move made by player userName on position xy
 	 * @param userName
 	 * @param x
