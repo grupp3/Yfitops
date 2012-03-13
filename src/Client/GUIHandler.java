@@ -112,12 +112,10 @@ public class GUIHandler {
 	/**
 	 * Calls the ToggelGamingReady method 
 	 * in ClientMain class
-	 * 
-	 * TO DO: IMPLEMENTERA TIMELIMIT !!!!!!!!!!!
 	 * @author Jeanie
 	 */
-	public void ToggleGamingReady() {
-		mConnection.ToggleGamingReady(0);
+	public void ToggleGamingReady(int timeLimit) {
+		mConnection.ToggleGamingReady(timeLimit);
 	}
 
 	/**

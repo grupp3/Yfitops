@@ -82,10 +82,12 @@ public class ClientMain {
 
 	}
 
-	public static void main(String[] args) throws IOException,
-			UnknownHostException {
+	public static void main(String[] args) {
 
-		ClientMain clientMain = new ClientMain();
+		ClientMain clientMain;
+		try {
+			clientMain = new ClientMain();
+		
 
 		clientMain.guiHandler = new GUIHandler(clientMain);
 
@@ -121,6 +123,13 @@ public class ClientMain {
 				System.out.println("Unknown message from server");
 				break;
 			}
+		}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
