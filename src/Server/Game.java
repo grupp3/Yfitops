@@ -70,11 +70,11 @@ public class Game extends Thread {
 	public void disconnect(PlayerConnection disconectedPlayer){
 		if( disconectedPlayer == player1){
 			player2.sendGameEnd(true);
-			dbHandler.saveGame(player2.getName(), player1.getName(), timeLimit);
+			dbHandler.saveGame(player2.getUserName(), player1.getUserName(), timeLimit);
 		}
 		else if( disconectedPlayer == player2){
 			player1.sendGameEnd(true);
-			dbHandler.saveGame(player1.getName(), player2.getName(), timeLimit);
+			dbHandler.saveGame(player1.getUserName(), player2.getUserName(), timeLimit);
 		}
 		
 		gameEnd = true;
@@ -115,14 +115,14 @@ public class Game extends Thread {
 			if(this.VictoryCheck()){
 				activePlayer.sendGameEnd(true);
 				inactivePlayer.sendGameEnd(false);
-				dbHandler.saveGame(activePlayer.getName(), inactivePlayer.getName(), timeLimit);
+				dbHandler.saveGame(activePlayer.getUserName(), inactivePlayer.getUserName(), timeLimit);
 				gameEnd = true;
 
 			}
 			else if(this.checkBoardFull()){
 				activePlayer.sendGameEnd(false);
 				inactivePlayer.sendGameEnd(true);
-				dbHandler.saveGame(inactivePlayer.getName(), activePlayer.getName(), timeLimit);
+				dbHandler.saveGame(inactivePlayer.getUserName(), activePlayer.getUserName(), timeLimit);
 				gameEnd = true;
 			}
 			else{
@@ -199,7 +199,7 @@ public class Game extends Thread {
 					{
 						player1.sendGameEnd(false);
 						player2.sendGameEnd(true);
-						dbHandler.saveGame(player2.getName(), player1.getName(), timeLimit);
+						dbHandler.saveGame(player2.getUserName(), player1.getUserName(), timeLimit);
 						gameEnd = true;
 						break;
 					}
@@ -210,7 +210,7 @@ public class Game extends Thread {
 					{
 						player2.sendGameEnd(false);
 						player1.sendGameEnd(true);
-						dbHandler.saveGame(player1.getName(), player2.getName(), timeLimit);
+						dbHandler.saveGame(player1.getUserName(), player2.getUserName(), timeLimit);
 						gameEnd = true;
 						break;
 					}
