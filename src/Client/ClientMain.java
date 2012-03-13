@@ -131,6 +131,14 @@ public class ClientMain {
 				int[] updateTimes = ClientProtocol.GetTimes(requestString);
 				clientMain.guiHandler.UpdateTimes(updateTimes[0], updateTimes[1]);
 				break;
+			case HistoryData:
+				String[][] data = ClientProtocol.GetData(requestString);
+				clientMain.guiHandler.InsertHistory(data);
+				break;
+			case HighScoreData:
+				String[][] dataa = ClientProtocol.GetData(requestString);
+				clientMain.guiHandler.InsertHighScore(dataa);
+				break;
 			default:
 				System.out.println("Unknown message from server");
 				break;
@@ -160,8 +168,6 @@ public class ClientMain {
 	 * fetches the gameReady string from clientProtocol sends the string to the
 	 * server
 	 * 
-	 * NOT IMPLEMENTED YET catching the IOException
-	 * 
 	 * @author Jeanie
 	 * @param timeLimit
 	 */
@@ -169,5 +175,13 @@ public class ClientMain {
 		String gameReady = ClientProtocol.CreateToggleGamingReady(timeLimit);
 		sendRequest(gameReady);
 
+	}
+
+	public void historyRequest() {
+		this.sendRequest(ClientProtocol.CreateHistoryRequest());
+	}
+	
+	public void highScoreRequest() {
+		this.sendRequest(ClientProtocol.CreateHighScoreRequest());
 	}
 }

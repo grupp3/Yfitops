@@ -164,7 +164,7 @@ public class ClientProtocol {
 	 * Creates the request string for requesting history data
 	 * @return
 	 */
-	public String CreateHistoryRequest(){
+	public static String CreateHistoryRequest(){
 		return "history";
 	}
 	
@@ -172,7 +172,7 @@ public class ClientProtocol {
 	 * Creates the request string for requesting high score data
 	 * @return
 	 */
-	public String CreateHighScoreRequest(){
+	public static String CreateHighScoreRequest(){
 		return "highscore";
 	}
 }

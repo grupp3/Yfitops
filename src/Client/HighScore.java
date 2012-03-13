@@ -58,7 +58,7 @@ public class HighScore extends JFrame {
 		mGUIHandler = guiHandler;
 		
 		//creates the table
-		highscoreTable = new JTable(mGUIHandler.InsertHighScore(), columnNames);
+		highscoreTable = new JTable(null, columnNames);
 		highscoreTable.setRowSelectionAllowed(false);
 		highscoreScrollPane = new JScrollPane(highscoreTable);
 		highscoreScrollPane.setBounds(10, 11, 414, 187);
@@ -76,6 +76,11 @@ public class HighScore extends JFrame {
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
 		contentPane.add(btnReturnToGUIHandler);
+	}
+
+	public void insertData(String[][] data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**

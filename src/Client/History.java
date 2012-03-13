@@ -56,7 +56,7 @@ public class History extends JFrame {
 		mGUIHandler = guiHandler;
 		
 		//creates the table
-		historyTable = new JTable(mGUIHandler.InsertHistory(), columnNames);
+		historyTable = new JTable(null, columnNames);
 		historyTable.setRowSelectionAllowed(false);
 		historyScrollPane = new JScrollPane(historyTable);
 		historyScrollPane.setBounds(10, 11, 414, 187);
@@ -74,6 +74,13 @@ public class History extends JFrame {
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
 		contentPane.add(btnReturnToGUIHandler);
+	}
+
+
+
+	public void insertData(String[][] data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

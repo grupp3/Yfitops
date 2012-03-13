@@ -96,17 +96,17 @@ public class GUIHandler {
 		history.setVisible(false);
 	}
 	/**
-	 * NOT IMPLEMENTED YET
+	 *
 	 */
 	public void HistorySwitch() {
-		// TODO Auto-generated method stub
+		mConnection.historyRequest();
 	}
 
 	/**
-	 * NOT IMPLEMENTED YET
+	 *
 	 */
 	public void HighscoreSwitch() {
-		// TODO Auto-generated method stub
+		mConnection.highScoreRequest();
 	}
 
 	/**
@@ -153,33 +153,22 @@ public class GUIHandler {
 	 * @return history field from connection -> protocol class -> fetched from server -> database
 	 * 		
 	 * @author Jeanie
+	 * @param data 
 	 */
-	public String[][] InsertHistory() {
-		
-		String[][] columnContent = {{"Game 1", "Adam", "win"},{"Game 2", "Bertil", "win"},
-									{"Game 3", "Carl", "loss"},{"Game 4", "David", "loss"},
-									{"Game 5", "Erik", "win"},{"Game 6", "Fredrik", "win"},
-									{"Game 7", "Gustav","loss"},{"Game 8", "Hans", "loss"},
-									{"Game 9", "Ingmar", "win"},{"Game 10", "Johan", "win"}};
-		return columnContent;
+	public void InsertHistory(String[][] data) {
+		history.insertData(data);
+		Show(Enum_Window.History);
 	}
+	
 	/**
-	 *  NOT IMPLEMENTED YET 
-	 * 						contains hardcoded field for the moment
-	 * 
-	 * @return highscore field from connection -> protocol class -> fetched from server -> database
-	 * 	
-	 * @author Jeanie	
+	 * @author Mathias	
+	 * @param data 
 	 */
-	public String[][] InsertHighScore() {
-		
-		String[][] columnContent = {{"Adam", "10"},{"Bertil", "9"},
-									{"Carl", "8"},{"David", "7"},
-									{"Erik", "6"},{"Fredrik", "5"},
-									{"Gustav","4"},{"Hans", "3"},
-									{"Ingmar", "2"},{"Johan", "1"}};
-		return columnContent;
+	public void InsertHighScore(String[][] data) {
+		highScore.insertData(data);
+		Show(Enum_Window.Highscore);
 	}
+	
 	/**
 	 * Shows a popup window 
 	 * informating the player that 
