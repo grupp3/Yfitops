@@ -92,10 +92,14 @@ public class PlayerConnection extends Thread {
 		try {
 			dataOutputStream.println(message);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			if (dataOutputStream == null)
-				System.out.println("What!");
+			if(currentGame != null){
+				currentGame.disconnect(this);
+				currentGame = null;
+			}
+			closeAllStreamsAndSocket();
+			synchronized(playerConnectionList){
+				playerConnectionList.remove(this);
+			}
 		}
 	}
 
