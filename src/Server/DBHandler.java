@@ -231,6 +231,16 @@ public class DBHandler {
 		}
 	}
 
+	public String[][] getHistory(String userName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String[][] getHighScore() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * main method that launches the application is left to try the class out
 	 * 

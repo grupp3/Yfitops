@@ -139,6 +139,12 @@ public class PlayerConnection extends Thread {
 					case LoggingIn:
 						this.login(requestString);
 						break;
+					case HistoryRequest:
+						this.sendHistory();
+						break;
+					case HighScoreRequest:
+						this.sendHighScore();
+						break;
 					}
 				}
 			}
@@ -191,6 +197,20 @@ public class PlayerConnection extends Thread {
 		return gamingReady;
 	}
 
+	/**
+	 * Sends history data to client
+	 */
+	public void sendHistory(){
+		this.Send( ServerProtocol.CreateHistoryData( dbHandler.getHistory(userName)));
+	}
+	
+	/**
+	 * Sends high score data to client
+	 */
+	public void sendHighScore(){
+		this.Send( ServerProtocol.CreateHighScoreData( dbHandler.getHighScore()));
+	}
+	
 	/**
 	 * Checks for other players to game with
 	 */
