@@ -26,7 +26,7 @@ public class DBHandler {
 	// constants describing the database values
 	private final String DATABASE_NAME = "yfitops";
 	private final String DATABASE_USER = "root";
-	private final String DATABASE_USER_PASSWORD = "";
+	private final String DATABASE_USER_PASSWORD = "freestyle1";
 	private final String DATABASE_SERVER = "localhost";
 	private final String DATABASE_MANAGER = "mysql";
 
