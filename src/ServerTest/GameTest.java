@@ -8,6 +8,7 @@ import java.net.UnknownHostException;
 
 import org.junit.Test;
 
+import Protocoll.ServerProtocol;
 import Server.Game;
 import Server.PlayerConnection;
 
@@ -25,6 +26,8 @@ public class GameTest {
 	public void ConstruktorExceptionTest() throws UnknownHostException, IOException {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 	}
 	
@@ -33,6 +36,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
@@ -56,6 +61,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2, 0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
@@ -79,6 +86,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
@@ -102,6 +111,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
@@ -126,6 +137,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
@@ -150,6 +163,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,2,2,2,2,1,1,1}
@@ -173,6 +188,8 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player1.addTestDataWriter(new TestWriter());
+		player2.addTestDataWriter(new TestWriter());
 		Server.Game game = new Server.Game(player1, player2,0);
 		
 		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
@@ -196,26 +213,18 @@ public class GameTest {
 	{
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
+		player2.addTestDataWriter(new TestWriter());
 		TestWriter os = new TestWriter();
 		player1.addTestDataWriter(os);
 		player1.setUserName("frank");
 		player2.setUserName("lolcat");
 		Server.Game game = new Server.Game(player1, player2, 0);
 		game.SetTurn(false);
-		String expectedOut = Protocoll.ServerProtocol.CreateIllegalMove();
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		
 		game.NewMove("frank", 10 , 12);
 		
-		assertEquals(expectedOutInt, os.out);
+		assertEquals(ServerProtocol.CreateIllegalMove(), os.out);
 	}
 	
 	@Test
@@ -224,20 +233,13 @@ public class GameTest {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
 		TestWriter os = new TestWriter();
+		player2.addTestDataWriter(new TestWriter());
 		player1.addTestDataWriter(os);
 		player1.setUserName("frank");
 		player2.setUserName("lolcat");
 		Server.Game game = new Server.Game(player1, player2, 0);
 		game.SetTurn(true);
-		String expectedOut = Protocoll.ServerProtocol.CreateIllegalMove();
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
+		
 		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
 	  							,{1,1,0,1,1,1,1,1,2}
 	  							,{2,2,2,1,1,2,1,1,2}
@@ -251,7 +253,7 @@ public class GameTest {
 		
 		game.NewMove("frank", 2 , 2);
 		
-		assertEquals(expectedOutInt, os.out);
+		assertEquals(ServerProtocol.CreateIllegalMove(), os.out);
 	}
 	
 	@Test
@@ -260,20 +262,12 @@ public class GameTest {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
 		TestWriter os = new TestWriter();
+		player1.addTestDataWriter(new TestWriter());
 		player2.addTestDataWriter(os);
 		player1.setUserName("frank");
 		player2.setUserName("lolcat");
 		Server.Game game = new Server.Game(player1, player2, 0);
 		game.SetTurn(true);
-		String expectedOut = Protocoll.ServerProtocol.CreateYourTurn(0, 2);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
 	  							,{1,1,0,1,1,0,1,1,2}
 	  							,{2,2,2,1,1,2,1,1,2}
@@ -287,7 +281,7 @@ public class GameTest {
 		
 		game.NewMove("frank", 0 , 2);
 		
-		assertEquals(expectedOutInt, os.out);
+		assertEquals(ServerProtocol.CreateYourTurn(0, 2), os.out);
 	}
 	
 	@Test
@@ -297,20 +291,13 @@ public class GameTest {
 		Server.PlayerConnection player1= new Server.PlayerConnection();
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
 		TestWriter os = new TestWriter();
+		player2.addTestDataWriter(new TestWriter());
 		player1.addTestDataWriter(os);
 		player1.setUserName("frank");
 		player2.setUserName("lolcat");
 		Server.Game game = new Server.Game(player1, player2, 0);
 		game.SetTurn(true);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameEnd(true);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
+		
 		short[][] testField =	{{1,1,0,2,0,2,1,0,1}
 	  							,{1,1,0,1,1,0,1,1,2}
 	  							,{2,2,2,1,1,2,1,1,2}
@@ -323,7 +310,7 @@ public class GameTest {
 		game.setTestField(testField);
 		
 		game.NewMove("frank", 1 , 2);
-		assertEquals(expectedOutInt, os.out);
+		assertEquals(ServerProtocol.CreateGameEnd(true), os.out);
 	}
 	
 	@Test
@@ -333,19 +320,12 @@ public class GameTest {
 		Server.PlayerConnection player2 = new Server.PlayerConnection();
 		TestWriter os = new TestWriter();
 		player2.addTestDataWriter(os);
+		player1.addTestDataWriter(new TestWriter());
 		player1.setUserName("frank");
 		player2.setUserName("lolcat");
 		Server.Game game = new Server.Game(player1, player2, 0);
 		game.SetTurn(true);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameEnd(false);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
+		
 		short[][] testField =	{{1,1,0,2,2,2,1,1,1}
 	  							,{1,1,2,1,1,2,1,1,2}
 	  							,{2,2,2,1,1,2,1,1,2}
@@ -359,7 +339,7 @@ public class GameTest {
 		
 		game.NewMove("frank", 0 , 2);
 		
-		assertEquals(expectedOutInt, os.out);
+		assertEquals(ServerProtocol.CreateGameEnd(true), os.out);
 	}	
 
 }

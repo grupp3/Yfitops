@@ -3,9 +3,13 @@ package ServerTest;
 import static org.junit.Assert.*;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import Protocoll.ServerProtocol;
@@ -19,25 +23,17 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestDB db = new TestDB();
 		TestWriter os = new TestWriter();
+		
 		db.accept = true;
 		p.addTestDBHandler(db);
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateLoggedIn();
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.Register("register%håKan;lolL84");
 		
 		assertEquals("wrong username in connection class", "håKan", p.getUserName());
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateLoggedIn(), os.out);
 	}
 	
 	@Test
@@ -48,22 +44,13 @@ public class PlayerConectionTest {
 		db.accept = false;
 		p.addTestDBHandler(db);
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateRegisterFailed();
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.Register("register%håKan;lolL84");
 		
 		assertEquals("wrong username in connection class", "", p.getUserName());
 		assertEquals("wrong username to db handler", "håKan", db.userName);
 		assertEquals("wrong password to db handler", "lolL84", db.password);
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateRegisterFailed(), os.out);
 	}
 	
 	@Test
@@ -71,19 +58,10 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("håKan38", false, 0);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.GameStarted(false, "håKan38", 0);
 		
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateGameStarted("håKan38", false, 0), os.out);
 	}
 	
 	@Test
@@ -91,19 +69,10 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameStarted("agnes", true, 0);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.GameStarted(true, "agnes", 0);
 		
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateGameStarted("agnes", true, 0), os.out);
 	}
 	
 	@Test
@@ -124,6 +93,8 @@ public class PlayerConectionTest {
 	public void ToggleGamingOpponentExistTest(){
 		PlayerConnection p = new PlayerConnection();
 		PlayerConnection p2 = new PlayerConnection();
+		p.addTestDataWriter(new TestWriter());
+		p2.addTestDataWriter(new TestWriter());
 		ArrayList<PlayerConnection> testList = new ArrayList<PlayerConnection>();
 		testList.add(p);
 		testList.add(p2);
@@ -156,19 +127,10 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateIllegalMove();
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.sendIllegalMove();
 		
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateIllegalMove(), os.out);
 	}
 	
 	@Test
@@ -176,19 +138,10 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateYourTurn(12,11);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.sendYourTurn(12, 11);
 		
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateYourTurn(12, 11), os.out);
 	}
 	
 	@Test
@@ -196,19 +149,10 @@ public class PlayerConectionTest {
 		PlayerConnection p = new PlayerConnection();
 		TestWriter os = new TestWriter();
 		p.addTestDataWriter(os);
-		String expectedOut = Protocoll.ServerProtocol.CreateGameEnd(false);
-		try {
-			new DataOutputStream(os).writeUTF(expectedOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int expectedOutInt = os.out;
-		os.out= 0;
 		
 		p.sendGameEnd(false);
 		
-		assertEquals("wrong output", expectedOutInt, os.out);
+		assertEquals("wrong output", ServerProtocol.CreateGameEnd(false), os.out);
 	}
 	
 	class TestDB extends DBHandler{
@@ -228,14 +172,40 @@ public class PlayerConectionTest {
 }
 
 
-    class TestWriter extends OutputStream{
-	public int out;
+    class TestWriter extends PrintWriter{
+    	public String out;
 	
-	public TestWriter() {
+		public TestWriter()  {
+			super(new TestW());
+		}
+			
+			@Override
+			public void println(String out) {
+				this.out = out;
+			}
+		
 	}
+    
+    class TestW extends Writer{
 
-	@Override
-	public void write(int b) throws IOException {
-		out = b;
-	}
-}
+		@Override
+		public void close() throws IOException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void flush() throws IOException {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void write(char[] cbuf, int off, int len) throws IOException {
+			// TODO Auto-generated method stub
+			
+		}
+    	
+    }
+
+	

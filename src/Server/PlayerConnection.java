@@ -247,7 +247,6 @@ public class PlayerConnection extends Thread {
 	 */
 	public void Register(String requestString) {
 		String[] data = ServerProtocol.GetUsernamePassword(requestString);
-
 		if (dbHandler.registerUser(data[0], data[1])) {
 			this.Send(ServerProtocol.CreateLoggedIn());
 			userName = data[0];
@@ -261,15 +260,8 @@ public class PlayerConnection extends Thread {
 	 */
 	public PlayerConnection() {
 
-		try {
-			socket = new Socket("localhost", 19345); // lägger till argument i
-														// konstruktorn - Niklas
+
 			userName = "";
-			this.setUpStreams();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -286,8 +278,8 @@ public class PlayerConnection extends Thread {
 	 * 
 	 * @param testDB
 	 */
-	public void addTestDataWriter(OutputStream testOS) {
-		// dataOutputStream = new DataOutputStream(testOS);
+	public void addTestDataWriter(PrintWriter testOS) {
+		dataOutputStream = testOS;
 	}
 
 	/**

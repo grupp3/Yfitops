@@ -37,7 +37,7 @@ public class GameTest {
 	public void GameStartedRequestStringTest() {
 		String requestString = ServerProtocol.CreateGameStarted("håKan", true,4);
 		
-		assertEquals("newgame%håKan;4"+ true, requestString);
+		assertEquals("newgame%håKan;"+ true +";4" , requestString);
 	}
 	
 	@Test
