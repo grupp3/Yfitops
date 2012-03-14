@@ -137,6 +137,10 @@ public class ClientMain {
 				break;
 			case HighScoreData:
 				String[][] dataa = ClientProtocol.GetData(requestString);
+				System.out.println("Tagit emot highscore från server: ");
+				for(String[] s : dataa)
+					for(String str : s)
+						System.out.println(str);
 				clientMain.guiHandler.InsertHighScore(dataa);
 				break;
 			default:

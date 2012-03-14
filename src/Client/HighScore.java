@@ -32,7 +32,7 @@ public class HighScore extends JFrame {
 	private JScrollPane highscoreScrollPane;
 	private JButton btnReturnToGUIHandler;
 	private GUIHandler mGUIHandler;
-	private String[] columnNames = {"Player", "Wins"};
+	private String[] columnNames = {"Player", "Number of wins"};
 
 	/**
 	 * Constructor creates a Highscore window
@@ -58,11 +58,13 @@ public class HighScore extends JFrame {
 		mGUIHandler = guiHandler;
 		
 		//creates the table
-		highscoreTable = new JTable(null, columnNames);
+		highscoreTable = new JTable(10, 2);
 		highscoreTable.setRowSelectionAllowed(false);
 		highscoreScrollPane = new JScrollPane(highscoreTable);
 		highscoreScrollPane.setBounds(10, 11, 414, 187);
 		getContentPane().add(highscoreScrollPane);
+		highscoreTable.getColumnModel().getColumn(0).setHeaderValue("Player");
+		highscoreTable.getColumnModel().getColumn(1).setHeaderValue("Number of wins");
 		
 		//creates the returnbutton
 		btnReturnToGUIHandler = new JButton("Return to Main menu");
@@ -77,12 +79,22 @@ public class HighScore extends JFrame {
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
 		contentPane.add(btnReturnToGUIHandler);
 	}
-
+	
+	/**
+	 * Sätter in highscoredata i tabellen
+	 * @param data - Column data
+	 */
 	public void insertData(String[][] data) {
-		// TODO Auto-generated method stub
-		
+		for(int i = 0; i < data.length; i++)
+			for(int j = 0; j < data[i].length; j++){
+				if(data[i][j] != null)
+					highscoreTable.getModel().setValueAt(data[i][j], i, j);
+				else 
+					highscoreTable.getModel().setValueAt("", i, j);
+			}
+					
+		highscoreTable.setAutoCreateRowSorter(true);	
 	}
-
 	/**
 	 * Launch the application.
 	 * Is left for testing of the window
