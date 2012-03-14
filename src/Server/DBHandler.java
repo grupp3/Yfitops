@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -244,7 +245,37 @@ public class DBHandler {
 	}
 
 	public String[][] getHighScore() {
-		// TODO Auto-generated method stub
+		try {
+			String[][] highScores = new String[10][2];
+			ArrayList<String> winners = new ArrayList<String>();
+			Statement statementGetAllWinners = mConnection.createStatement();
+			ResultSet resultSetGetAllWinners = statementGetAllWinners.executeQuery("SELECT "
+					+ COLUMN_GAME_WINNER + " FROM " + TABLE_GAME + " GROUP BY "
+					+ COLUMN_GAME_WINNER);
+			
+			while(resultSetGetAllWinners.next())
+				winners.add(resultSetGetAllWinners.getString(1));
+			
+			for(int i = 0; i < winners.size(); i++)
+			{
+				Statement statementGetNumberOfWins = mConnection.createStatement();
+				
+				ResultSet resultSetGetNumberOfWins = statementGetNumberOfWins.executeQuery("SELECT COUNT(" + COLUMN_GAME_WINNER + ")"
+						+ " FROM " + TABLE_GAME + " WHERE " + COLUMN_GAME_WINNER + " = '" + winners.get(i) + "'");
+				
+				if(!resultSetGetNumberOfWins.first())
+					return null;
+				
+				highScores[i][0] = winners.get(i);
+				highScores[i][1] = resultSetGetNumberOfWins.getString(1);
+			}
+			return highScores;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
