@@ -57,7 +57,7 @@ public class Game extends JFrame {
 		mGUIHandler = guiHandler;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 570);
+		setBounds(100, 100, 520, 625);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,10 +97,25 @@ public class Game extends JFrame {
 		// The panel for gamefield
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(27, 66, 460, 460);
+		panel_1.setBounds(27, 126, 460, 460);
 		contentPane.add(panel_1);
 
 		panel_1.setLayout(new GridLayout(15, 15, 1, 1));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(10, 66, 494, 49);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+		
+		JLabel XuserTime = new JLabel("0:00");
+		XuserTime.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		XuserTime.setBounds(123, 0, 72, 49);
+		panel_2.add(XuserTime);
+		
+		JLabel OuserTime = new JLabel("0:00");
+		OuserTime.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		OuserTime.setBounds(352, 0, 72, 49);
+		panel_2.add(OuserTime);
 
 		buttonArray = new JButton[15][15];
 		for (int i = 0; i < 15; i++)
