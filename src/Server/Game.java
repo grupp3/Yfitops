@@ -199,7 +199,7 @@ public class Game extends Thread {
 					{
 						player1.sendGameEnd(false);
 						player2.sendGameEnd(true);
-						//dbHandler.saveGame(player2.getUserName(), player1.getUserName(), timeLimit);
+						dbHandler.saveGame(player2.getUserName(), player1.getUserName(), timeLimit);
 						gameEnd = true;
 						break;
 					}
@@ -210,7 +210,7 @@ public class Game extends Thread {
 					{
 						player2.sendGameEnd(false);
 						player1.sendGameEnd(true);
-						//dbHandler.saveGame(player1.getUserName(), player2.getUserName(), timeLimit);
+						dbHandler.saveGame(player1.getUserName(), player2.getUserName(), timeLimit);
 						gameEnd = true;
 						break;
 					}
