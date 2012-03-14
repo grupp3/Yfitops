@@ -59,17 +59,18 @@ public class Lobby extends JFrame {
 				}
 			}
 		});
-		btnPlay.setBounds(295, 216, 113, 23);
+		btnPlay.setBounds(25, 53, 399, 50);
 		contentPane.add(btnPlay);
 		
 		//creates the historybutton
 		btnHistory = new JButton("History");
+		btnHistory.setEnabled(false);
 		btnHistory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mGUIHandler.HistorySwitch();
 			}
 		});
-		btnHistory.setBounds(25, 167, 116, 23);
+		btnHistory.setBounds(25, 175, 399, 50);
 		contentPane.add(btnHistory);
 		
 		//creates the highscorebutton
@@ -79,7 +80,7 @@ public class Lobby extends JFrame {
 				mGUIHandler.HighscoreSwitch();
 			}
 		});
-		btnHighscore.setBounds(25, 216, 116, 23);
+		btnHighscore.setBounds(25, 114, 399, 50);
 		contentPane.add(btnHighscore);
 		
 		//creates the statuslabel
