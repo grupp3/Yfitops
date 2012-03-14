@@ -242,8 +242,6 @@ public class GUIHandler {
 	}
 
 	public void UpdateTimes(int yourTime, int opponentTime) {
-		System.out.println("you " + yourTime + " sek. " + "opponent " + opponentTime + " sek.");
-		// TODO Auto-generated method stub
-		
+		game.uppdateTime(yourTime, opponentTime);
 	}
 }

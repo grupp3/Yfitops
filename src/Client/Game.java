@@ -29,7 +29,6 @@ import javax.swing.JTable;
 public class Game extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 	JButton[][] buttonArray;
 	private ActionListener ActionListener;
 	private GUIHandler mGUIHandler;
@@ -38,6 +37,8 @@ public class Game extends JFrame {
 	private JLabel lblO;
 	private JLabel lblUser;
 	private JLabel lblOpponent;
+	private JLabel XuserTime;
+	private JLabel OuserTime;
 	int lastx, lasty;
 
 	/**
@@ -107,12 +108,12 @@ public class Game extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 		
-		JLabel XuserTime = new JLabel("0:00");
+		XuserTime = new JLabel("0:00");
 		XuserTime.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		XuserTime.setBounds(123, 0, 72, 49);
 		panel_2.add(XuserTime);
 		
-		JLabel OuserTime = new JLabel("0:00");
+		OuserTime = new JLabel("0:00");
 		OuserTime.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		OuserTime.setBounds(352, 0, 72, 49);
 		panel_2.add(OuserTime);
@@ -182,5 +183,17 @@ public class Game extends JFrame {
 		buttonArray[x][y].setText("X");
 		yourTurn = true;
 		lblUser.setForeground(Color.GREEN);
+	}
+
+	public void uppdateTime(int yourTime, int opponentTime) {
+		int minutes = yourTime / 60;
+		int seconds = yourTime % 60;
+		
+		OuserTime.setText(minutes + ":" + seconds);
+		
+		minutes = opponentTime / 60;
+		seconds = opponentTime % 60;
+		
+		XuserTime.setText(minutes + ":" + seconds);
 	}
 }
