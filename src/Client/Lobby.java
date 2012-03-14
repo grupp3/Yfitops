@@ -37,7 +37,7 @@ public class Lobby extends JFrame {
 		
 		//creates the windowframe
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 467, 300);
 		setTitle("Lobby");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
