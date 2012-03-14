@@ -88,6 +88,9 @@ public class GUIHandler {
 		}			
 	}
 	
+	/**
+	 * Hides all windows
+	 */
 	private void hideAllWindows(){
 		login.setVisible(false);
 		game.setVisible(false);
@@ -95,15 +98,16 @@ public class GUIHandler {
 		highScore.setVisible(false);
 		history.setVisible(false);
 	}
+	
 	/**
-	 *
+	 * Prepares to show history
 	 */
 	public void HistorySwitch() {
 		mConnection.historyRequest();
 	}
 
 	/**
-	 *
+	 *Prepares to show high score
 	 */
 	public void HighscoreSwitch() {
 		mConnection.highScoreRequest();
@@ -127,6 +131,9 @@ public class GUIHandler {
 		this.userName = userName;
 	}
 	
+	/**
+	 * Handles a failed login attempt
+	 */
 	public void LoginFailed(){
 		JOptionPane optionPane = new JOptionPane("The password didn't match the username!", JOptionPane.INFORMATION_MESSAGE);
 		JDialog popup = optionPane.createDialog(null, "Login failed");
@@ -227,6 +234,10 @@ public class GUIHandler {
 		game.yourMove(x,y);
 	}
 
+	/**
+	 * Handles an ended game
+	 * @param victory
+	 */
 	public void gameEnd(boolean victory) {
 		if(victory)
 			JOptionPane.showMessageDialog(game, "You won!");
@@ -236,11 +247,19 @@ public class GUIHandler {
 		this.Show(Enum_Window.Lobby);
 	}
 
+	/**
+	 * handles an illegal move
+	 */
 	public void illegalMove() {
 		System.out.println("illegal move !!!!!");
 		// TODO Auto-generated method stub
 	}
 
+	/**
+	 * updates game time
+	 * @param yourTime
+	 * @param opponentTime
+	 */
 	public void UpdateTimes(int yourTime, int opponentTime) {
 		game.uppdateTime(yourTime, opponentTime);
 	}

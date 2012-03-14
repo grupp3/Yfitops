@@ -107,6 +107,15 @@ public class Game extends Thread {
 		else
 			System.out.println("oh gawd");
 	}
+	
+	/**
+	 * Checks and handle victory and filled board
+	 * @param activePlayer
+	 * @param inactivePlayer
+	 * @param x
+	 * @param y
+	 * @param symbol
+	 */
 	private void gameCheck(PlayerConnection activePlayer, PlayerConnection inactivePlayer, int x, int y, short symbol)
 	{
 		if(gameField[x][y] == 0){

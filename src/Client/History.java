@@ -69,7 +69,6 @@ public class History extends JFrame {
 		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mGUIHandler.Show(Enum_Window.Lobby);
-				dispose();
 			}
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);
@@ -84,14 +83,6 @@ public class History extends JFrame {
 	}
 
 	
-
-
-	
-	
-	/**
-	 * Launch the application.
-	 * Is left for testing of the window
-	 */
 	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

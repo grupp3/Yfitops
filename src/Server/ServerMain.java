@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author Mathias
  * Listens for connecting clients, starts a listening thread for each and puts them into a list.
  * 
- * Haven't defined which port number yet.
+ * Port 19345.
  */
 public class ServerMain {
 	final static int PORT = 19345;

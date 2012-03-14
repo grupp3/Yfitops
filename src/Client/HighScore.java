@@ -73,7 +73,6 @@ public class HighScore extends JFrame {
 		btnReturnToGUIHandler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				mGUIHandler.Show(Enum_Window.Lobby); 
-				dispose();
 			}
 		});
 		btnReturnToGUIHandler.setBounds(224, 228, 200, 23);

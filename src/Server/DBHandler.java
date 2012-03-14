@@ -134,6 +134,12 @@ public class DBHandler {
 		return false;
 	}
 
+	/**
+	 * Checks if the username exist
+	 * @param userName
+	 * @return
+	 * @throws SQLException
+	 */
 	private boolean userNameExists(String userName) throws SQLException {
 		Statement stmt = mConnection.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM " + TABLE_PLAYER
@@ -146,9 +152,6 @@ public class DBHandler {
 
 	/**
 	 * Inserts the winner and looser into the table game
-	 * 
-	 * NOT IMPLEMENETED YET: inserting date and time for the game inserting
-	 * timelimit for the game
 	 * 
 	 * @param winner
 	 *            the username of the winner
@@ -239,11 +242,22 @@ public class DBHandler {
 		}
 	}
 
+	/**
+	 * Gets history
+	 * 
+	 * NOT IMPLEMENTED
+	 * @param userName
+	 * @return
+	 */
 	public String[][] getHistory(String userName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Gets the list of highscores
+	 * @return
+	 */
 	public String[][] getHighScore() {
 		try {
 			String[][] highScores = new String[10][2];
@@ -278,15 +292,5 @@ public class DBHandler {
 		
 		return null;
 	}
-
-	/**
-	 * main method that launches the application is left to try the class out
-	 * 
-	 * @param args
-	 */
-	/*
-	 * public static void main(String[] args) { // Get an instance of this
-	 * databasehandler DBHandler databaseHandler = DBHandler.getDatabase(); }
-	 */
 
 }

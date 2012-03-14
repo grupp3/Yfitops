@@ -25,6 +25,12 @@ public class PlayerConnection extends Thread {
 	private String userName;
 	private Game currentGame = null;
 
+	/**
+	 * the main method
+	 * @param clientSocket
+	 * @param connectionList
+	 * @throws IOException
+	 */
 	public PlayerConnection(Socket clientSocket,
 			ArrayList<PlayerConnection> connectionList) throws IOException {
 		socket = clientSocket;
@@ -209,14 +215,19 @@ public class PlayerConnection extends Thread {
 	 * Sends history data to client
 	 */
 	public void sendHistory(){
-		this.Send( ServerProtocol.CreateHistoryData( dbHandler.getHistory(userName)));
+		
+		String[][] toSend = dbHandler.getHistory(userName);
+		if(toSend != null)
+			this.Send( ServerProtocol.CreateHistoryData(toSend));
 	}
 	
 	/**
 	 * Sends high score data to client
 	 */
 	public void sendHighScore(){
-		this.Send( ServerProtocol.CreateHighScoreData( dbHandler.getHighScore()));
+		String[][] toSend = dbHandler.getHighScore();
+		if(toSend != null)
+			this.Send( ServerProtocol.CreateHighScoreData( toSend));
 	}
 	
 	/**

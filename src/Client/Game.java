@@ -163,6 +163,12 @@ public class Game extends JFrame {
 		panel_1.setVisible(true);
 	}
 
+	/**
+	 * Resets the game state for a new game
+	 * @param userName
+	 * @param opponentName
+	 * @param youStarting
+	 */
 	public void reset(String userName, String opponentName, boolean youStarting) {
 		lblUser.setText(userName);
 		lblOpponent.setText(opponentName);
@@ -179,12 +185,22 @@ public class Game extends JFrame {
 		System.out.println("resetted");
 	}
 
+	/**
+	 * adds the opponents move and changes to your turn
+	 * @param x
+	 * @param y
+	 */
 	public void yourMove(int x, int y) {
 		buttonArray[x][y].setText("X");
 		yourTurn = true;
 		lblUser.setForeground(Color.GREEN);
 	}
 
+	/**
+	 * updates the game time
+	 * @param yourTime
+	 * @param opponentTime
+	 */
 	public void uppdateTime(int yourTime, int opponentTime) {
 		int minutes = yourTime / 60;
 		int seconds = yourTime % 60;
