@@ -150,8 +150,8 @@ public class Game extends JFrame {
 											lasty = j;
 											button.setText("O");
 											yourTurn = false;
-											lblUser.setForeground(Color.BLACK);
-											lblOpponent.setForeground(Color.RED);
+											lblUser.setForeground(Color.RED);
+											lblOpponent.setForeground(Color.GREEN);
 											
 											mGUIHandler.makeMove(lastx, lasty);
 										}
@@ -177,12 +177,12 @@ public class Game extends JFrame {
 		yourTurn = youStarting;
 
 		if (yourTurn) {
-			lblUser.setForeground(Color.RED);
-			lblOpponent.setForeground(Color.BLACK);
+			lblUser.setForeground(Color.GREEN);
+			lblOpponent.setForeground(Color.RED);
 		}
 		else {
-			lblUser.setForeground(Color.BLACK);
-			lblOpponent.setForeground(Color.RED);
+			lblUser.setForeground(Color.RED);
+			lblOpponent.setForeground(Color.GREEN);
 		}
 
 		for (int i = 0; i < 15; i++)
@@ -200,8 +200,8 @@ public class Game extends JFrame {
 		buttonArray[x][y].setText("X");
 		yourTurn = true;
 		//lblUser.setForeground(Color.GREEN);
-		lblUser.setForeground(Color.RED);
-		lblOpponent.setForeground(Color.BLACK);
+		lblUser.setForeground(Color.GREEN);
+		lblOpponent.setForeground(Color.RED);
 	}
 
 	/**
